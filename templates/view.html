@@ -1,0 +1,56 @@
+﻿{% extends "main.html" %} 
+
+{% block title %}Mind Cyclone{% endblock %}
+
+                    {% block blog %}
+    {% for post in posts%}                 
+    <div class="post"> 
+        <div class="ptitle"><a href="{{post.full_permalink}}">{{post.title}}-------{{post.catalog}}</a></div> 
+        <div class="pdate">{{post.date|timezone:8|date:"l, M d H:i, Y"}}--{{post.author}}{%if post.private%}--private{%endif%}</div>
+        <div class="pbody">{{post.content}}
+          {% if post.tags %}        
+          <div class="tag">
+            Tags:
+            {% for tag in post.tags %}
+            <a href="#">{{ tag|unquote }}</a>{% if not forloop.last %},{% endif %}
+            {% endfor %}        
+          </div>
+          {% endif %}
+        </div>
+    </div>
+    {% endfor %}                    
+    <div class="post"> 
+        <div class="ptitle">今天我的论文情况</div> 
+        <div class="pdate">2009-4-22 20:39</div>
+        <div class="pbody"><p>现在全部有36页，实际上的正文，不包括目录等有24页</p>
+             <p>采用Rapid PDF Counter数出来是36页，28657个字</p>
+             <p>采用latex自带的charcnt数出来是全角字符数37659，数字符号数14，其他字符数5790</p>
+              <p>嗷嗷！可以认为完成了1/2了，最艰难的背景部分已经完成了，哈哈！</p>
+        </div>      
+    </div>
+    <div class="post"> 
+        <div class="ptitle">今天我很斗志昂扬</div> 
+        <div class="pdate">2009-4-22 13:09</div>
+        <div class="pbody"><p>我马上就要写好论文了，哈哈，今天要把第二部分了结完，同时开启第三部分和第四部分，现在遇到暂时不能写的部分就直接跳过去。等我以后可以写的时候再写，或者就直接不写了。哈哈，一切以完成论文为首要原则。</p>
+             <p>必须在周末之前把论文写的有模有样，而且再也不能玩blog了。</p>
+        </div>      
+    </div>
+         <div class="post"> 
+            <div class="ptitle">今天我很开心</div> 
+            <div class="pdate">2009-4-22 10:38</div>
+            <div class="pbody"><p>今天到现在还没有写论文，而是在搞这个垃圾，你到底想不想毕业啊，
+现在的论文进展是2/5.采用Rapid PDF Counter数出来是36页，29470个字。真是像猪一样懒，难道你只是想写这样的垃圾hello world一样的代码吗？</p>
+<div class="quote"> 
+    #include; <br />
+    using namespace std;<br />
+<br />
+    int mian()<br />
+    { <br />
+       &nbsp; &nbsp; cout&lt;&lt;"hello world!";<br />
+       &nbsp; &nbsp; return 0; <br />
+    } <br />
+</div> <p>
+还有8天的时间了，而且你还必须提前完成任务，这样才可以留出足够的时间让导师修改。所以不要再玩了，等你写完论文在慢慢玩，哈哈，你说是不呢？</p>
+        </div>    
+             </div>
+{% endblock %}  

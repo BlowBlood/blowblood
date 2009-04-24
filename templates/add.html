@@ -1,0 +1,33 @@
+﻿{% extends "main.html" %} 
+{% block title %}Mind Cyclone-Add Post{% endblock %}
+
+{% block blog %}
+<link rel="stylesheet" type="text/css" href="/static/css/edit.css">
+<script type="text/javascript" src="/static/js/edit.js"></script> 
+  <div class="pbody">
+    <div class="ptitle">发表文章</div>
+    <form id="addblog" onsubmit="return parseBlogContent()" method="post">
+      <div id="blogtitle">
+         <input id = "title_input" name="title_input" type="text" size="50" value="">
+         <label for="title_input"><b>Title</b>(required)</label>
+      </div>
+      <div id="blogtags">
+         <input id="tags" name="tags" type="text" size="50" id="tags"value="">
+         <label for="tags"><b>Tags</b>(comma separated without space)</label>
+      </div>
+      <div id="blogtype">
+         <input type="checkbox" name="private" value="private">(private)&nbsp;&nbsp;
+         <select name="blogcatalog"> 
+           <option value="mindcyclone">Mind Cyclone</option>
+           <option value="entertainment">Entertainment</option>
+           <option value="technique">Technique</option>
+           <option value="lifelog">Life Log</option> 
+         </select> 
+      </div>
+      <div id="blogpost">        
+        <textarea name="content" rows="20" cols="60"></textarea>
+      </div>
+      <div><input id="blogsubmit" type="submit" value="Submit"></div>
+    </form> 
+    </div>
+{% endblock %}  

@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>{% block title %}A{% endblock %}</title>
+  <link type="text/css" rel="stylesheet" href="/static/css/main.css" />  
+</head>
+<body>
+    <div id="hd">
+        <div class="title"><a href="/">Mind Cyclone</a></div>
+        <div class="description">头脑小旋风</div>
+        <div id="tabbar">tab1, tab2, tab3 </div> 
+    </div>
+    <div id="bd">
+     <div id="main">
+         <div id="ctrl"><a id="Toggle" title="Toggle" href="javascript:void(0)" onclick="toggle()">Hide</a></div>  
+         {% block blog %}
+         {% endblock %}   
+     </div>      
+     <div id="sidebar">
+       <div class="calendar">Calendar
+        <p><a href="http://jigsaw.w3.org/css-validator/check/referer">
+           <img style="border:0;width:88px;height:31px"
+            src="http://jigsaw.w3.org/css-validator/images/vcss"
+            alt="Valid CSS!" />
+       </a></p>
+    </div>
+       <div class="user">
+        {% if user %}
+          <b>{{ user.email }}</b><br />
+        {% if user_is_admin %}
+          hello,Admin! <a href="/add" title="add post">Add a post</a><br />
+        {% endif %}  
+         <a href="https://www.google.com/accounts/ManageAccount" target="_blank">My Account</a><br />
+        {% endif %}      
+        <A href="{{ url }}">{{ url_linktext }}</A>        
+       </div>
+     </div>
+    </div>
+<div id="ft">
+Powered by Google App engine, BBBlog. All rights reserved by BlowBlood<br />
+Any suggestions, please refer to root@blowblood.com
+</div>
+</body>
+<script type="text/javascript" src="/static/js/main.js"></script>
+</html>

@@ -1,0 +1,20 @@
+﻿{% extends "main.html" %} 
+
+{% block title %}Mind Cyclone-{{post.title}}{% endblock %}
+
+{% block blog %}             
+    <div class="post"> 
+        <div class="ptitle">{{post.title}}-------{{post.catalog}}</div> 
+        <div class="pdate">{{post.date|timezone:8|date:"l, M d H:i, Y"}}--{{post.author}}{%if post.private%}--private{%endif%}</div>
+        <div class="pbody">{{post.content}}
+          {% if post.tags %}        
+          <div class="tag">
+            Tags:
+            {% for tag in post.tags %}
+            <a href="#">{{ tag|unquote }}</a>{% if not forloop.last %},{% endif %}
+            {% endfor %}        
+          </div>
+          {% endif %}
+        </div>
+    </div>
+{% endblock %}  
