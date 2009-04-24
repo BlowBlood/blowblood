@@ -17,3 +17,23 @@ function parseBlogContent(){
      return false;
   }
 };
+
+function code(){
+  document.getElementById("ccode").innerHTML = "Code";
+  document.getElementById("cview").innerHTML = "<a href=\"javascript:void(view())\">View</a>";
+  var content = document.getElementById("blogpostview").innerHTML;
+  document.getElementById("blogpostcode").value = content;
+  document.getElementById("blogpostcode").style.display = "block";
+  document.getElementById("blogpostview").style.display = "none";
+}
+
+function view(){
+  document.getElementById("ccode").innerHTML = "<a href=\"javascript:void(code())\">Code</a>";
+  document.getElementById("cview").innerHTML = "View";
+  var content = document.getElementById("blogpostcode").value;
+  document.getElementById("blogpostview").innerHTML = content;
+  document.getElementById("blogpostcode").style.display = "none";
+  document.getElementById("blogpostview").style.display = "block";
+  document.getElementById("blogpostview").focus = "true";
+}
+  

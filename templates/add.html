@@ -4,7 +4,7 @@
 {% block blog %}
 <link rel="stylesheet" type="text/css" href="/static/css/edit.css">
 <script type="text/javascript" src="/static/js/edit.js"></script> 
-  <div class="pbody">
+<div class="post"><div class="pbody">
     <div class="ptitle">发表文章</div>
     <form id="addblog" onsubmit="return parseBlogContent()" method="post">
       <div id="blogtitle">
@@ -23,11 +23,16 @@
            <option value="technique">Technique</option>
            <option value="lifelog">Life Log</option> 
          </select> 
+      </div> 
+      <div style="color:#eee">
+        <span id="ccode">Code</span>
+        <span id="cview"><a href="javascript:void(view())">View</a></span>&nbsp;&nbsp;        
       </div>
       <div id="blogpost">        
-        <textarea name="content" rows="20" cols="60"></textarea>
+        <textarea id="blogpostcode" name="content"></textarea>
+        <div id="blogpostview" contentEditable="true" style="display:none"></div>
       </div>
       <div><input id="blogsubmit" type="submit" value="Submit"></div>
     </form> 
-    </div>
+ </div></div>
 {% endblock %}  
