@@ -1,24 +1,24 @@
 input,textarea,body,h1,h2,h3,h4,h5,h6,p{margin:0;padding:0}
-body {color:#000;background:#FFFFFF;width:960px;text-align:center;margin-right:auto; margin-left:auto;}
-body {font: 14px arial, helvetica, clean, sans-serif}
+body {text-align:center;font:76% georgia}
+#wrapper{width:960px;margin-right:auto; margin-left:auto;text-align:left}
 a{text-decoration:none;}
 
-#hd{margin:0;background:#A0A0A0;font-weight:bold;color:#A030A5;}
-div.title{padding:20px 20px 0 30px;font: 2.0em Verdana, sans-serif;text-align:left;}
+#hd{margin:0;background:#A0A0A0;color:#A030A5;}
+div.title{padding:20px 20px 0 30px;font-size:48px;font-weight:bold;text-align:left;}
 div.description{float:right;font-size:24px;width:260px;}
-#tabbar{margin:0;clear:both;background:#808080;font:120% italic;color:#0A30A5;}
+#tabbar{margin:0;clear:both;background:#808080;color:#0A30A5;}
 #ctrl{float:right;margin-right:2px;width:38px;background:#C0C0C0;height:auto}
 
 #bd{margin:0;clear:both;background:#C0F0A4;text-align:left;}
 
-#main{float:left;width:700px;}
+#main{float:left;width:700px;font-size:15px}
 div.post{border:1px dashed;margin:0 0 5px 0;line-height:130%}
 div.ptitle{color:blue;font-size:120%;}
 div.pdate{color:green;border-bottom:1px dotted;}
 div.pbody{padding:10px;}
-div.quote{background:#E0E0E0;margin:0 30px;border:1px dashed;}
+blockquote{background:#E0E0E0;padding:0 30px;border:1px dashed;font-size:12px}
 
-#sidebar{float:right;width:256px;display:block;border:1px dashed;}
+#sidebar{float:right;width:256px;display:block;border:1px dashed;font-size:12px;}
 div.calendar{padding:5px;}
 div.user{padding:5px;border-top:1px dashed;}
 

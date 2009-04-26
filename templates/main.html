@@ -5,42 +5,40 @@
   <title>BlowBlood{% block title %}BlowBlood{% endblock %}</title>
   <link type="text/css" rel="stylesheet" href="/static/css/main.css" />  
 </head>
-<body>
-    <div id="hd">
-        <div class="title"><a href="/">BlowBlood</a></div>
-        <div class="description">西门吹血</div>
-        <div id="tabbar">tab1, tab2, tab3 </div> 
-    </div>
-    <div id="bd">
-     <div id="main">
-         <div id="ctrl"><a id="Toggle" title="Hide/Show sidebar" href="javascript:void(toggle())">Hide</a></div>  
-         {% block blog %}
-         {% endblock %}   
-     </div>      
-     <div id="sidebar">
-       <div class="calendar">Calendar
-        <p><a href="http://jigsaw.w3.org/css-validator/check/referer">
-           <img style="border:0;width:88px;height:31px"
-            src="http://jigsaw.w3.org/css-validator/images/vcss"
-            alt="Valid CSS!" />
-       </a></p>
-       </div>
-       <div class="user">
-        {% if user %}
-          <b>{{ user.email }}</b><br />
-        {% if user_is_admin %}
-          hello,Admin! <a href="/add" title="add post">Add a post</a><br />
-        {% endif %}  
-         <a href="https://www.google.com/accounts/ManageAccount" target="_blank">My Account</a><br />
-        {% endif %}      
-        <a href="{{ url }}">{{ url_linktext }}</a>        
-       </div>
-     </div>
-    </div>
+<body><div id="wrapper">
+<div id="hd">
+  <div class="title"><a href="/">BlowBlood</a></div>
+  <div class="description">西门吹血</div>
+  <div id="tabbar">tab1, tab2, tab3 </div> 
+</div>
+<div id="bd">
+ <div id="main">
+  <div id="ctrl"><a id="Toggle" title="Hide/Show sidebar" href="javascript:void(toggle())">Hide</a></div>  
+   {% block blog %}
+   {% endblock %}   
+  </div>      
+  <div id="sidebar">
+   <div class="calendar">Calendar
+    <p><a href="http://jigsaw.w3.org/css-validator/check/referer">
+     <img style="border:0;width:88px;height:31px"
+      src="http://jigsaw.w3.org/css-validator/images/vcss" alt="Valid CSS!" />
+    </a></p>
+   </div>
+   <div class="user">
+    {% if user %}<b>{{ user.email }}</b><br />
+     {% if user_is_admin %}
+      hello,Admin! <a href="/add" title="add post">Add a post</a><br />
+     {% endif %}  
+     <a href="https://www.google.com/accounts/ManageAccount" target="_blank">My Account</a><br />
+    {% endif %}      
+    <a href="{{ url }}">{{ url_linktext }}</a>        
+   </div>
+  </div>
+</div>
 <div id="ft">
 Powered by Google App engine, BBBlog. All rights reserved by BlowBlood<br />
 Any suggestions, please refer to root@blowblood.com
 </div>
-</body>
+</div></body>
 <script type="text/javascript" src="/static/js/main.js"></script>
 </html>
