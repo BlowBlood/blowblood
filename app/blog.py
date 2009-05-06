@@ -153,6 +153,28 @@ class PostView(BaseRequestHandler):
       }
       self.generate('../templates/post.html', template_values)
     
+class CatalogHandler(BaseRequestHandler):
+  def get(self,catalog_name):
+    posts = Post.gql('where catalog =:1 ORDER BY date desc',catalog_name)
+    if(posts is None):
+      self.redirect('/')
+    else:
+      template_values = {
+        'posts': posts,            
+      }
+      self.generate('../templates/view.html', template_values)   
+    
+class TagHandler(BaseRequestHandler):
+  def get(self,tag):
+    posts = Post.all().filter('tags', tag).order('-date')
+    if(posts is None):
+      self.redirect('/')
+    else:
+      template_values = {
+        'posts': posts,            
+      }
+      self.generate('../templates/view.html', template_values)
+      
 class PrintEnvironmentHandler(webapp.RequestHandler):
   def get(self):
     for name in os.environ.keys():
