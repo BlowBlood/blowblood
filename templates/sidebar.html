@@ -26,13 +26,15 @@
 	<!-- User -->
 	<div class="widget">
 		<h3>User</h3>
-		<ul><li>{% if user %}{{ user.email }}</li>
+		<ul>{% if user %}
+		  <li>{{ user.email }}</li>
      {% if user_is_admin %}
       <li>hello,Admin! <a href="/add" title="add post">Add a post</a></li>
      {% endif %}  
      <li><a href="https://www.google.com/accounts/ManageAccount" target="_blank">My Account</a></li>
     {% endif %}      
     <li><a href="{{ url }}">{{ url_linktext }}</a></li>
+    </ul>
 	</div>
 	<div id="recentcomments" class="widget widget_recentcomments">
 	 <h3>Recent Comments</h3>
