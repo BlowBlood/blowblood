@@ -19,10 +19,10 @@ class BaseRequestHandler(webapp.RequestHandler):
   """
   def generate(self, template_name, template_values={}):
     if users.get_current_user():
-      url = users.create_logout_url(self.request.uri)
+      url = util.xhtmlize_url(users.create_logout_url(self.request.uri))
       url_linktext = 'Logout'
     else:
-      url = users.create_login_url(self.request.uri)
+      url = util.xhtmlize_url(users.create_login_url(self.request.uri))
       url_linktext = 'Login'
     values = {
       'user': users.GetCurrentUser(),

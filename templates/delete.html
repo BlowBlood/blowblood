@@ -2,8 +2,8 @@
 {% block title %}--Delete Post--{{post.title}}{% endblock %}
 
 {% block blog %}
-<div class="post"><div class="pbody">
-    <div class="ptitle">Delete Post: {{post.title}}</div>
+<div class="post">
+    <h2>Delete Post: {{post.title}}</h2>
     <form method="post">
      {% if post %} <input name="PostId" type="hidden" value="{{post.key.id}}">{% endif %}
      <input type=submit value="delete">

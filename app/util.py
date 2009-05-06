@@ -22,6 +22,9 @@ def get_permalink(date,title):
 def get_friendly_url(title):
     return re.sub('-+', '-', re.sub('[^\w-]', '', re.sub('\s+', '-', removepunctuation(title).strip()))).lower()
     
+def xhtmlize_url(url):
+    return re.sub(r'&',r'&amp;',url)
+    
 def removepunctuation(str):
     punctuation = re.compile(r'[.?!,":;]')
     str = punctuation.sub("", str)

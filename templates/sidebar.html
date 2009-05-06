@@ -1,0 +1,101 @@
+<!-- sidebar START -->
+<div id="sidebar">
+  <!-- sidebar north START -->
+<div id="northsidebar" class="sidebar"> 
+	<!-- feeds -->
+	<div class="widget widget_feeds">
+		<div class="content">
+			<div id="subscribe">
+			 <a rel="external nofollow" id="feedrss" title="Subscribe to this blog..." href="http://www.blowblood.com/feed/"><abbr title="Really Simple Syndication">RSS</abbr> feed</a>
+			 <ul style="overflow: hidden; visibility: hidden; position: absolute; display: block;" id="feed_readers">
+			  <li class="first" id="google_reader"><a rel="external nofollow" class="reader" title="Subscribe with Google" href="http://fusion.google.com/add?feedurl=http://www.blowblood.com/feed/"><span>Google</span></a></li>
+			  <li id="youdao_reader"><a rel="external nofollow" class="reader" title="Subscribe with Youdao" href="http://reader.youdao.com/#url=http://www.blowblood.com/feed/"><span>Youdao</span></a></li>
+			  <li id="xianguo_reader"><a rel="external nofollow" class="reader" title="Subscribe with Xian Guo" href="http://www.xianguo.com/subscribe.php?url=http://www.blowblood.com/feed/"><span>Xian Guo</span></a></li>
+			  <li id="zhuaxia_reader"><a rel="external nofollow" class="reader" title="Subscribe with Zhua Xia" href="http://www.zhuaxia.com/add_channel.php?url=http://www.blowblood.com/feed/"><span>Zhua Xia</span></a></li>
+			  <li id="yahoo_reader"><a rel="external nofollow" class="reader" title="Subscribe with My Yahoo!" href="http://add.my.yahoo.com/rss?url=http://www.blowblood.com/feed/"><span>My Yahoo!</span></a></li>
+			  <li id="newsgator_reader"><a rel="external nofollow" class="reader" title="Subscribe with newsgator" href="http://www.newsgator.com/ngs/subscriber/subfext.aspx?url=http://www.blowblood.com/feed/"><span>newsgator</span></a></li>
+			  <li id="bloglines_reader"><a rel="external nofollow" class="reader" title="Subscribe with Bloglines" href="http://www.bloglines.com/sub/http://www.blowblood.com/feed/"><span>Bloglines</span></a></li>
+			  <li id="inezha_reader"><a rel="external nofollow" class="reader" title="Subscribe with iNezha" href="http://inezha.com/add?url=http://www.blowblood.com/feed/"><span>iNezha</span></a></li>
+			 </ul></div>
+		<div class="fixed"></div>
+	 </div>
+	</div>		
+<div id="calendar" class="widget widget_calendar"><h3>Calendar</h3>
+  Fake Calendar
+</div>
+	<!-- User -->
+	<div class="widget">
+		<h3>User</h3>
+		<ul><li>{% if user %}{{ user.email }}</li>
+     {% if user_is_admin %}
+      <li>hello,Admin! <a href="/add" title="add post">Add a post</a></li>
+     {% endif %}  
+     <li><a href="https://www.google.com/accounts/ManageAccount" target="_blank">My Account</a></li>
+    {% endif %}      
+    <li><a href="{{ url }}">{{ url_linktext }}</a></li>
+	</div>
+	<div id="recentcomments" class="widget widget_recentcomments">
+	 <h3>Recent Comments</h3>
+	  Fake Comments
+	  </div>
+</div>
+<!-- sidebar north END -->
+
+<div id="centersidebar">
+
+	<!-- sidebar east START -->
+	<div id="eastsidebar" class="sidebar">
+	
+		<!-- categories -->
+		<div class="widget widget_categories">
+			<h3>Categories</h3>
+			<ul>
+					<li class="cat-item cat-item-4"><a href="http://www.blowblood.com/category/parent/" title="View all posts filed under Parent">Parent</a>
+</li>
+	<li class="cat-item cat-item-1"><a href="http://www.blowblood.com/category/uncategorized/" title="View all posts filed under Uncategorized">Uncategorized</a>
+</li>
+			</ul>
+		</div>
+		</div>
+	<!-- sidebar east END -->
+
+	<!-- sidebar west START -->
+	<div id="westsidebar" class="sidebar">
+	
+		<!-- archives -->
+		<div class="widget widget_archive">
+			<h3>Archives</h3>
+			<ul>
+					<li><a href="http://www.blowblood.com/2008/09/" title="September 2008">September 2008</a></li>
+			</ul>
+		</div>
+
+		</div>
+	<!-- sidebar west END -->
+	<div class="fixed"></div>
+</div>
+
+<!-- sidebar south START -->
+<div id="southsidebar" class="sidebar">
+  <div id="tag_cloud" class="widget widget_tag_cloud"><h3>Tags</h3><a href="http://www.blowblood.com/tag/blockquote/" class="tag-link-11" title="1 topic" rel="tag" style="font-size: 8pt;">blockquote</a>
+<a href="http://www.blowblood.com/tag/categories/" class="tag-link-23" title="1 topic" rel="tag" style="font-size: 8pt;">Categories</a>
+<a href="http://www.blowblood.com/tag/header/" class="tag-link-12" title="1 topic" rel="tag" style="font-size: 8pt;">Header</a>
+<a href="http://www.blowblood.com/tag/hello/" class="tag-link-21" title="2 topics" rel="tag" style="font-size: 15pt;">Hello</a>
+<a href="http://www.blowblood.com/tag/images/" class="tag-link-18" title="1 topic" rel="tag" style="font-size: 8pt;">Images</a>
+<a href="http://www.blowblood.com/tag/links/" class="tag-link-22" title="1 topic" rel="tag" style="font-size: 8pt;">Links</a>
+<a href="http://www.blowblood.com/tag/list/" class="tag-link-19" title="1 topic" rel="tag" style="font-size: 8pt;">List</a>
+<a href="http://www.blowblood.com/tag/next-page/" class="tag-link-16" title="1 topic" rel="tag" style="font-size: 8pt;">Next page</a>
+<a href="http://www.blowblood.com/tag/password/" class="tag-link-17" title="1 topic" rel="tag" style="font-size: 8pt;">Password</a>
+<a href="http://www.blowblood.com/tag/read-more/" class="tag-link-14" title="1 topic" rel="tag" style="font-size: 8pt;">Read more</a>
+<a href="http://www.blowblood.com/tag/tags/" class="tag-link-13" title="3 topics" rel="tag" style="font-size: 22pt;">Tags</a>
+<a href="http://www.blowblood.com/tag/title/" class="tag-link-15" title="1 topic" rel="tag" style="font-size: 8pt;">title</a>
+<a href="http://www.blowblood.com/tag/welcome/" class="tag-link-20" title="1 topic" rel="tag" style="font-size: 8pt;">Welcome</a></div>
+		<div id="meta" class="widget widget_meta"><h3>Meta</h3><ul>			
+			<li><a href="http://www.blowblood.com/feed/" title="Syndicate this site using RSS 2.0">Entries <abbr title="Really Simple Syndication">RSS</abbr></a></li>
+			<li><a href="http://www.blowblood.com/comments/feed/" title="The latest comments to all posts in RSS">Comments <abbr title="Really Simple Syndication">RSS</abbr></a></li>
+			<li><a href="http://wordpress.org/" title="Powered by WordPress, state-of-the-art semantic personal publishing platform.">WordPress.org</a></li>
+		</ul></div>		
+</div>
+<!-- sidebar south END -->
+</div>
+<!-- sidebar END -->
