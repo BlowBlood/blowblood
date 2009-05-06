@@ -4,7 +4,7 @@
 
 {% block blog %}             
     <div class="post"> 
-        <div class="ptitle">{{post.title}}-------{{post.catalog}}</div> 
+        <div class="ptitle"><a href="{{post.full_permalink}}">{{post.title}}-------{{post.catalog}}</a></div> 
         <div class="pdate">{{post.date|timezone:8|date:"l, M d H:i, Y"}}--{{post.author}}{%if post.private%}--private{%endif%}</div>
         <div class="pbody">{{post.content}}
           {% if post.tags %}        
@@ -15,6 +15,10 @@
             {% endfor %}        
           </div>
           {% endif %}
+          {% if user_is_admin %}
+          <p style='text-align: right;'>:<a href='/edit/{{post.key.id}}'>edit</a>: :
+            <a href='/delete/{{post.key.id}}'>delete</a>:</p>
+          {% endif %} 
         </div>
     </div>
 {% endblock %}  

@@ -33,3 +33,6 @@ class Post(db.Model):
         my = self.date.strftime('%B %Y') # July 2008
         self.monthyear = my
         self.put()
+    
+    def update(self):
+        self.put()

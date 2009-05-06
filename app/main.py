@@ -9,7 +9,9 @@ template.register_template_library('app.filter')
 def main():
   application = webapp.WSGIApplication(
                                      [('/', blog.MainPage),
-                                      ('/add', blog.AddPost),
+                                      ('/add/*$', blog.AddPost),
+                                      ('/delete/(.*)/*$', blog.DeletePost),
+                                      ('/edit/(.*)/*$', blog.EditPost),
                                       ('/([12]\d\d\d)/(\d|[01]\d)/([-\w]+)/*$', blog.PostView),
                                       ('/e',blog.PrintEnvironmentHandler),
                                       ('/403.html', blog.UnauthorizedHandler),

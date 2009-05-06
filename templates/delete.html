@@ -1,0 +1,12 @@
+{% extends "main.html" %} 
+{% block title %}--Delete Post--{{post.title}}{% endblock %}
+
+{% block blog %}
+<div class="post"><div class="pbody">
+    <div class="ptitle">Delete Post: {{post.title}}</div>
+    <form method="post">
+     {% if post %} <input name="PostId" type="hidden" value="{{post.key.id}}">{% endif %}
+     <input type=submit value="delete">
+    </form> 
+ </div>
+{% endblock %}  

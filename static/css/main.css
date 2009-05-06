@@ -3,7 +3,7 @@ body {text-align:center;font:76% georgia}
 #wrapper{width:960px;margin-right:auto; margin-left:auto;text-align:left}
 a{text-decoration:none;}
 
-#hd{margin:0;background:#A0A0A0;color:#A030A5;}
+#hd{margin:0;background:#A0A0A0;color:#A030A5;text-align:center}
 div.title{padding:20px 20px 0 30px;font-size:48px;font-weight:bold;text-align:left;}
 div.description{float:right;font-size:24px;width:260px;}
 #tabbar{margin:0;clear:both;background:#808080;color:#0A30A5;}
@@ -22,4 +22,4 @@ blockquote{background:#E0E0E0;padding:0 30px;border:1px dashed;font-size:12px}
 div.calendar{padding:5px;}
 div.user{padding:5px;border-top:1px dashed;}
 
-#ft{margin-top:10px;padding:20px;clear:both;background:#40A044;color:#001010;}
+#ft{margin-top:10px;padding:20px;clear:both;background:#40A044;color:#001010;text-align:center}
