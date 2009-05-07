@@ -156,10 +156,12 @@ textarea {
 #wrap {
 	background:url(img/light.gif) center top no-repeat;
 	padding:20px 0;
+	text-align:center;
 }
 #container {
 	margin:0 auto;
 	width:936px;
+	text-align:left;
 }
 /* layout END */
 
