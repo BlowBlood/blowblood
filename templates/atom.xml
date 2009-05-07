@@ -13,7 +13,7 @@
   <entry>
       <link href="{{post.full_pemallink}}"/>
       <id>{{post.full_pemallink}}</id>
-      <title><![CDATA[post.title]]></title>
+      <title><![CDATA[ {{post.title}} ]]></title>
       <content type="xhtml"><![CDATA[ {{post.content}} ]]></content>
       <author>
           <name>{{post.author}}</name>
