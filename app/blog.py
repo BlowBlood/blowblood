@@ -180,3 +180,14 @@ class PrintEnvironmentHandler(webapp.RequestHandler):
     for name in os.environ.keys():
       self.response.out.write("%s = %s<br />\n" % (name, os.environ[name]))
       
+class FeedHandler(webapp.RequestHandler):
+  def get(self):
+    posts = Post.all().order('-date').fetch(50)
+    last_update = datetime.datetime.now().strftime('%Y-%m-%dT%H:%M:%SZ')
+    template_values = {
+      'posts':posts,
+      'last_update': last_update,
+    }
+    path = os.path.join(os.path.dirname(__file__), '../templates/atom.xml')
+    self.response.out.write(template.render(path, template_values))   
+   

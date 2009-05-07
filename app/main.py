@@ -12,9 +12,13 @@ def main():
                                       ('/add/*$', blog.AddPost),
                                       ('/delete/(.*)/*$', blog.DeletePost),
                                       ('/edit/(.*)/*$', blog.EditPost),
+                                      
                                       ('/([12]\d\d\d)/(\d|[01]\d)/([-\w]+)/*$', blog.PostView),
                                       ('/category/(.*)/*$', blog.CatalogHandler),
                                       ('/tag/(.*)/*$', blog.TagHandler),
+                                      
+                                      ('/atom/*$',blog.FeedHandler),
+                                      ('/feed/*$',blog.FeedHandler),
                                       ('/e',blog.PrintEnvironmentHandler),
                                       ('/403.html', blog.UnauthorizedHandler),
                                       ('/404.html', blog.NotFoundHandler),
