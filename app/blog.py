@@ -183,11 +183,17 @@ class PrintEnvironmentHandler(webapp.RequestHandler):
 class FeedHandler(webapp.RequestHandler):
   def get(self):
     posts = Post.all().order('-date').fetch(50)
-    last_update = datetime.datetime.now().strftime('%Y-%m-%dT%H:%M:%SZ')
+    last_updated = datetime.datetime.now()
+    if posts and posts[0]:
+      last_updated = posts[0].date    
+    last_updated_time = last_updated.strftime("%Y-%m-%dT%H:%M:%SZ")
+    for post in posts:
+      post.formatted_date= post.date.strftime("%Y-%m-%dT%H:%M:%SZ")
     template_values = {
       'posts':posts,
-      'last_update': last_update,
+      'last_updated': last_updated_time,
     }
     path = os.path.join(os.path.dirname(__file__), '../templates/atom.xml')
+    self.response.headers['Content-Type'] = 'application/atom+xml'
     self.response.out.write(template.render(path, template_values))   
    
