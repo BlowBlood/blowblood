@@ -18,7 +18,7 @@
       <author>
           <name>{{post.author}}</name>
       </author>
-      <updated>{{post.datestr}}</updated>
+      <updated>{{post.formatted_date}}</updated>
   </entry>
      {%endfor%}
 </feed>
