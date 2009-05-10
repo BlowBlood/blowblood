@@ -1,0 +1,20 @@
+{% extends "main.html" %} 
+
+{% block title %}--admin{% endblock %}
+
+{% block blog %}             
+    <div id="postpath">
+		<a title="Goto homepage" href="/">Home</a>
+		<form method="get">
+<!-- Include the Free Rich Text Editor Runtime -->
+<script src="/rte/js/richtext.js" type="text/javascript" language="javascript"></script>
+<!-- Include the Free Rich Text Editor Variables Page -->
+<script src="/rte/js/config.js" type="text/javascript" language="javascript"></script>
+<!-- Initialise the editor -->
+<script>
+initRTE('<i>This is some <b>preloaded</b> content</i>', '../rte/rte.css');
+</script>
+<input type="submit">
+</form>
+		</div>
+{% endblock %}  

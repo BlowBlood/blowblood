@@ -2,6 +2,7 @@ from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
 
 from app import blog
+from app import admin
 
 from google.appengine.ext.webapp import template
 template.register_template_library('app.filter')
@@ -16,6 +17,8 @@ def main():
                                       ('/([12]\d\d\d)/(\d|[01]\d)/([-\w]+)/*$', blog.PostView),
                                       ('/category/(.*)/*$', blog.CatalogHandler),
                                       ('/tag/(.*)/*$', blog.TagHandler),
+                                      
+                                      ('/admin/*$',admin.MainPage),
                                       
                                       ('/atom/*$',blog.FeedHandler),
                                       ('/feed/*$',blog.FeedHandler),
