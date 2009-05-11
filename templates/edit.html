@@ -26,13 +26,13 @@
          </select> 
       </div> 
       <div style="color:#eee">
-        <span id="ccode">Code</span>
-        <span id="cview"><a href="javascript:void(view())">View</a></span>&nbsp;&nbsp;        
+        <span id="cview">View</span>&nbsp;&nbsp;<span id="ccode"><a href="javascript:void(code())">Code</a></span>                
       </div>
       <div id="blogpost">
-        <textarea id="blogpostcode" name="content">{{post.content|escape}}</textarea>
-        <div id="blogpostview" contentEditable="true" style="display:none"></div>
-      </div>
+        <textarea id="blogpostcode" name="content" style="display:none"></textarea>
+        <div id="blogpostview" contentEditable="true">{{post.content}}</div>
+        <div id="status">Status</div>
+      </div>      
       <div><input id="blogsubmit" type="submit" value="Submit"></div>
     </form> 
 </div>
