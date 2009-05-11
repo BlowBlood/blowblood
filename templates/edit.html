@@ -30,7 +30,7 @@
         <span id="cview"><a href="javascript:void(view())">View</a></span>&nbsp;&nbsp;        
       </div>
       <div id="blogpost">
-        <textarea id="blogpostcode" name="content">{{post.content}}</textarea>
+        <textarea id="blogpostcode" name="content">{{post.content|escape}}</textarea>
         <div id="blogpostview" contentEditable="true" style="display:none"></div>
       </div>
       <div><input id="blogsubmit" type="submit" value="Submit"></div>
