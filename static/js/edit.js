@@ -15,8 +15,12 @@ function parseBlogContent(){
      alert("Please remove the space or replace it with '_' in the tags.");
      tags.focus();
      return false;
+  }  
+  if(document.getElementById("ccode").innerHTML == "Code"){
+    document.getElementById("blogpostcode").value = getXHTML(document.getElementById("blogpostcode").value)
+  }else{
+    document.getElementById("blogpostcode").value = getXHTML(document.getElementById("blogpostview").innerHTML);
   }
-  document.getElementById("blogpostcode").value = getXHTML(document.getElementById("blogpostview").innerHTML);
 };
 function code(){
   document.getElementById("ccode").innerHTML = "Code";
@@ -26,6 +30,7 @@ function code(){
   document.getElementById("blogpostcode").value = xhtml;
   document.getElementById("blogpostcode").style.display = "block";
   document.getElementById("blogpostview").style.display = "none";
+  document.getElementById("edittool").style.display = "none";
   document.getElementById("blogpostview").focus();  
 };
 function view(){
@@ -35,7 +40,38 @@ function view(){
   document.getElementById("blogpostview").innerHTML = content;
   document.getElementById("blogpostcode").style.display = "none";
   document.getElementById("blogpostview").style.display = "block";
+  document.getElementById("edittool").style.display = "block";
   document.getElementById("blogpostview").focus();  
+};
+function rteInsertImage(){
+  document.getElementById('popItem').innerHTML = '<div><input type="file" id="uploadimg"/><button onclick="javascript:rteGetImage()">Upload</button><iframe frameborder="0" src="http://www.google.com/intl/en_ALL/images/logo.gif"></iframe></div>'
+  showDiv();  
+};
+function rteGetImage(){
+  var s = document.getElementById("uploadimg").value;  
+  rteInsertHTML(s + '<br /><img src="http://www.google.com/intl/en_ALL/images/logo.gif" />');
+  closeDiv();
+  document.getElementById("blogpostview").focus();
+}
+function rteInsertHTML(html) {
+  if (document.all) {
+    var oRng = document.selection.createRange(); 
+    oRng.pasteHTML(html); 
+    oRng.collapse(false); 
+    oRng.select();
+  }
+  else {
+    document.execCommand('insertHTML', false, html);
+  }
+};
+  
+function showDiv(){
+  document.getElementById('popDiv').style.display='block';
+  document.getElementById('bg').style.display='block';
+};
+function closeDiv(){
+  document.getElementById('popDiv').style.display='none';
+  document.getElementById('bg').style.display='none';
 };
 function getXHTML(data){return new Html2Xhtml(data).parse()};
 function Html2Xhtml(data){this.data=data||''};
@@ -669,5 +705,10 @@ Html2Xhtml.charEntities = {
 function trim(str) {
   if (typeof str != "string") return str;
   str = str.replace(/^\s+|\s+$/g, "");
+  return str;
+}
+function trimAll(str) {
+  if (typeof str != "string") return str;
+  str = str.replace(/\s+/g, "");
   return str;
 }
