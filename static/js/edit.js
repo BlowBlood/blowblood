@@ -44,15 +44,15 @@ function view(){
   document.getElementById("blogpostview").focus();  
 };
 function rteInsertImage(){
-  document.getElementById('popItem').innerHTML = '<div><input type="file" id="uploadimg"/><button onclick="javascript:rteGetImage()">Upload</button><iframe frameborder="0" src="http://www.google.com/intl/en_ALL/images/logo.gif"></iframe></div>'
-  showDiv();  
+  document.getElementById('popItem').innerHTML = '<iframe name="imgup" style="margin:0;padding:0;" frameborder="0" src="/upload"></iframe>'
+  showDiv();
 };
-function rteGetImage(){
-  var s = document.getElementById("uploadimg").value;  
-  rteInsertHTML(s + '<br /><img src="http://www.google.com/intl/en_ALL/images/logo.gif" />');
-  closeDiv();
+function rteGetImage(imurl){
+  var str = '<img src="' + imurl + '" />';
+  rteInsertHTML(str);
   document.getElementById("blogpostview").focus();
-}
+  closeDiv();
+};
 function rteInsertHTML(html) {
   if (document.all) {
     var oRng = document.selection.createRange(); 

@@ -18,6 +18,7 @@ class main(webapp.RequestHandler):
     
   def post(self):
     filename = self.request.get('imgfile')
+    filetitle = self.request.get('imgtitle')
     file_handle = StringIO.StringIO(filename) #convert string to file-like object
     gd_client = gdata.photos.service.PhotosService()
     gd_client.email = 'gzguoer@gmail.com'
@@ -25,5 +26,14 @@ class main(webapp.RequestHandler):
     gd_client.source = 'blowblood-upload-image'
     gd_client.ProgrammaticLogin()    
     album_url = '/data/feed/api/user/gzguoer/albumid/5334765855583692065'
-    photo = gd_client.InsertPhotoSimple(album_url, 'New Photo','Uploaded using the API', file_handle, content_type='image/jpeg')
-    self.response.out.write("Upload completed")
+    try:
+      photo = gd_client.InsertPhotoSimple(album_url, 'blogimg',filetitle, file_handle, content_type='image/jpeg')      
+      template_values = {
+        'imgtitle':'title',
+        'img_url':photo.GetMediaURL(),
+        'response':'upload_complelted,<a href="javascript:getimgurl()">use it</a>',
+      }
+      path = os.path.join(os.path.dirname(__file__), '../templates/upload.html')
+      self.response.out.write(template.render(path, template_values))      
+    except gdata.service.RequestError:      
+      self.response.out.write(GooglePhotosException)

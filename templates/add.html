@@ -29,10 +29,15 @@
       </div>
       <div id="blogpost">
         <textarea id="blogpostcode" name="content" style="display:none"></textarea>
-        <div id="blogpostview" contentEditable="true">{{post.content}}</div>
+        <div id="edittool" style="border:1px dotted;padding:5px 0;display:block">
+        <a href="javascript:rteInsertImage()">IMG</a>
+        </div>
+        <div id="blogpostview" class="content" contentEditable="true"></div>
         <div id="status">Status</div>
       </div>
       <div><input id="blogsubmit" type="submit" value="Submit"></div>
     </form> 
 </div>
+<div id="popDiv" class="mydiv" style="display:none;"><div id="popItem">Welcome!</div><a href="javascript:closeDiv()">Close This</a></div>
+<div id="bg" class="bg" style="display:none;"></div>
 {% endblock %}  

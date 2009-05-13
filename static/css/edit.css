@@ -4,7 +4,7 @@
 #blogpostview{border:1px dashed;min-height:435px;height:auto !important;height:435px;overflow:visible;}
 
 .mydiv {
-background-color: #8888cc;
+background-color: #90ee90;
 border: 1px solid #f00;
 text-align: center;
 line-height: 40px;
@@ -12,12 +12,12 @@ font-size: 12px;
 font-weight: bold;
 z-index:99;
 width: 300px;
-height: 400px;
+height: 200px;
 left:50%;/*FF IE7*/
 top:50%;/*FF IE7*/
 
 margin-left:-150px!important;/*FF IE7 */
-margin-top:-200px!important;/*FF IE7 */
+margin-top:-100px!important;/*FF IE7 */
 
 margin-top:0px;
 
