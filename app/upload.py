@@ -10,12 +10,16 @@ import gdata.geo
 import gdata.urlfetch
 gdata.service.http_request_handler = gdata.urlfetch #override original http handler
 
+from app import util, authorized
+
 class main(webapp.RequestHandler):
+  @authorized.role("admin")
   def get(self):
     template_values = {}
     path = os.path.join(os.path.dirname(__file__), '../templates/upload.html')
     self.response.out.write(template.render(path, template_values))
-    
+  
+  @authorized.role("admin")
   def post(self):
     filename = self.request.get('imgfile')
     filetitle = self.request.get('imgtitle')

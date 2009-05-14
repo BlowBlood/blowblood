@@ -2,19 +2,20 @@ import os
 import re
 import sys
 import urllib
+import logging
 
-from google.appengine.api import urlfetch
-from google.appengine.api import users
+from google.appengine.api import urlfetch, users, memcache
 
 from app.BeautifulSoup import BeautifulSoup
+
+from model import Post
 
 def getUserNickname(user):
     default = "anonymous"
     if user:
         return user.email().split("@")[0]
     else:
-        return default
-        
+        return default        
         
 def get_permalink(date,title):
     return get_friendly_url(title)
@@ -56,3 +57,46 @@ def translate(sl, tl, text):
         return translated_soup('div', id='result_box')[0].string
     else:
         return "ss"
+        
+def getPublicPosts():
+  posts = memcache.get("public_posts")
+  if posts is not None:
+    return posts
+  else:
+    posts = Post.all().filter('private', False).order('-date')
+    if not memcache.add("public_posts", posts, 3600):
+      logging.error("Memcache set failed.")
+    return posts    
+  
+def getPublicCatagory(catagory):
+  key_ = "catagory_" + catagory
+  posts = memcache.get(key_)
+  if posts is not None:
+    return posts
+  else:
+    posts = Post.all().filter('catalog',catagory).filter('private',False).order('-date')
+    if not memcache.add(key_, posts, 3600):
+      logging.error("Memcache set failed.")
+    return posts
+    
+def getPublicTag(tag):
+  key_ = "tag_" + tag
+  posts = memcache.get(key_)
+  if posts is not None:
+    return posts
+  else:
+    posts = Post.all().filter('tags',tag).filter('private',False).order('-date')
+    if not memcache.add(key_, posts, 3600):
+      logging.error("Memcache set failed.")
+    return posts
+
+def flushPublicPosts():
+  memcache.delete("public_posts")
+  
+def flushPublicPublicCatagory(catagory):
+  key_ = "catagory_" + catagory
+  memcache.delete(key_)
+  
+def flushPublicPublicTag(tag):
+  key_ = "catagory_" + tag
+  memcache.delete(key_)

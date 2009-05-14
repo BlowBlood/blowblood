@@ -7,7 +7,7 @@ from google.appengine.ext import db
 from google.appengine.ext.webapp.util import login_required
 from google.appengine.api import users
 
-from app import util
+from app import util, authorized
 from model import Post
 
 class BaseRequestHandler(webapp.RequestHandler):
@@ -51,21 +51,24 @@ class ExceptionHander(webapp.RequestHandler):
       
       
 class MainPage(BaseRequestHandler):
-  def get(self):      
-    posts = Post.gql('ORDER BY date desc')
+  def get(self):
+    if users.is_current_user_admin():
+      posts = Post.all().order('-date')
+    else:
+      posts = util.getPublicPosts()
     template_values = {
       'posts': posts,
+      'count':posts.count()
       }
     self.generate('../templates/view.html', template_values)
     
-class AddPost(BaseRequestHandler):
-  def get(self):
-    if users.is_current_user_admin():
-      template_values = {}      
-      self.generate('../templates/add.html', template_values)
-    else:
-      self.redirect("/403.html")
-    
+class AddPost(BaseRequestHandler): 
+  @authorized.role("admin") 
+  def get(self):    
+    template_values = {}      
+    self.generate('../templates/add.html', template_values)    
+  
+  @authorized.role("admin")
   def post(self):
     post = Post()
     post.title = self.request.get('title_input')
@@ -95,16 +98,15 @@ class AddPost(BaseRequestHandler):
     self.redirect(post.full_permalink())    
     
 class DeletePost(BaseRequestHandler):
+  @authorized.role("admin")
   def get(self,PostID):
-    if users.is_current_user_admin():
-      post = Post.get_by_id(int(PostID))
-      template_values = {
-        'post': post,
-      }
-      self.generate('../templates/delete.html', template_values)
-    else:
-      self.redirect("/403.html")
-    
+    post = Post.get_by_id(int(PostID))
+    template_values = {
+      'post': post,
+    }
+    self.generate('../templates/delete.html', template_values)
+  
+  @authorized.role("admin")  
   def post(self,PostID):
     post= Post.get_by_id(int(PostID))
     if(post is not None):
@@ -112,18 +114,17 @@ class DeletePost(BaseRequestHandler):
     self.redirect('/')
    
 class EditPost(BaseRequestHandler):
+  @authorized.role("admin")
   def get(self,PostID):
-    if users.is_current_user_admin():
-      post = Post.get_by_id(int(PostID))
-      tags_commas = post.tags_commas
-      template_values = {
-        'post': post,
-        'tags_commas': tags_commas,
-      }
-      self.generate('../templates/edit.html', template_values)
-    else:
-      self.redirect("/403.html")
-    
+    post = Post.get_by_id(int(PostID))
+    tags_commas = post.tags_commas
+    template_values = {
+      'post': post,
+      'tags_commas': tags_commas,
+    }
+    self.generate('../templates/edit.html', template_values)    
+  
+  @authorized.role("admin")  
   def post(self,PostID):
     post= Post.get_by_id(int(PostID))
     if(post is None):
@@ -154,19 +155,25 @@ class PostView(BaseRequestHandler):
       self.generate('../templates/post.html', template_values)
     
 class CatalogHandler(BaseRequestHandler):
-  def get(self,catalog_name):
-    posts = Post.gql('where catalog =:1 ORDER BY date desc',catalog_name)
+  def get(self,catagory):
+    if users.is_current_user_admin():
+      posts = Post.gql('where catalog =:1 ORDER BY date desc',catagory)
+    else:
+      posts = util.getPublicCatagory(catagory) #only cahced public items
     if(posts is None):
       self.redirect('/')
     else:
       template_values = {
-        'posts': posts,            
+        'posts': posts,
       }
-      self.generate('../templates/view.html', template_values)   
+      self.generate('../templates/view.html', template_values)
     
 class TagHandler(BaseRequestHandler):
   def get(self,tag):
-    posts = Post.all().filter('tags', tag).order('-date')
+    if users.is_current_user_admin():
+      posts = Post.all().filter('tags', tag).order('-date')
+    else:
+      posts = util.getPublicTag(tag) #only cahced public items
     if(posts is None):
       self.redirect('/')
     else:
@@ -182,7 +189,7 @@ class PrintEnvironmentHandler(webapp.RequestHandler):
       
 class FeedHandler(webapp.RequestHandler):
   def get(self):
-    posts = Post.all().order('-date').fetch(50)
+    posts = Post.all().filter('private', False).order('-date').fetch(50)#only output public items
     last_updated = datetime.datetime.now()
     if posts and posts[0]:
       last_updated = posts[0].date    

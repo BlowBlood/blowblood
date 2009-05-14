@@ -5,11 +5,12 @@ from google.appengine.ext.webapp import template
 from google.appengine.ext import webapp
 from google.appengine.ext import db
 
-from app import util
+from app import util, authorized
 from model import Post
 
 class MainPage(webapp.RequestHandler):
-  def get(self):      
+  @authorized.role("admin")
+  def get(self):
     if users.get_current_user():
       url = util.xhtmlize_url(users.create_logout_url(self.request.uri))
       url_linktext = 'Logout'
@@ -27,6 +28,6 @@ class MainPage(webapp.RequestHandler):
       'url': url,
       'url_linktext': url_linktext,
       'post': post,
-    }    
+    }
     path = os.path.join(os.path.dirname(__file__),'../templates/admin.html')
     self.response.out.write(template.render(path, values))
