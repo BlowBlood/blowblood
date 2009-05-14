@@ -16,7 +16,7 @@
       <div class="under">
 				<span class="author">Author: </span><span>{{post.author}}</span>
 				<span class="categories">Categories: </span>
-				<span><a href="/category/{{post.catalog}}" title="View all posts in {{post.catalog}}" rel="category tag">{{post.catalog}}</a></span>
+				<span><a href="/category/{{post.catalog|space2dollar}}" title="View all posts in {{post.catalog}}" rel="category tag">{{post.catalog}}</a></span>
 				<span class="tags">Tags: </span>{% if post.tags %}        
         <span>
           {% for tag in post.tags %}

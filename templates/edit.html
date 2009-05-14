@@ -19,10 +19,9 @@
          <input type="checkbox" name="private" value="private" {% if post.private %}checked="checked"{%endif%}>
          (private)&nbsp;&nbsp;
          <select name="blogcatalog"> 
-           <option value="mindcyclone" {%ifequal post.catalog "mindcyclone"%}selected="selected"{%endifequal%}>Mind Cyclone</option>
-           <option value="entertainment" {%ifequal post.catalog "entertainment"%}selected="selected"{%endifequal%}>Entertainment</option>
-           <option value="technique" {%ifequal post.catalog "technique"%}selected="selected"{%endifequal%}>Technique</option>
-           <option value="lifelog" {%ifequal post.catalog "lifelog"%}selected="selected"{%endifequal%}>Life Log</option> 
+         {%for category in categories%}
+          <option value="{{category.name}}" {%ifequal post.catalog category.name%}selected="selected"{%endifequal%}>{{category.name}}</option>
+         {%endfor%}            
          </select> 
       </div> 
       <div style="color:#eee">

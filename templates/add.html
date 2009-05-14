@@ -18,10 +18,9 @@
       <div id="blogtype">
          <input type="checkbox" name="private" value="private">(private)&nbsp;&nbsp;
          <select name="blogcatalog"> 
-           <option value="mindcyclone">Mind Cyclone</option>
-           <option value="entertainment">Entertainment</option>
-           <option value="technique">Technique</option>
-           <option value="lifelog">Life Log</option> 
+         {%for category in categories%}
+          <option value="{{category.name}}">{{category.name}}</option>
+         {%endfor%} 
          </select> 
       </div> 
       <div style="color:#eee">

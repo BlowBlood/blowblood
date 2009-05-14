@@ -1,4 +1,5 @@
 import os
+import re
 import datetime
 
 from google.appengine.ext.webapp import template
@@ -30,6 +31,7 @@ class BaseRequestHandler(webapp.RequestHandler):
       'user_nickname': util.getUserNickname(users.get_current_user()),
       'url': url,
       'url_linktext': url_linktext,
+      'categories': util.getCategoryLists(),
     }    
     values.update(template_values)
     path = os.path.join(os.path.dirname(__file__), template_name)
@@ -95,6 +97,7 @@ class AddPost(BaseRequestHandler):
       permalink = maxpermalinkBlog.permalink+ post.date.strftime('-%Y-%m-%d')
     post.permalink =  permalink
     post.save()    
+    util.flushCategoryLists()
     self.redirect(post.full_permalink())    
     
 class DeletePost(BaseRequestHandler):
@@ -110,7 +113,8 @@ class DeletePost(BaseRequestHandler):
   def post(self,PostID):
     post= Post.get_by_id(int(PostID))
     if(post is not None):
-        post.delete()                
+        post.delete()
+        util.flushCategoryLists()
     self.redirect('/')
    
 class EditPost(BaseRequestHandler):
@@ -141,6 +145,7 @@ class EditPost(BaseRequestHandler):
     post.lastModifiedDate = datetime.datetime.now()
     post.lastModifiedBy = users.get_current_user()        
     post.update()
+    util.flushCategoryLists()
     self.redirect(post.full_permalink())
     
 class PostView(BaseRequestHandler):
@@ -155,11 +160,12 @@ class PostView(BaseRequestHandler):
       self.generate('../templates/post.html', template_values)
     
 class CatalogHandler(BaseRequestHandler):
-  def get(self,catagory):
+  def get(self,category):
+    catalog = category.replace('%24',' ') # '$'to space    
     if users.is_current_user_admin():
-      posts = Post.gql('where catalog =:1 ORDER BY date desc',catagory)
+      posts = Post.gql('where catalog =:1 ORDER BY date desc',catalog)
     else:
-      posts = util.getPublicCatagory(catagory) #only cahced public items
+      posts = util.getPublicCategory(catalog) #only cahced public items
     if(posts is None):
       self.redirect('/')
     else:

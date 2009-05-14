@@ -34,3 +34,7 @@ def escape ( str ):
 @register.filter
 def timezone(value, offset):
     return value + timedelta(hours=offset)
+
+@register.filter
+def space2dollar(str):
+    return str.replace(' ','$')

@@ -8,7 +8,7 @@ from google.appengine.api import urlfetch, users, memcache
 
 from app.BeautifulSoup import BeautifulSoup
 
-from model import Post
+from model import Post, Category
 
 def getUserNickname(user):
     default = "anonymous"
@@ -68,13 +68,13 @@ def getPublicPosts():
       logging.error("Memcache set failed.")
     return posts    
   
-def getPublicCatagory(catagory):
-  key_ = "catagory_" + catagory
+def getPublicCategory(category):
+  key_ = "category_" + category
   posts = memcache.get(key_)
   if posts is not None:
     return posts
   else:
-    posts = Post.all().filter('catalog',catagory).filter('private',False).order('-date')
+    posts = Post.all().filter('catalog',category).filter('private',False).order('-date')
     if not memcache.add(key_, posts, 3600):
       logging.error("Memcache set failed.")
     return posts
@@ -90,14 +90,32 @@ def getPublicTag(tag):
       logging.error("Memcache set failed.")
     return posts
 
+def getCategoryLists():
+  key_ = "category_lists"
+  categories = memcache.get(key_)
+  if categories is not None:
+    return categories
+  else:
+    categories = Category.all()
+    for category in categories:
+      category.num = Post.all().filter('catalog',category.name).count()
+      category.put()
+    categories = Category.all()
+    if not memcache.add(key_, categories, 3600):
+      logging.error("Memcache set failed.")
+    return categories
+
 def flushPublicPosts():
   memcache.delete("public_posts")
   
-def flushPublicPublicCatagory(catagory):
-  key_ = "catagory_" + catagory
+def flushPublicPublicCategory(category):
+  key_ = "category_" + category
   memcache.delete(key_)
   
 def flushPublicPublicTag(tag):
   key_ = "tag_" + tag
   memcache.delete(key_)
   
+def flushCategoryLists():
+  key_ = "category_lists"
+  memcache.delete(key_)
