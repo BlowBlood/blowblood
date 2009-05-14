@@ -49,6 +49,7 @@ function rteInsertImage(){
 };
 function rteGetImage(imurl){
   var str = '<img src="' + imurl + '" />';
+  document.getElementById("blogpostview").focus();
   rteInsertHTML(str);
   document.getElementById("blogpostview").focus();
   closeDiv();

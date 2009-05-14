@@ -58,7 +58,7 @@ class MainPage(BaseRequestHandler):
       posts = util.getPublicPosts()
     template_values = {
       'posts': posts,
-      'count':posts.count()
+      'count': posts.count()
       }
     self.generate('../templates/view.html', template_values)
     

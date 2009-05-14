@@ -32,12 +32,7 @@ class main(webapp.RequestHandler):
     album_url = '/data/feed/api/user/gzguoer/albumid/5334765855583692065'
     try:
       photo = gd_client.InsertPhotoSimple(album_url, 'blogimg',filetitle, file_handle, content_type='image/jpeg')      
-      template_values = {
-        'imgtitle':'title',
-        'img_url':photo.GetMediaURL(),
-        'response':'upload_complelted,<a href="javascript:getimgurl()">use it</a>',
-      }
-      path = os.path.join(os.path.dirname(__file__), '../templates/upload.html')
-      self.response.out.write(template.render(path, template_values))      
-    except gdata.service.RequestError:      
+      img_url = photo.GetMediaURL()+"?imgmax=512"
+      self.response.out.write('<script type="text/javascript">window.parent.rteGetImage("%s")</script>' % imgurl)
+    except gdata.service.RequestError:
       self.response.out.write(GooglePhotosException)

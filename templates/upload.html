@@ -5,21 +5,16 @@ body{background-color:#90ee90;}
 hr{margin:5px 0;}
 </style>
 <script type="text/javascript">
-function out(){
+function getfilename(){
   document.getElementById("imgtitle").value = document.getElementById("imgfile").value;
-}
-function getimgurl(){
-  var imurl = document.getElementById("imgurl").value;
-  window.parent.rteGetImage(imurl);
 }
 </script></head>
 <body><div style="text-align:center;width:290px;height:120px;padding-left:5px">
   <form method="post" enctype="multipart/form-data">
   <hr /><label for="imgfile">file:</label>
-  <input type="file" id="imgfile" name="imgfile" size="22" 	lang="en" onmouseout="javascript:out()" />
+  <input type="file" id="imgfile" name="imgfile" size="22" 	lang="en" onmouseout="javascript:getfilename()" />
   <hr /><label for="imgtitle">title:</label>
-  <input type="text" id="imgtitle" name="imgtitle" value="{{imgtitle}}" size="30" />
-  <input type="hidden" id="imgurl" name="imgurl" value="{{img_url}}"/>
+  <input type="text" id="imgtitle" name="imgtitle" value="imgtitle" size="30" />
   <hr /><input type="submit" value="Upload" />
 </form></div>
-<div>{{response}}</div></body></html>
+</body></html>

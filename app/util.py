@@ -98,5 +98,6 @@ def flushPublicPublicCatagory(catagory):
   memcache.delete(key_)
   
 def flushPublicPublicTag(tag):
-  key_ = "catagory_" + tag
+  key_ = "tag_" + tag
   memcache.delete(key_)
+  
