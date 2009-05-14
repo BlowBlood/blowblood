@@ -36,3 +36,7 @@ class Post(db.Model):
     
     def update(self):
         self.put()
+
+class Category(db.Model):
+  name = db.StringProperty()
+  num = db.IntegerProperty(default=0)

@@ -3,19 +3,29 @@
 {% block title %}--admin{% endblock %}
 
 {% block blog %}             
+<script type="text/javascript">
+function newcategory(){
+  if(document.getElementById("singleton")){
+    alert("only one form here!")
+    return;
+  }
+  var tr = document.createElement('tr')
+  var td = document.createElement('td')
+  td.innerHTML = '<form id="singleton" method="post"><input type="text" name="name" size="50" /><input type="submit" value="add" /></form>'
+  tr.appendChild(td)
+  document.getElementById('ncategory').appendChild(tr)
+}
+</script>
     <div id="postpath">
 	<a title="Goto homepage" href="/">Home</a></div>
-		<div class="post">
-		<form method="get">
-<!-- Include the Free Rich Text Editor Runtime -->
-<script src="/rte/js/richtext.js" type="text/javascript" language="javascript"></script>
-<!-- Include the Free Rich Text Editor Variables Page -->
-<script src="/rte/js/config.js" type="text/javascript" language="javascript"></script>
-<!-- Initialise the editor -->
-<script>
-initRTE('<i>This is some <b>preloaded</b> content</i>', '../rte/rte.css');
-</script>
-<input type="submit">
-</form>
-		</div>
-{% endblock %}  
+		<div class="post"><div class="content">
+		  <h2>Categories:</h2>
+		  <table><tbody id="ncategory" style="width:90%">
+		    <tr><th style="width:50em">Name</th><th>Num</th></tr>
+		    {%for category in categories%}
+		    <tr><td>{{category.name}}</td><td>{{category.num}}</td></tr>
+		    {%endfor%}
+		  </tbody></table>
+		  <a href="javascript:newcategory()">add new category</a>
+	</div></div>
+{% endblock %}
