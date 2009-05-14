@@ -33,7 +33,7 @@ class BaseRequestHandler(webapp.RequestHandler):
     path = os.path.join(os.path.dirname(__file__), template_name)
     self.response.out.write(template.render(path, values))
     
-class MainPage(webapp.RequestHandler):
+class MainPage(BaseRequestHandler):
   @authorized.role("admin")  
   def get(self):
     categories = Category.all()
