@@ -48,11 +48,18 @@ function rteInsertImage(){
   showDiv();
 };
 function rteGetImage(imurl){
-  var str = '<img src="' + imurl + '" />';
+  var str = '<img src="' + imurl + '" alt="img"/>';
   document.getElementById("blogpostview").focus();
   rteInsertHTML(str);
   document.getElementById("blogpostview").focus();
   closeDiv();
+};
+function rteBold(){
+  document.execCommand('bold',false,null)
+};
+function rteBlockquote(){
+  document.execCommand('formatblock',false,'<p>')
+  document.execCommand('formatblock',false,'<blockquote>')
 };
 function rteInsertHTML(html) {
   if (document.all) {
