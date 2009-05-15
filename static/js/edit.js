@@ -43,8 +43,28 @@ function view(){
   document.getElementById("edittool").style.display = "block";
   document.getElementById("blogpostview").focus();  
 };
+
+function initTool(){
+ document.write('<div id="edittool" style="border:1px dotted;padding:5px 0;display:block"><div>') 
+ document.write('<a href="javascript:rteAction(\'bold\')">B</a>---')
+ document.write('<a href="javascript:rteAction(\'italic\')">I</a>---')
+ document.write('<a href="javascript:rteAction(\'underline\')">U</a>---')
+ document.write('<a href="javascript:rteAction(\'strikethrough\')">Stroke</a>---')
+ document.write('<a href="javascript:rteAction(\'justifyleft\')">Left</a>---')
+ document.write('<a href="javascript:rteAction(\'justifycenter\')">Center</a>---')
+ document.write('<a href="javascript:rteAction(\'justifyright\')">Right</a>')
+ document.write('</div><div>')
+ document.write('<a href="javascript:rteInsertImage()">IMG</a>---')
+ document.write('<a href="javascript:rteInsertLink()">Link</a>---')
+ document.write('<a href="javascript:rteAction(\'Unlink\')">Unlink</a>---')
+ document.write('<a href="javascript:rteBlockquote()">Block</a>&nbsp;')
+ document.write('</div></div>')
+}
+function rteAction(param) {
+   document.execCommand(param, false, null);   
+};      
 function rteInsertImage(){
-  document.getElementById('popItem').innerHTML = '<iframe name="imgup" style="margin:0;padding:0;" frameborder="0" src="/upload"></iframe>'
+  document.getElementById('popItem').innerHTML = '<iframe name="imgup" style="margin:0;padding:0;" frameborder="0" src="/static/html/insert_img.html"></iframe>'
   showDiv();
 };
 function rteGetImage(imurl){
@@ -53,9 +73,6 @@ function rteGetImage(imurl){
   rteInsertHTML(str);
   document.getElementById("blogpostview").focus();
   closeDiv();
-};
-function rteBold(){
-  document.execCommand('bold',false,null)
 };
 function rteBlockquote(){
   document.execCommand('formatblock',false,'<p>')
@@ -73,6 +90,10 @@ function rteInsertHTML(html) {
   }
 };
   
+function rteInsertLink(){
+  document.getElementById('popItem').innerHTML = '<iframe name="imgup" style="margin:0;padding:0;" frameborder="0" src="/static/html/insert_link.html"></iframe>'
+  showDiv();
+}
 function showDiv(){
   document.getElementById('popDiv').style.display='block';
   document.getElementById('bg').style.display='block';

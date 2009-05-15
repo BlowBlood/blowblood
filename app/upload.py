@@ -15,9 +15,7 @@ from app import util, authorized
 class main(webapp.RequestHandler):
   @authorized.role("admin")
   def get(self):
-    template_values = {}
-    path = os.path.join(os.path.dirname(__file__), '../templates/upload.html')
-    self.response.out.write(template.render(path, template_values))
+    self.redirect('404.html')
   
   @authorized.role("admin")
   def post(self):
@@ -33,6 +31,6 @@ class main(webapp.RequestHandler):
     try:
       photo = gd_client.InsertPhotoSimple(album_url, 'blogimg',filetitle, file_handle, content_type='image/jpeg')      
       img_url = photo.GetMediaURL()+"?imgmax=512"
-      self.response.out.write('<script type="text/javascript">window.parent.rteGetImage("%s")</script>' % imgurl)
+      self.response.out.write('<script type="text/javascript">window.parent.rteGetImage("%s")</script>' % img_url)
     except gdata.service.RequestError:
       self.response.out.write(GooglePhotosException)

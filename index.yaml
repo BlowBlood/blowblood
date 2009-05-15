@@ -25,7 +25,7 @@ indexes:
   - name: date
     direction: desc
 
-# Used 39 times in query history.
+# Used 41 times in query history.
 - kind: Post
   properties:
   - name: date
@@ -37,7 +37,7 @@ indexes:
   - name: permalink
     direction: desc
 
-# Used 2 times in query history.
+# Used 4 times in query history.
 - kind: Post
   properties:
   - name: private
