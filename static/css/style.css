@@ -570,14 +570,14 @@ textarea {
 	margin-bottom:10px;
 }
 #westsidebar {
-	width:121px;
+	width:100px;
 	float:left;
 	padding-right:5px;
 	font-size:95%;
 	overflow:hidden;
 }
 #eastsidebar {
-	width:129px;
+	width:150px;
 	float:right;
 	font-size:95%;
 	overflow:hidden;
