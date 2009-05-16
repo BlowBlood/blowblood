@@ -1,5 +1,6 @@
 import os
 import re
+import urllib
 import datetime
 
 from google.appengine.ext.webapp import template
@@ -78,8 +79,8 @@ class AddPost(BaseRequestHandler):
     post.tags_commas = self.request.get('tags')
     user = users.get_current_user()
     post.author = user
-    post.catalog = self.request.get('blogcatalog')
-    private = self.request.get('private')    
+    post.catalog = urllib.quote(self.request.get('blogcatalog').encode('utf8'))
+    private = self.request.get('private')
     if private:
       post.private = True;
     else:      
@@ -136,7 +137,7 @@ class EditPost(BaseRequestHandler):
     post.title = self.request.get('title_input')    
     post.tags_commas = self.request.get('tags')
     post.content = self.request.get('content')
-    post.catalog = self.request.get('blogcatalog')
+    post.catalog = urllib.quote(self.request.get('blogcatalog').encode('utf8'))
     private = self.request.get('private')    
     if private:
       post.private = True;
@@ -161,11 +162,10 @@ class PostView(BaseRequestHandler):
     
 class CatalogHandler(BaseRequestHandler):
   def get(self,category):
-    catalog = category.replace('%24',' ') # '$'to space    
     if users.is_current_user_admin():
-      posts = Post.gql('where catalog =:1 ORDER BY date desc',catalog)
+      posts = Post.gql('where catalog =:1 ORDER BY date desc',category)
     else:
-      posts = util.getPublicCategory(catalog) #only cahced public items
+      posts = util.getPublicCategory(category) #only cahced public items
     if(posts is None):
       self.redirect('/')
     else:

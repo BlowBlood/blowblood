@@ -40,3 +40,12 @@ class Post(db.Model):
 class Category(db.Model):
   name = db.StringProperty()
   num = db.IntegerProperty(default=0)
+  
+class BBBlog(db.Model):
+  title = db.StringProperty(multiline=False, default='BlowBlood')
+  description = db.StringProperty(multiline=False,default='BlowBlood@WestGate')
+  author = db.StringProperty(multiline=False, default='Your Blog Author')
+  email = db.StringProperty(multiline=False, default='')  
+  base_url = db.StringProperty(multiline=False,default='http://www.blowblood.com')  
+  num_post_per_page = db.IntegerProperty(default=8)
+  web_hit_count = db.IntegerProperty(default=0)

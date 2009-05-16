@@ -1,8 +1,7 @@
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
 
-from app import blog, admin, upload
-
+from app import blog, admin, upload, rpc
 from google.appengine.ext.webapp import template
 template.register_template_library('app.filter')
 
@@ -19,6 +18,7 @@ def main():
                                       ('/tag/(.*)/*$', blog.TagHandler),
                                       
                                       ('/admin/*$',admin.MainPage),
+                                      ('/rpc/*$',rpc.MainPage),
                                       
                                       ('/atom/*$',blog.FeedHandler),
                                       ('/feed/*$',blog.FeedHandler),
