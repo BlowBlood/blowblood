@@ -5,7 +5,7 @@
 {% block blog %}             
     <div id="postpath">
 		<a title="Goto homepage" href="/">Home</a>
-		 &gt; <a href="/category/{{post.catalog|space2plus}}" rel="catalog tag">{{post.catalog}}</a>
+		 &gt; <a href="/category/{{post.catalog|unquote}}" rel="catalog tag">{{post.catalog}}</a>
 		 &gt; {{post.title}}</div>
 		<div class="post"> 
       <h2>{{post.title}}{%if post.private%}--private{%endif%}</h2>

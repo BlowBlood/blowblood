@@ -2,6 +2,7 @@ import os
 import re
 import urllib
 import datetime
+import calendar
 
 from google.appengine.ext.webapp import template
 from google.appengine.ext import webapp
@@ -11,6 +12,8 @@ from google.appengine.api import users
 
 from app import util, authorized
 from model import Post
+
+PAGESIZE = 8
 
 class BaseRequestHandler(webapp.RequestHandler):
   """Supplies a common template generation function.
@@ -26,6 +29,10 @@ class BaseRequestHandler(webapp.RequestHandler):
     else:
       url = util.xhtmlize_url(users.create_login_url(self.request.uri))
       url_linktext = 'Login'
+    ym = datetime.datetime.now().strftime("%Y %m %d").split()
+    cal = calendar.HTMLCalendar().formatmonth(int(ym[0]),int(ym[1]))
+    today = '<b id="today">'+ym[2]+'</b>'
+    cal = re.sub(ym[2],today,cal)
     values = {
       'user': users.GetCurrentUser(),
       'user_is_admin': users.is_current_user_admin(),
@@ -33,6 +40,7 @@ class BaseRequestHandler(webapp.RequestHandler):
       'url': url,
       'url_linktext': url_linktext,
       'categories': util.getCategoryLists(),
+      'calendar': cal,
     }    
     values.update(template_values)
     path = os.path.join(os.path.dirname(__file__), template_name)
@@ -56,12 +64,44 @@ class ExceptionHander(webapp.RequestHandler):
 class MainPage(BaseRequestHandler):
   def get(self):
     if users.is_current_user_admin():
-      posts = Post.all().order('-date')
+      posts = Post.all().order('-date').fetch(PAGESIZE+1)
     else:
-      posts = util.getPublicPosts()
+      posts = util.getPublicPosts().fetch(PAGESIZE+1)
+    polder = None
+    if len(posts) == PAGESIZE+1:
+      polder = '2'
+      posts = posts[:PAGESIZE]
     template_values = {
       'posts': posts,
-      'count': posts.count()
+      'page': '1',
+      'count': len(posts),
+      'polder': polder,      
+      }
+    self.generate('../templates/view.html', template_values)
+    
+class PageHandler(BaseRequestHandler):
+  def get(self,page_num):
+    try:
+      page = int(page_num)
+    except Error:
+      raise Error('page_num_is_invalid')
+    if page == 1:
+      self.redirect('/')
+    if users.is_current_user_admin():
+      posts = Post.all().order('-date').fetch(PAGESIZE + 1, (page - 1) * PAGESIZE)
+    else:
+      posts = util.getPublicPosts().fetch(PAGESIZE + 1, (page - 1) * PAGESIZE)
+    polder = None
+    if len(posts) == PAGESIZE+1:
+      polder = page + 1
+      posts = posts[:PAGESIZE]
+    pnewer = page - 1
+    template_values = {
+      'posts': posts,
+      'page': page,
+      'count': len(posts),
+      'pnewer': pnewer,
+      'polder': polder,
       }
     self.generate('../templates/view.html', template_values)
     

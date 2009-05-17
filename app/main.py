@@ -8,6 +8,7 @@ template.register_template_library('app.filter')
 def main():
   application = webapp.WSGIApplication(
                                      [('/', blog.MainPage),
+                                      ('/page/(\d+)/*$', blog.PageHandler),
                                       ('/add/*$', blog.AddPost),
                                       ('/delete/(.*)/*$', blog.DeletePost),
                                       ('/edit/(.*)/*$', blog.EditPost),

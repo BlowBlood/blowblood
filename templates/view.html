@@ -28,8 +28,9 @@
 		</div>    
     {% endfor %}     
     <div id="pagenavi">
-		<span class="newer"><a href="/page/2/">Newer {{count}}</a></span>
-		<span class="older"><a href="/page/2/">Older Entries</a></span>
+		<span class="newer" {%if not pnewer%}style="visibility:hidden"{%endif%}><a href="/page/{{pnewer}}">Newer </a></span>		
+		<span class="older" {%if not polder%}style="visibility:hidden"{%endif%}><a href="/page/{{polder}}">Older </a></span>
+		<div class="mid">page: {{page}}, &nbsp; item: {{count}}</div>
 		<div class="fixed"></div>
-   </div>     
+   </div>
 {% endblock %}  
