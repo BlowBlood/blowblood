@@ -516,6 +516,12 @@ textarea {
 	height:16px;
 	line-height:16px;
 }
+#pagenavi .mid, 
+#postnavi .mid{
+	text-align:center;
+	height:16px;
+	line-height:16px;
+}
 #pagenavi .older a, 
 #postnavi .next a {
 	background:url(img/icons.gif) 100% -240px no-repeat;
@@ -971,6 +977,7 @@ a#gotop {
 }
 #wp-calendar tbody td {
 	border:1px solid #CCC;
+	width:35px;
 }
 #wp-calendar tbody td.pad {
 	border:0 none;
