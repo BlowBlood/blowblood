@@ -3,6 +3,7 @@
 function rteGetLink() {
   if (document.getElementById("url").value == ""){
 	  alert('The URL field must be filled in.');
+	  return false;
   }else{
     window.parent.document.execCommand("createlink", false, document.getElementById("url").value);
   	if (window.getSelection)

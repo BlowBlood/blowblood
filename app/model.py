@@ -37,6 +37,22 @@ class Post(db.Model):
     def update(self):
         self.put()
 
+class Comment(db.Model):
+  post = db.ReferenceProperty(Post)    
+  date = db.DateTimeProperty(auto_now_add=True)
+  user = db.UserProperty()
+  author = db.StringProperty()
+  authorEmail = db.EmailProperty()
+  authorWebsite = db.StringProperty()
+  userIp = db.StringProperty()
+  content = db.TextProperty()
+  
+  def save(self):
+    self.put()
+    if self.post is not None:
+      self.post.commentcount += 1
+      self.post.put()
+  
 class Category(db.Model):
   name = db.StringProperty()
   num = db.IntegerProperty(default=0)

@@ -11,7 +11,7 @@ from google.appengine.ext.webapp.util import login_required
 from google.appengine.api import users
 
 from app import util, authorized
-from model import Post
+from model import Post, Comment
 
 PAGESIZE = 8
 
@@ -189,6 +189,27 @@ class EditPost(BaseRequestHandler):
     util.flushCategoryLists()
     self.redirect(post.full_permalink())
     
+class AddComment(BaseRequestHandler):
+  def post(self):
+    post_id_ = self.request.get('post_id')
+    post = Post.get_by_id(int(post_id_))
+    if post is None:
+      self.redirect('/')
+    comment = Comment()
+    comment.post = post
+    comment.author = self.request.get('author')
+    comment.authorEmail = self.request.get('email')
+    comment.authorWebsite = self.request.get('url')
+    comment.content = self.request.get('comment')
+    comment.userIp = self.request.remote_addr
+    user = users.get_current_user()
+    if user is not None:
+      comment.user = user
+      comment.author = str(user.nickname())
+      comment.authorEmail = str(user.email())      
+    comment.save()
+    self.redirect(post.full_permalink())
+    
 class PostView(BaseRequestHandler):
   def get(self,year,month,perm_stem): 
     post = db.Query(Post).filter('permalink =',perm_stem).get()
@@ -197,6 +218,7 @@ class PostView(BaseRequestHandler):
     else:
       template_values = {
         'post': post,            
+        'comments': post.comment_set,
       }
       self.generate('../templates/post.html', template_values)
     

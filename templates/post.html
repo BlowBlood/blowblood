@@ -2,10 +2,10 @@
 
 {% block title %}--{{post.title}}{% endblock %}
 
-{% block blog %}             
+{% block blog %}
     <div id="postpath">
 		<a title="Goto homepage" href="/">Home</a>
-		 &gt; <a href="/category/{{post.catalog|unquote}}" rel="catalog tag">{{post.catalog}}</a>
+		 &gt; <a href="/category/{{post.catalog|unquote}}" rel="catalog tag">{{post.catalog|unquote}}</a>
 		 &gt; {{post.title}}</div>
 		<div class="post"> 
       <h2>{{post.title}}{%if post.private%}--private{%endif%}</h2>
@@ -38,5 +38,125 @@
           <a href='/delete/{{post.key.id}}'>delete</a>:</p>
         {% endif %} 
       </div>
+      		  </div>
+      <div id="comments">
+        <div id="cmtswitcher">
+    			<a id="commenttab" class="curtab" href="javascript:void(0);" onclick="MGJS.switchTab('thecomments,commentnavi', 'thetrackbacks', 'commenttab', 'curtab', 'trackbacktab', 'tab');">Comments (28)</a>
+    			<a id="trackbacktab" class="tab" href="javascript:void(0);" onclick="MGJS.switchTab('thetrackbacks', 'thecomments,commentnavi', 'trackbacktab', 'curtab', 'commenttab', 'tab');">Trackbacks (0)</a>
+				  <span class="addcomment"><a href="#respond">Leave a comment</a></span>
+				  <span class="addtrackback"><a href="http://www.neoease.com/css-menu-list-design/trackback/">Trackback</a></span>
+		      <div class="fixed"></div>
+		    </div>
+		    <div id="commentlist">
+	<!-- comments START -->
+	<ol style="display: block;" id="thecomments">
+	{%for comment in comments%}
+	<li class="comment regularcomment" id="comment-{{comment.key.id}}">
+		<div class="author">
+			<div class="pic">
+				<img alt="123" src="/static/images/unkown.jpg" class="avatar avatar-32 photo" width="32" height="32"></div>
+			<div class="name">
+				<a id="commentauthor-{{comment.key.id}}" class="url" href="http://hi1980.com/" rel="external nofollow">{{comment.author}}</a>
+		  </div>
 		</div>
+		<div class="info">
+			<div class="date">
+				{{comment.date|timezone:8|date:"l, M d H:i, Y"}}May 15th, 2009 at 00:40 | <a href="#comment-13390">#1</a>
+			</div>
+			<div class="act">
+				<a href="javascript:void(0);" onclick="MGJS_CMT.reply('commentauthor-13390', 'comment-13390', 'comment');">Reply</a> | 
+				<a href="javascript:void(0);" onclick="MGJS_CMT.quote('commentauthor-13390', 'comment-13390', 'commentbody-13390', 'comment');">Quote</a>
+			</div>
+			<div class="fixed"></div>
+			<div class="content">				
+				<div id="commentbody-13390">
+					<p>{{comment.content}}</p>
+				</div>
+			</div>
+		</div>
+		<div class="fixed"></div>
+	</li>
+	{%endfor%}
+		<li class="comment admincomment" id="comment-13445">
+		<div class="author">
+			<div class="pic">
+				<img alt="" src="/static/images/unkown.jpg" class="avatar avatar-32 photo" width="32" height="32"></div>
+			<div class="name">
+									<a id="commentauthor-13445" class="url" href="http://www.neoease.com/" rel="external nofollow">mg12</a>
+			</div>
+		</div>
+		<div class="info">
+			<div class="date">
+				May 16th, 2009 at 08:52					 | <a href="#comment-13445">#22</a>
+			</div>
+			<div class="act">
+				<a href="javascript:void(0);" onclick="MGJS_CMT.reply('commentauthor-13445', 'comment-13445', 'comment');">Reply</a> | 
+				<a href="javascript:void(0);" onclick="MGJS_CMT.quote('commentauthor-13445', 'comment-13445', 'commentbody-13445', 'comment');">Quote</a>
+		  </div>
+			<div class="fixed"></div>
+			<div class="content">				
+				<div id="commentbody-13445">
+					<p>ssadfsadfsdfsad</p>
+				</div>
+			</div>
+		</div>
+		<div class="fixed"></div>
+	</li>
+	</ol></div>
+	<form action="/addcomment?post_id={{post.key.id}}" method="post" onsubmit="return parseCommentContent()" id="commentform">
+	<div id="respond">
+			<div id="author_info">
+				<div class="row">
+					<input name="author" id="author" class="textfield" value="" size="24" tabindex="1" type="text">
+					<label for="author" class="small">Name (required)</label>
+				</div>
+				<div class="row">
+					<input name="email" id="email" class="textfield" value="" size="24" tabindex="2" type="text">
+					<label for="email" class="small">E-Mail (will not be published) (required)</label>
+				</div>
+				<div class="row">
+					<input name="url" id="url" class="textfield" value="" size="24" tabindex="3" type="text">
+					<label for="url" class="small">Website</label>
+				</div>				
+			</div>
+		<!-- comment input -->
+		<div class="row">
+			<textarea name="comment" id="comment" tabindex="4" rows="8" cols="50"></textarea>
+		</div>
+		<!-- comment submit and rss -->
+		<div id="submitbox">
+			<a class="feed" href="http://www.neoease.com/comments/feed/">Subscribe to comments feed</a>
+			<div class="submitbutton">
+				<input name="submit" id="submit" class="button" tabindex="5" value="Submit Comment (Ctrl+Enter)" type="submit">
+			</div>
+			<div id="emoticon"><script type="text/javascript" src="comment_files/emoticons.js"></script><a title="Pick an Emote" href="javascript:void(0);" onclick="return hs.htmlExpand(this, { contentId: 'emoticons' } )" class="highslide"><img src="comment_files/icon_smile.gif" alt="emoticons"></a></div>
+				<input name="comment_post_ID" value="856" type="hidden">
+			<div class="fixed"></div>
+		</div>
+	</div>
+	</form>
+	<script type="text/javascript">
+  function parseCommentContent(){
+    var author = document.forms["commentform"]["author"];
+    if(author.value==""){
+      alert("Please input your name.")
+      author.focus();
+      return false;
+    }
+    var email = document.forms["commentform"]["email"];
+    if(email.value==""){
+      alert("Please input your email address.")
+      email.focus();
+      return false;
+    }
+  }
+  </script>
+	<script type="text/javascript">MGJS.loadCommentShortcut();</script>
+
+	<div id="postnavi">
+		<span class="prev"><a href="/">bbb sssss s</a></span>
+		<span class="next"><a href="/">Thread Twitter 0.5</a></span>
+		<div class="fixed"></div>
+	</div>
+</div>
 {% endblock %}  

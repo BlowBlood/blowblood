@@ -100,7 +100,6 @@ def getCategoryLists():
     for category in categories:
       category.num = Post.all().filter('catalog',category.name).count()
       category.put()
-    categories = Category.all()
     if not memcache.add(key_, categories, 3600):
       logging.error("Memcache set failed.")
     return categories
