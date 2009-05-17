@@ -18,7 +18,8 @@ def main():
                                       ('/tag/(.*)/*$', blog.TagHandler),
                                       
                                       ('/admin/*$',admin.MainPage),
-                                      ('/rpc/*$',rpc.MainPage),
+                                      ('/rpcm/*$',rpc.MainPage),
+                                      ('/rpc/*$',rpc.RPCHandler),
                                       
                                       ('/atom/*$',blog.FeedHandler),
                                       ('/feed/*$',blog.FeedHandler),
