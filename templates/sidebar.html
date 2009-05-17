@@ -38,7 +38,11 @@
 	</div>
 	<div id="recentcomments" class="widget widget_recentcomments">
 	 <h3>Recent Comments</h3>
-	  Fake Comments
+	 <ol>
+	 {%for comm in recentcoms%}
+	  <li>{{comm.post.title}}</li>
+	 {%endfor%}
+	 </ol>
 	  </div>
 </div>
 <!-- sidebar north END -->

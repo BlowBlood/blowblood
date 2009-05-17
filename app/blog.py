@@ -41,6 +41,7 @@ class BaseRequestHandler(webapp.RequestHandler):
       'url_linktext': url_linktext,
       'categories': util.getCategoryLists(),
       'calendar': cal,
+      'recentcoms': util.getRecentComment(),
     }    
     values.update(template_values)
     path = os.path.join(os.path.dirname(__file__), template_name)
@@ -208,6 +209,7 @@ class AddComment(BaseRequestHandler):
       comment.author = str(user.nickname())
       comment.authorEmail = str(user.email())      
     comment.save()
+    util.flushRecentComment()
     self.redirect(post.full_permalink())
     
 class PostView(BaseRequestHandler):
