@@ -54,7 +54,7 @@
 	<li class="comment regularcomment" id="comment-{{comment.key.id}}">
 		<div class="author">
 			<div class="pic">
-				<img alt="123" src="/static/images/unkown.jpg" class="avatar avatar-32 photo" width="32" height="32"></div>
+				<img alt="123" src="/static/images/unkown.jpg" class="avatar avatar-32 photo" width="32" height="32" /></div>
 			<div class="name">
 				<a id="commentauthor-{{comment.key.id}}" class="url" href="http://hi1980.com/" rel="external nofollow">{{comment.author}}</a>
 		  </div>
@@ -70,7 +70,7 @@
 			<div class="fixed"></div>
 			<div class="content">				
 				<div id="commentbody-13390">
-					<p>{{comment.content}}</p>
+					{{comment.content}}
 				</div>
 			</div>
 		</div>
@@ -80,14 +80,14 @@
 		<li class="comment admincomment" id="comment-13445">
 		<div class="author">
 			<div class="pic">
-				<img alt="" src="/static/images/unkown.jpg" class="avatar avatar-32 photo" width="32" height="32"></div>
+				<img alt="" src="/static/images/unkown.jpg" class="avatar avatar-32 photo" width="32" height="32" /></div>
 			<div class="name">
-									<a id="commentauthor-13445" class="url" href="http://www.neoease.com/" rel="external nofollow">mg12</a>
+				<a id="commentauthor-13445" class="url" href="http://www.neoease.com/" rel="external nofollow">mg12</a>
 			</div>
 		</div>
 		<div class="info">
 			<div class="date">
-				May 16th, 2009 at 08:52					 | <a href="#comment-13445">#22</a>
+				May 16th, 2009 at 08:52 | <a href="#comment-13445">#22</a>
 			</div>
 			<div class="act">
 				<a href="javascript:void(0);" onclick="MGJS_CMT.reply('commentauthor-13445', 'comment-13445', 'comment');">Reply</a> | 
@@ -107,15 +107,15 @@
 	<div id="respond">
 			<div id="author_info">
 				<div class="row">
-					<input name="author" id="author" class="textfield" value="" size="24" tabindex="1" type="text">
+					<input name="author" id="author" class="textfield" value="" size="24" tabindex="1" type="text" />
 					<label for="author" class="small">Name (required)</label>
 				</div>
 				<div class="row">
-					<input name="email" id="email" class="textfield" value="" size="24" tabindex="2" type="text">
+					<input name="email" id="email" class="textfield" value="" size="24" tabindex="2" type="text" />
 					<label for="email" class="small">E-Mail (will not be published) (required)</label>
 				</div>
 				<div class="row">
-					<input name="url" id="url" class="textfield" value="" size="24" tabindex="3" type="text">
+					<input name="url" id="url" class="textfield" value="" size="24" tabindex="3" type="text" />
 					<label for="url" class="small">Website</label>
 				</div>				
 			</div>
@@ -127,10 +127,15 @@
 		<div id="submitbox">
 			<a class="feed" href="http://www.neoease.com/comments/feed/">Subscribe to comments feed</a>
 			<div class="submitbutton">
-				<input name="submit" id="submit" class="button" tabindex="5" value="Submit Comment (Ctrl+Enter)" type="submit">
+				<input name="submit" id="submit" class="button" tabindex="5" value="Submit Comment (Ctrl+Enter)" type="submit" />
 			</div>
-			<div id="emoticon"><script type="text/javascript" src="comment_files/emoticons.js"></script><a title="Pick an Emote" href="javascript:void(0);" onclick="return hs.htmlExpand(this, { contentId: 'emoticons' } )" class="highslide"><img src="comment_files/icon_smile.gif" alt="emoticons"></a></div>
-				<input name="comment_post_ID" value="856" type="hidden">
+			<div id="emoticon">
+			  <script type="text/javascript" src="comment_files/emoticons.js"></script>
+			  <a title="Pick an Emote" href="javascript:void(0);" onclick="return hs.htmlExpand(this, { contentId: 'emoticons' } )" class="highslide">
+			    <img src="comment_files/icon_smile.gif" alt="emoticons" />
+			  </a>
+			</div>
+			<input name="comment_post_ID" value="856" type="hidden" />
 			<div class="fixed"></div>
 		</div>
 	</div>
