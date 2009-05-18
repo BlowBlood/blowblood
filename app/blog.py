@@ -219,12 +219,16 @@ class PostView(BaseRequestHandler):
     post = db.Query(Post).filter('permalink =',perm_stem).get()
     if(post is None):
       self.redirect('/')
-    else:
-      template_values = {
-        'post': post,            
-        'comments': post.comment_set,
-      }
-      self.generate('../templates/post.html', template_values)
+    url = None
+    if users.is_current_user_admin():
+      url = "www.blowblood.com"
+    template_values = {
+      'post': post,            
+      'comments': post.comment_set,
+      'url': url,
+      'email': os.environ['USER_EMAIL'],
+    }
+    self.generate('../templates/post.html', template_values)
     
 class CatalogHandler(BaseRequestHandler):
   def get(self,category):
