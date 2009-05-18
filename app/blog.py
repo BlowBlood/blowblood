@@ -199,6 +199,8 @@ class AddComment(BaseRequestHandler):
     comment = Comment()
     comment.post = post
     comment.author = self.request.get('author')
+    if users.is_current_user_admin():
+      comment.author_is_admin = True
     comment.authorEmail = self.request.get('email')
     comment.authorWebsite = self.request.get('url')
     comment.content = self.request.get('comment')

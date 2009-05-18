@@ -42,6 +42,7 @@ class Comment(db.Model):
   date = db.DateTimeProperty(auto_now_add=True)
   user = db.UserProperty()
   author = db.StringProperty()
+  author_is_admin = db.BooleanProperty()    
   authorEmail = db.EmailProperty()
   authorWebsite = db.StringProperty()
   userIp = db.StringProperty()
