@@ -6,6 +6,7 @@ from datetime import timedelta
 import urllib
 import re
 import cgi
+from app import util
 
 register = webapp.template.create_template_register()
 
@@ -38,3 +39,7 @@ def timezone(value, offset):
 @register.filter
 def space2dollar(str):
     return str.replace(' ','$')
+    
+@register.filter
+def gravatar(email):
+    return util.getGravatarUrl(email)

@@ -53,9 +53,13 @@
 	<li class="comment {%if comment.author_is_admin %}admincomment{%else%}regularcomment{%endif%}" id="comment-{{comment.key.id}}">
 		<div class="author">
 			<div class="pic">
-				<img alt="123" src="/static/images/unkown.jpg" class="avatar avatar-32 photo" width="32" height="32" /></div>
+				<img alt="avator" src="{{comment.authorEmail|gravatar}}" class="avatar avatar-32 photo" width="32" height="32" /></div>
 			<div class="name">
+			  {%if comment.authorWebsite%}
 				<a id="commentauthor-{{comment.key.id}}" class="url" href="http://{{comment.authorWebsite}}" rel="external nofollow">{{comment.author}}</a>
+				{%else%}
+				{{comment.author}}
+				{%endif%}
 		  </div>
 		</div>
 		<div class="info">
@@ -106,9 +110,7 @@
 			</div>
 			<div id="emoticon">
 			  <script type="text/javascript" src="/static/js/emoticons.js"></script>
-			  <a title="Pick an Emote" href="javascript:void(0);" class="highslide">
-			    <img src="comment_files/icon_smile.gif" alt="emoticons" />
-			  </a>
+			  <a title="Pick an Emote" href="javascript:void(0);" class="highslide">emoticons</a>
 			</div>
 			<input name="comment_post_ID" value="856" type="hidden" />
 			<div class="fixed"></div>
@@ -126,6 +128,12 @@
     var email = document.forms["commentform"]["email"];
     if(email.value==""){
       alert("Please input your email address.")
+      email.focus();
+      return false;
+    }
+    var pattern = /([0-9a-zA-Z_-]+)@([0-9a-zA-Z_-]+)\.([0-9a-zA-Z_-]+)/;
+    if (!pattern.test(email.value)){
+      alert("Bad Email Address: " + email.value);
       email.focus();
       return false;
     }

@@ -1,8 +1,7 @@
-import os
-import re
-import sys
-import urllib
+import os, re, sys
 import logging
+# import code for encoding urls and generating md5 hashes
+import urllib, hashlib
 
 from google.appengine.api import urlfetch, users, memcache
 
@@ -134,3 +133,26 @@ def flushCategoryLists():
 def flushRecentComment():
   key_ = "recent_comments"
   memcache.delete(key_)
+  
+def invalidreg(emailkey):
+  """Email validation, checks for syntactically invalid email
+  courtesy of Mark Nenadov.
+  See
+  http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/65215"""
+  import re
+  emailregex ="^.+\\@(\\[?)[a-zA-Z0-9\\-\\.]+\\.([a-zA-Z]{2,3}|[0-9]{1,3\})(\\]?)$"
+  if len(emailkey) > 5:
+    if re.match(emailregex, emailkey) != None:
+      return True
+  return False
+
+def getGravatarUrl(email):
+  # Set your variables here
+  default = "http://www.blowblood.com/static/images/unkown.jpg"
+  if not invalidreg(email):
+    return default  
+  size = 32
+  # construct the url
+  gravatar_url = "http://www.gravatar.com/avatar.php?"
+  gravatar_url += urllib.urlencode({'gravatar_id':hashlib.md5(email).hexdigest(), 'default':default, 'size':str(size)})
+  return gravatar_url
