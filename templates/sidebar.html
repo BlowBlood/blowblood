@@ -37,13 +37,32 @@
     </ul>
 	</div>
 	<div id="recentcomments" class="widget widget_recentcomments">
-	 <h3>Recent Comments</h3>
-	 <ol>
-	 {%for comm in recentcoms%}
-	  <li>{{comm.post.title}}</li>
-	 {%endfor%}
-	 </ol>
-	  </div>
+	  <h3>Recent Comments</h3>
+	  <ul>
+	  {%for comm in recentcoms%}
+    <li id="rc_item_1" class="rc_item">
+      <div class="rc_avatar rc_left"><img alt="" src="/static/images/unkown.jpg" class="avatar avatar-32 photo" width="32" height="32"></div>
+      <div class="rc_info">
+        <span class="author_name">
+          <a href="{{comm.post.full_permalink}}/#comment-{{comm.key.id}}">{{comm.author}}</a>
+        </span>
+      </div>
+      <div class="rc_excerpt">
+        {{comm.content}}
+        <span class="rc_expand">
+          <a href="javascript:void(0);" onclick="RCJS.detail(857,'http://demo.neoease.com','limit--5|length--50|post--false|pingback--false|trackback--false|avatar--true|avatar_size--32|avatar_position--left|avatar_default--|navigator--true|administrator--true|smilies--false',0,'Loading');">&gt;&gt;</a>
+        </span>
+      </div>
+    </li>
+	  {%endfor%}
+	  <li id="rc_nav">
+	    <div>
+	     <div id="rc_older"><a href="javascript:void(0);" onclick="RCJS.page('http://demo.neoease.com','limit--5|length--50|post--false|pingback--false|trackback--false|avatar--true|avatar_size--32|avatar_position--left|avatar_default--|navigator--true|administrator--true|smilies--false',5,'Loading');">Older&gt;&gt;</a></div>
+	     <div class="rc_fixed"></div>
+	    </div>
+	  </li>	    
+	  </ul>
+	</div>	
 </div>
 <!-- sidebar north END -->
 

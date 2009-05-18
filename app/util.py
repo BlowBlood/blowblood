@@ -98,7 +98,7 @@ def getCategoryLists():
   else:
     categories = Category.all()
     for category in categories:
-      category.num = Post.all().filter('catalog',category.name).count()
+      category.num = Post.all().filter('catalog',urllib.quote(category.name.encode('utf8'))).count()
       category.put()
     categories = Category.all()
     if not memcache.add(key_, categories, 3600):
