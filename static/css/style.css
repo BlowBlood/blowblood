@@ -21,7 +21,7 @@ body {
 	background:#BEC3C6 url(img/bg.jpg) repeat-x;
 	color:#555;
 	font-family:Verdana,"BitStream vera Sans",Helvetica,Sans-serif;
-	font-size:12px;
+	font-size:14px;
 }
 h1, h2, h3, h4, h5, h6 {
 	font-weight:bolder;
@@ -43,7 +43,7 @@ img.sided {
 	padding:3px;
 }
 small {
-	font-size:10px;
+	font-size:12px;
 }
 a:hover img.sided {
 	border-color:#A6A6A6;
@@ -83,7 +83,7 @@ blockquote, pre {
 	margin:5px 0;
 }
 .more-link {
-	font-size:11px;
+	font-size:13px;
 }
 .alignleft {
 	float:left;
@@ -129,7 +129,7 @@ textarea {
 	border-bottom:1px solid #CCC;
 }
 .boxcaption h3 {
-	font-size:12px;
+	font-size:14px;
 	font-family:Verdana,"BitStream vera Sans";
 	letter-spacing:0em;
 }
@@ -144,11 +144,11 @@ textarea {
 	padding:0 12px;
 	height:27px;
 	line-height:27px;
-	font-size:11px;
+	font-size:13px;
 }
 .w3c {
 	color:#080;
-	font-size:10px;
+	font-size:12px;
 }
 /* static END */
 
@@ -199,7 +199,7 @@ textarea {
 	color:#FFF;
 	border-top:1px solid #FFF;
 	text-decoration:none;
-	font-size:10px;
+	font-size:12px;
 	float:left;
 	padding:0 3px;
 }
@@ -223,7 +223,7 @@ textarea {
 	padding:0 20px;
 	margin-left:-10px;
 	text-decoration:none;
-	font-size:11px;
+	font-size:15px;
 	float:left;
 	z-index:1;
 }
@@ -303,7 +303,7 @@ textarea {
 	padding:5px;
 	text-decoration:none;
 	width:150px;
-	font-size:12px;
+	font-size:14px;
 	border-style:solid;
 	border-color:#DDD;
 	border-width:1px 0 0;
@@ -349,10 +349,10 @@ textarea {
 }
 .post h2 {
 	display:block;
-	margin-top:10px;
+	margin-top:20px;
 	border-bottom:1px solid #CCC;
 	padding:0 5px 3px;
-	font-size:16px;
+	font-size:20px;
 	font-family:Verdana,"BitStream vera Sans";
 }
 .post h2 a.title {
@@ -379,7 +379,7 @@ textarea {
 	height:16px;
 	line-height:16px;
 	display:block;
-	font-size:11px;
+	font-size:13px;
 }
 .post .author, 
 .post .tags, 
@@ -443,7 +443,7 @@ textarea {
 .post .under {
 	height:16px;
 	line-height:16px;
-	font-size:11px;
+	font-size:13px;
 	margin-bottom:10px;
 }
 .post .under span {
@@ -496,7 +496,7 @@ textarea {
 	background:url(img/icons.gif) 0 -208px no-repeat;
 	height:16px;
 	line-height:16px;
-	margin:5px 0;
+	margin:10px 0;
 	padding-left:22px;
 }
 #pagenavi, 
@@ -506,7 +506,7 @@ textarea {
 	padding:10px 5px 0;
 }
 #pagenavi {
-	font-size:11px;
+	font-size:13px;
 }
 #pagenavi .newer a, 
 #postnavi .prev a {
@@ -550,7 +550,7 @@ textarea {
 }
 #sidebar .content, 
 #sidebar li {
-	font-size:12px;
+	font-size:14px;
 }
 #northsidebar .widget {
 	background:url(img/widgetsep.png) bottom no-repeat;
@@ -666,7 +666,7 @@ textarea {
 	padding:5px;
 	text-decoration:none;
 	width:80px;
-	font-size:12px;
+	font-size:14px;
 }
 #subscribe li a:hover {
 	background:#EEDDCC;
@@ -682,7 +682,7 @@ textarea {
 	display:block;
 	height:88px;
 	border-top:1px solid #CCC;
-	font-size:11px;
+	font-size:13px;
 	line-height:145%;
 	width:100%;
 }
@@ -732,7 +732,7 @@ a#gotop {
 }
 #cmtswitcher {
 	background:#FFF;
-	font-size:10px;
+	font-size:12px;
 	padding-top:5px;
 }
 #cmtswitcher a.tab, 
@@ -759,7 +759,7 @@ a#gotop {
 	height:16px;
 	line-height:16px;
 	display:block;
-	font-size:11px;
+	font-size:13px;
 	float:left;
 	margin-right:15px;
 	margin-top:4px !important;
@@ -808,12 +808,12 @@ a#gotop {
 .comment .date, 
 .trackback .date {
 	float:left;
-	font-size:10px;
+	font-size:12px;
 }
 .comment .act, 
 .trackback .act {
 	float:right;
-	font-size:10px;
+	font-size:12px;
 }
 .comment .content {
 	background:url(img/comment.gif) 100% 100% no-repeat;
@@ -866,7 +866,7 @@ a#gotop {
 }
 #respond {
 	padding:10px 0 0;
-	font-size:11px;
+	font-size:13px;
 }
 #respond .row {
 	margin-bottom:5px;
@@ -885,7 +885,7 @@ a#gotop {
 #commentnavi {
 	background:#EDEFF0 url(img/box.gif) 0 0 no-repeat;
 	padding:10px 15px;
-	font-size:11px;
+	font-size:13px;
 }
 #commentnavi a.page-numbers {
 	padding:5px 7px;
@@ -931,7 +931,7 @@ a#gotop {
 	border-bottom:1px solid #81B840;
 	border-left:1px solid #B4D666;
 	color:#2970A6;
-	font-size:11px;
+	font-size:13px;
 	cursor:pointer;
 }
 #submitbox #submit:hover {
@@ -1019,7 +1019,7 @@ a#gotop {
 }
 #related_posts h3 {
 	background:#E3E4E6 url(img/box.gif) 0 0 no-repeat;
-	font-size:12px;
+	font-size:14px;
 	padding:6px 12px;
 	font-family:Verdana,"BitStream vera Sans",Arial,Helvetica,Sans-serif;
 	letter-spacing:0em;
@@ -1036,11 +1036,11 @@ a#gotop {
 	line-height:18px;
 }
 #related_posts .count {
-	font-size:10px;
+	font-size:12px;
 }
 #related_posts .excerpt {
 	color:#999;
-	font-size:11px;
+	font-size:13px;
 	display:block;
 }
 /* when related posts without title */
@@ -1133,7 +1133,7 @@ a#gotop {
 	color:#999;
 	font-family:georgia;
 	font-style:italic;
-	font-size:10px;
+	font-size:12px;
 }
 .twitter_source a {
 	color:#999;
@@ -1151,12 +1151,12 @@ a#gotop {
 	height:16px;
 	line-height:16px;
 	display:block;
-	font-size:11px;
+	font-size:13px;
 	float:right;
 }
 .twitter .twitter_pagebar {
 	padding:0 10px;
-	font-size:11px;
+	font-size:13px;
 }
 .twitter .twitter_pagebar a {
 	background:#D1EAF9;
@@ -1184,7 +1184,7 @@ a#gotop {
 }
 #thread_twitter .loading {
 	padding:0 10px;
-	font-size:11px;
+	font-size:13px;
 }
 /* thread twitter END */
 

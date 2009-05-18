@@ -29,11 +29,11 @@
 		<ul>{% if user %}
 		  <li>{{ user.email }}</li>
      {% if user_is_admin %}
-      <li>hello,Admin! <a href="/add" title="add post">Add a post</a></li>
+      <li>hello,Admin! <a href="/add" title="add post" rel="nofollow">Add a post</a></li>
      {% endif %}  
-     <li><a href="https://www.google.com/accounts/ManageAccount" target="_blank">My Account</a></li>
+     <li><a href="https://www.google.com/accounts/ManageAccount " rel="nofollow">My Account</a></li>
     {% endif %}      
-    <li><a href="{{ url }}">{{ url_linktext }}</a></li>
+    <li><a href="{{ url }}" rel="nofollow">{{ url_linktext }}</a></li>
     </ul>
 	</div>
 	<div id="recentcomments" class="widget widget_recentcomments">
@@ -90,7 +90,7 @@
 <div class="widget widget_archive">
 	<h3>Archives</h3>
 	<ul>
-	<li><a href="http://www.blowblood.com/2008/09/" title="September 2008">Sep. 2008</a></li>
+	<li><a href="http://www.blowblood.com/2008/09/" title="September 2008" rel="nofollow">Sep. 2008</a></li>
 	</ul>
 </div>
 </div>

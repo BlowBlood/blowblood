@@ -111,7 +111,7 @@ def getRecentComment():
   if comms is not None:
     return comms
   else:
-    comms = Comment.all().order('-date').fetch(10)
+    comms = Comment.all().order('-date').fetch(8)
     if not memcache.add(key_, comms, 3600):
       logging.error("Memcache set failed.")
     return comms
