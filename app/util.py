@@ -140,7 +140,7 @@ def invalidreg(emailkey):
   See
   http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/65215"""
   import re
-  emailregex ="^.+\\@(\\[?)[a-zA-Z0-9\\-\\.]+\\.([a-zA-Z]{2,3}|[0-9]{1,3\})(\\]?)$"
+  emailregex ="^.+\\@(\\[?)[a-zA-Z0-9\\-\\.]+\\.([a-zA-Z]{2,3}|[0-9]{1,3})(\\]?)$"
   if len(emailkey) > 5:
     if re.match(emailregex, emailkey) != None:
       return True
