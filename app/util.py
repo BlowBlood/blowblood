@@ -111,6 +111,8 @@ def getRecentComment():
     return comms
   else:
     comms = Comment.all().order('-date').fetch(8)
+    for comm in comms:
+      comm.content = re.sub(u'<[^>]*?>','',comm.content)[:50]
     if not memcache.add(key_, comms, 3600):
       logging.error("Memcache set failed.")
     return comms

@@ -1,6 +1,6 @@
 import os
 
-from google.appengine.api import users
+from google.appengine.api import users, memcache
 from google.appengine.ext.webapp import template
 from google.appengine.ext import webapp
 from google.appengine.ext import db
@@ -27,7 +27,7 @@ class BaseRequestHandler(webapp.RequestHandler):
       'user_is_admin': users.is_current_user_admin(),
       'user_nickname': util.getUserNickname(users.get_current_user()),
       'url': url,
-      'url_linktext': url_linktext,
+      'url_linktext': url_linktext,      
     }    
     values.update(template_values)
     path = os.path.join(os.path.dirname(__file__), template_name)
@@ -37,8 +37,17 @@ class MainPage(BaseRequestHandler):
   @authorized.role("admin")  
   def get(self):
     categories = Category.all()
+    cache_stats = memcache.get_stats()
+    oldest_item_age = int(cache_stats['oldest_item_age'])
+    format_time = str(oldest_item_age/3600)+":"
+    oldest_item_age = oldest_item_age%3600
+    format_time += str(oldest_item_age/60)+":"
+    oldest_item_age = oldest_item_age%60
+    format_time += str(oldest_item_age/60)
+    cache_stats['oldest_item_age'] = format_time
     template_values = {
       'categories': categories,
+      'cache_stats': cache_stats,
     }    
     self.generate('../templates/admin.html', template_values)
     

@@ -16,10 +16,9 @@ function newcategory(){
   document.getElementById('ncategory').appendChild(tr)
 }
 </script>
-    <div id="postpath">
-	<a title="Goto homepage" href="/">Home</a></div>
-		<div class="post"><div class="content">
-		  <h2>Categories:</h2>
+    <div id="postpath"><a title="Goto homepage" href="/">Home</a> &gt; Admin</div>
+		<div class="post"><h2>Categories:</h2>
+		<div class="content">		 
 		  <table><tbody id="ncategory" style="width:90%">
 		    <tr><th style="width:50em">Name</th><th>Num</th></tr>
 		    {%for category in categories%}
@@ -27,5 +26,20 @@ function newcategory(){
 		    {%endfor%}
 		  </tbody></table>
 		  <a href="javascript:newcategory()">add new category</a>
-	</div></div>
+	  </div>
+	  </div>
+		<div class="post">
+		<h2>memcache statistics:</h2>
+		<div class="content">
+		  <table><tbody id="ncategory" style="width:90%">
+		    <tr><th style="width:50em">Name</th><th>Num</th></tr>
+        <tr><td>Number of cache get requests resulting in a cache hit.</td><td>{{cache_stats.hits}}</td></tr>
+        <tr><td>Number of cache get requests resulting in a cache miss.</td><td>{{cache_stats.misses}}</td></tr>
+        <tr><td>Sum of bytes transferred on get requests. Rolls over to zero on overflow.</td><td>{{cache_stats.byte_hits}}</td></tr>
+        <tr><td>Number of key/value pairs in the cache.</td><td>{{cache_stats.items}}</td></tr>
+        <tr><td>Total size of all items in the cache.</td><td>{{cache_stats.bytes}}</td></tr>
+        <tr><td>Oldest_item_age: how long a new item will survive in the cache without being accessed.</td><td>{{cache_stats.oldest_item_age}}</td></tr>
+		  </tbody></table>		 
+	</div>
+	</div>
 {% endblock %}
