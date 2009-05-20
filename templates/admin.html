@@ -20,16 +20,17 @@ function rpc(action){
   ajaxObject = function() {
     try { return new ActiveXObject("Msxml2.XMLHTTP"); } catch(e){
     try { return new ActiveXObject("Microsoft.XMLHTTP"); } catch(e){
-    try { return new XMLHttpRequest() } catch(e){
+    try { return new XMLHttpRequest(); } catch(e){
     throw new Error( "This browser does not support XMLHttpRequest." );
   }}}}
   var ajax = new ajaxObject(); // use ajaxObject to start XMLHttpRequest() for most browsers  
   ajax.onreadystatechange = function(){
-    if(ajax.readyState < 4){$("rbtags").innerHTML="building"}
+    if(ajax.readyState < 4){$(action).innerHTML="building";}
     if(ajax.readyState == 4&& ajax.status == 200){
        $(action).innerHTML=ajax.responseText;}}
-  pwurl = "/rpc?action="+action
-  try{ajax.open("POST",pwurl,true)} catch(e){alert(e)}
+  pwurl = "/rpc?action="+action;  
+  try{ajax.open("POST",pwurl,true);} catch(e){alert(e);}
+  ajax.setRequestHeader("Content-length", 0); 
   ajax.send(null);
 }
 </script>

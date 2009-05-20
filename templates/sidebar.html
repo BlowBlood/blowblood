@@ -41,7 +41,7 @@
 	  <ul>
 	  {%for comm in recentcoms%}
     <li id="rc_item_1" class="rc_item">
-      <div class="rc_avatar rc_left"><img alt="avator" src="{{comm.authorEmail|gravatar}}" class="avatar avatar-32 photo" width="32" height="32"></div>
+      <div class="rc_avatar rc_left"><img alt="avator" src="{{comm.authorEmail|gravatar}}" class="avatar avatar-32 photo" width="32" height="32" /></div>
       <div class="rc_info">
         <span class="author_name">
           <a href="{{comm.post.full_permalink}}/#comment-{{comm.key.id}}">{{comm.author}}</a>
