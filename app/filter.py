@@ -43,3 +43,7 @@ def space2dollar(str):
 @register.filter
 def gravatar(email):
     return util.getGravatarUrl(email)
+
+@register.filter
+def hot2fsize(num):
+  return util.getFontSizeFromHot(num)

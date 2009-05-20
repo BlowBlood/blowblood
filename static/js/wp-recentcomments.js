@@ -40,7 +40,7 @@ function runChange(loading) {
 			navigator.innerHTML = (loading == undefined) ? "Loading..." : loading + "...";
 		}
 
-	} else if (xmlHttp.readyState == 4 ) {	  
+	} else if (xmlHttp.readyState == 4 && xmlHttp.status == 200 ) {	  
 		parent.innerHTML = xmlHttp.responseText;
 		document.body.style.cursor = 'auto';
 	}

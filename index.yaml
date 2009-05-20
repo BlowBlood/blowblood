@@ -52,7 +52,7 @@ indexes:
   - name: date
     direction: desc
 
-# Unused in query history -- copied from input.
+# Used 7 times in query history.
 - kind: Post
   properties:
   - name: tags

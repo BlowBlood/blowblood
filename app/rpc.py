@@ -58,7 +58,23 @@ class RPCHandler(webapp.RequestHandler):
         args += (simplejson.loads(val),)
       else:
         break
-    result = func(*args)"""
+    result = func(*args)
+    self.response.out.write(result)"""
+  def post(self):
+    func = None
+    action = self.request.get('action')
+    if action:
+      if action[0] == '_':
+        self.error(403) # access denied
+        return
+      else:
+        func = getattr(self.methods, action, None)
+    if not func:
+      self.error(404) # file not found
+      return
+    result = func()
+    self.response.out.write(result)
+      
 
 class RPCMethods:
   """ Defines the methods that can be RPCed.
@@ -75,3 +91,22 @@ class RPCMethods:
     if comm is not None:
       return comm
     return "not found"
+    
+  def rbtags(self):
+    d={}
+    posts = Post.all()
+    for post in posts:
+      for tag in post.tags:
+        d[tag] = d.get(tag,0) + 1
+    dbtags = Tag.all().fetch(1000)
+    db.delete(dbtags)
+    for key in d.keys():
+      tag_ = Tag()
+      tag_.name = key
+      tag_.num = d[key]
+      tag_.put()    
+    return "ok"
+    
+  def flushall(self):
+    util.flushAll() 
+    return "ok"

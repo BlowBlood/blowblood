@@ -29,13 +29,39 @@ class Post(db.Model):
   
     tags_commas = property(get_tags,set_tags)
 
+    def update_tags(self,update):
+        """Update Tag cloud info"""
+        if self.tags: 
+            for tag_ in self.tags:
+                tags = Tag.all().filter('name',tag_).fetch(10)
+                if tags == []:
+                    tagnew = Tag(name=tag_,num=1)
+                    tagnew.put()
+                else:
+                    if not update:
+                        tags[0].num+=1
+                        tags[0].put()
+    
+    def clear_tags(self):
+        """Clear all tags when edit blog or delete blog """
+        if self.tags:
+            for tag_ in self.tags:
+                tags = Tag.all().filter('name',tag_).fetch(10)
+                if tags != []:
+                    tags[0].num -= 1
+                    if tags[0].num == 0:
+                        tags[0].delete()
+                    else:
+                        tags[0].put()
     def save(self):
-        my = self.date.strftime('%B %Y') # July 2008
-        self.monthyear = my
-        self.put()
+      self.update_tags(False)
+      my = self.date.strftime('%B %Y') # July 2008
+      self.monthyear = my
+      self.put()
     
     def update(self):
-        self.put()
+      self.update_tags(False)
+      self.put()
 
 class Comment(db.Model):
   post = db.ReferenceProperty(Post)    
@@ -57,7 +83,11 @@ class Comment(db.Model):
 class Category(db.Model):
   name = db.StringProperty()
   num = db.IntegerProperty(default=0)
-  
+
+class Tag(db.Model):
+  name = db.StringProperty()
+  num = db.IntegerProperty(default=0)
+    
 class BBBlog(db.Model):
   title = db.StringProperty(multiline=False, default='BlowBlood')
   description = db.StringProperty(multiline=False,default='BlowBlood@WestGate')

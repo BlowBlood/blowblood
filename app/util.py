@@ -7,7 +7,7 @@ from google.appengine.api import urlfetch, users, memcache
 
 from app.BeautifulSoup import BeautifulSoup
 
-from model import Post, Category, Comment
+from model import Post, Category, Comment, Tag
 
 def getUserNickname(user):
     default = "anonymous"
@@ -104,6 +104,17 @@ def getCategoryLists():
       logging.error("Memcache set failed.")
     return categories
 
+def getTagLists():
+  key_ = "tag_lists"
+  tags = memcache.get(key_)
+  if tags is not None:
+    return tags
+  else:
+    tags = Tag.all()
+    if not memcache.add(key_, tags, 3600):
+      logging.error("Memcache set failed.")
+    return tags
+    
 def getRecentComment():
   key_ = "recent_comments"
   comms = memcache.get(key_)
@@ -131,10 +142,17 @@ def flushPublicPublicTag(tag):
 def flushCategoryLists():
   key_ = "category_lists"
   memcache.delete(key_)
-  
+
+def flushTagLists():
+  key_ = "tag_lists"
+  memcache.delete(key_)
+    
 def flushRecentComment():
   key_ = "recent_comments"
   memcache.delete(key_)
+  
+def flushAll():
+  memcache.flush_all()
   
 def invalidreg(emailkey):
   """Email validation, checks for syntactically invalid email
@@ -158,3 +176,25 @@ def getGravatarUrl(email):
   gravatar_url = "http://www.gravatar.com/avatar.php?"
   gravatar_url += urllib.urlencode({'gravatar_id':hashlib.md5(email).hexdigest(), 'default':default, 'size':str(size)})
   return gravatar_url
+  
+def getFontSizeFromHot(num):
+  num = int(num)
+  if num<5:
+    return 100
+  if num<10:
+    return 130
+  if num<20:
+    return 160
+  if num<40:
+    return 190
+  if num<80:
+    return 210
+  if num<160:
+    return 240
+  if num<320:
+    return 270
+  if num<640:
+    return 300
+  if num<1280:
+    return 330
+  return 360     

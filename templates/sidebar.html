@@ -50,7 +50,7 @@
       <div class="rc_excerpt">
         {{comm.content}}
         <span class="rc_expand">
-          <a href="javascript:void(0);" onclick="RCJS.detail('/rpc?action=rc_detail_ajax',{{comm.key.id}},'','loading')"> » </a>
+          <a href="javascript:void(0);" onclick="RCJS.detail('/rpc?action=rc_detail_ajax',{{comm.key.id}},'','loading')" title="show the whole comment"> » </a>
         </span>
       </div>
     </li>
@@ -95,23 +95,17 @@
 
 <!-- sidebar south START -->
 <div id="southsidebar" class="sidebar">
-  <div id="tag_cloud" class="widget widget_tag_cloud"><h3>Tags</h3><a href="http://www.blowblood.com/tag/blockquote/" class="tag-link-11" title="1 topic" rel="tag" style="font-size: 8pt;">blockquote</a>
-<a href="/tag/categories/" class="tag-link-23" title="1 topic" rel="tag" style="font-size: 8pt;">Categories</a>
-<a href="/tag/header/" class="tag-link-12" title="1 topic" rel="tag" style="font-size: 8pt;">Header</a>
-<a href="/tag/hello/" class="tag-link-21" title="2 topics" rel="tag" style="font-size: 15pt;">Hello</a>
-<a href="/tag/images/" class="tag-link-18" title="1 topic" rel="tag" style="font-size: 8pt;">Images</a>
-<a href="/tag/links/" class="tag-link-22" title="1 topic" rel="tag" style="font-size: 8pt;">Links</a>
-<a href="/list/" class="tag-link-19" title="1 topic" rel="tag" style="font-size: 8pt;">List</a>
-<a href="/next-page/" class="tag-link-16" title="1 topic" rel="tag" style="font-size: 8pt;">Next page</a>
-<a href="/tag/password/" class="tag-link-17" title="1 topic" rel="tag" style="font-size: 8pt;">Password</a>
-<a href="/tag/read-more/" class="tag-link-14" title="1 topic" rel="tag" style="font-size: 8pt;">Read more</a>
-<a href="/tag/tags/" class="tag-link-13" title="3 topics" rel="tag" style="font-size: 22pt;">Tags</a>
-<a href="/tag/title/" class="tag-link-15" title="1 topic" rel="tag" style="font-size: 8pt;">title</a>
-<a href="/tag/welcome/" class="tag-link-20" title="1 topic" rel="tag" style="font-size: 8pt;">Welcome</a></div>
-<div id="meta" class="widget widget_meta"><h3>Meta</h3><ul>			
+  <div id="tag_cloud" class="widget tag_cloud">
+     <h3>Tags</h3>
+    {%for tag in tags%}
+        <a href="/tag/{{tag.name}}" title="{{tag.num}} topic"  style="font-size:{{tag.num|hot2fsize}}%">{{tag.name|unquote}}</a>       
+    {%endfor%}
+</div>
+<div id="meta" class="widget widget_meta">
+  <h3>Meta</h3>
+    <ul>			
 			<li><a href="http://www.blowblood.com/feed/" title="Syndicate this site using RSS 2.0">Entries <abbr title="Really Simple Syndication">RSS</abbr></a></li>
-			<li><a href="http://www.blowblood.com/comments/feed/" title="The latest comments to all posts in RSS">Comments <abbr title="Really Simple Syndication">RSS</abbr></a></li>
-			<li><a href="http://wordpress.org/" title="Powered by WordPress, state-of-the-art semantic personal publishing platform.">WordPress.org</a></li>
+			<li><a href="http://www.blowblood.com/comments/feed/" title="The latest comments to all posts in RSS">Comments <abbr title="Really Simple Syndication">RSS</abbr></a></li>			
 		</ul></div>		
 </div>
 <!-- sidebar south END -->

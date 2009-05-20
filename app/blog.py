@@ -42,6 +42,7 @@ class BaseRequestHandler(webapp.RequestHandler):
       'categories': util.getCategoryLists(),
       'calendar': cal,
       'recentcoms': util.getRecentComment(),
+      'tags': util.getTagLists(),
     }    
     values.update(template_values)
     path = os.path.join(os.path.dirname(__file__), template_name)
@@ -140,6 +141,7 @@ class AddPost(BaseRequestHandler):
     post.permalink =  permalink
     post.save()    
     util.flushCategoryLists()
+    util.flushTagLists()
     self.redirect(post.full_permalink())    
     
 class DeletePost(BaseRequestHandler):
@@ -155,8 +157,10 @@ class DeletePost(BaseRequestHandler):
   def post(self,PostID):
     post= Post.get_by_id(int(PostID))
     if(post is not None):
-        post.delete()
-        util.flushCategoryLists()
+      post.clear_tags()
+      post.delete()
+      util.flushCategoryLists()
+      util.flushTagLists()
     self.redirect('/')
    
 class EditPost(BaseRequestHandler):
@@ -175,7 +179,8 @@ class EditPost(BaseRequestHandler):
     post= Post.get_by_id(int(PostID))
     if(post is None):
       self.redirect('/')    
-    post.title = self.request.get('title_input')    
+    post.title = self.request.get('title_input') 
+    post.clear_tags()   
     post.tags_commas = self.request.get('tags')
     post.content = self.request.get('content')
     post.catalog = urllib.quote(self.request.get('blogcatalog').encode('utf8'))
@@ -188,6 +193,7 @@ class EditPost(BaseRequestHandler):
     post.lastModifiedBy = users.get_current_user()        
     post.update()
     util.flushCategoryLists()
+    util.flushTagLists()
     self.redirect(post.full_permalink())
     
 class AddComment(BaseRequestHandler):
@@ -219,7 +225,7 @@ class PostView(BaseRequestHandler):
     post = db.Query(Post).filter('permalink =',perm_stem).get()
     if(post is None):
       self.redirect('/')
-    url = None
+    url = ""
     if users.is_current_user_admin():
       url = "www.blowblood.com"
     template_values = {
