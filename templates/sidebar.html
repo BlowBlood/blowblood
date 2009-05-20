@@ -1,4 +1,4 @@
-<!-- sidebar START -->
+﻿<!-- sidebar START -->
 <div id="sidebar">
   <!-- sidebar north START -->
 <div id="northsidebar" class="sidebar"> 
@@ -50,17 +50,12 @@
       <div class="rc_excerpt">
         {{comm.content}}
         <span class="rc_expand">
-          <a href="javascript:void(0);" onclick="RCJS.detail(857,'http://demo.neoease.com','limit--5|length--50|post--false|pingback--false|trackback--false|avatar--true|avatar_size--32|avatar_position--left|avatar_default--|navigator--true|administrator--true|smilies--false',0,'Loading');">&gt;&gt;</a>
+          <a href="javascript:void(0);" onclick="RCJS.detail('/rpc?action=rc_detail_ajax',{{comm.key.id}},'','loading')"> » </a>
         </span>
       </div>
     </li>
 	  {%endfor%}
-	  <li id="rc_nav">
-	    <div>
-	     <div id="rc_older"><a href="javascript:void(0);" onclick="RCJS.page('http://demo.neoease.com','limit--5|length--50|post--false|pingback--false|trackback--false|avatar--true|avatar_size--32|avatar_position--left|avatar_default--|navigator--true|administrator--true|smilies--false',5,'Loading');">Older&gt;&gt;</a></div>
-	     <div class="rc_fixed"></div>
-	    </div>
-	  </li>	    
+	  <li id="rc_nav"><br /></li>	    
 	  </ul>
 	</div>	
 </div>

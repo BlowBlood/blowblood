@@ -1,14 +1,23 @@
-import os
+import os, datetime
 
 from django.utils import simplejson
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
 from google.appengine.ext.webapp import util
 
+from app.model import *
+from app import util
+
 class MainPage(webapp.RequestHandler):
   """ Renders the main template."""
   def get(self):
-    template_values = { 'title':'AJAX Add (via GET)', }
+    referer = 'null'
+    if os.environ.has_key('HTTP_REFERER'):
+      referer = os.environ['HTTP_REFERER']    
+    template_values = {
+      'title':'AJAX Add (via GET)',
+      'referer': referer,
+    }
     path = os.path.join(os.path.dirname(__file__), "../templates/rpc.html")
     self.response.out.write(template.render(path, template_values))
 
@@ -32,8 +41,16 @@ class RPCHandler(webapp.RequestHandler):
     if not func:
       self.error(404) # file not found
       return
-     
-    args = ()
+    
+    id = int(self.request.get('id'))
+    if id:
+      result = func(id)
+      template_values = {
+        'comm': result,
+      }
+      path = os.path.join(os.path.dirname(__file__), "../templates/rc_detail.html")
+      self.response.out.write(template.render(path, template_values))
+    """args = ()
     while True:
       key = 'arg%d' % len(args)
       val = self.request.get(key)
@@ -41,17 +58,20 @@ class RPCHandler(webapp.RequestHandler):
         args += (simplejson.loads(val),)
       else:
         break
-    result = func(*args)
-    self.response.out.write(simplejson.dumps(result))
-
+    result = func(*args)"""
 
 class RPCMethods:
   """ Defines the methods that can be RPCed.
   NOTE: Do not allow remote callers access to private/protected "_*" methods.
   """
 
-  def Add(self, *args):
+  """def Add(self, *args):
     # The JSON encoding may have encoded integers as strings.
     # Be sure to convert args to any mandatory type(s).
     ints = [int(arg) for arg in args]
-    return sum(ints)
+    return sum(ints)"""
+  def rc_detail_ajax(self, comm_id):
+    comm = Comment.get_by_id(comm_id)
+    if comm is not None:
+      return comm
+    return "not found"

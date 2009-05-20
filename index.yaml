@@ -10,14 +10,14 @@ indexes:
 # automatically uploaded to the admin console when you next deploy
 # your application using appcfg.py.
 
-# Used 27 times in query history.
+# Unused in query history -- copied from input.
 - kind: Post
   properties:
   - name: catalog
   - name: date
     direction: desc
 
-# Used 2 times in query history.
+# Unused in query history -- copied from input.
 - kind: Post
   properties:
   - name: catalog
@@ -37,7 +37,7 @@ indexes:
   - name: permalink
     direction: desc
 
-# Used 11 times in query history.
+# Used 4 times in query history.
 - kind: Post
   properties:
   - name: private
