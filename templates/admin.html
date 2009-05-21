@@ -31,7 +31,7 @@ function rpc(action){
   pwurl = "/rpc?action="+action;  
   try{ajax.open("POST",pwurl,true);} catch(e){alert(e);}
   ajax.setRequestHeader("Content-length", 0); 
-  ajax.send(null);
+  ajax.send('');
 }
 </script>
     <div id="postpath"><a title="Goto homepage" href="/">Home</a> &gt; Admin</div>
