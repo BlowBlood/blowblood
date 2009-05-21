@@ -1,5 +1,5 @@
 from google.appengine.ext import db
-import urllib
+import urllib, re
 
 class Post(db.Model):
     permalink = db.StringProperty()
@@ -25,7 +25,7 @@ class Post(db.Model):
   
     def set_tags(self, tags):
         if tags:
-            self.tags = [db.Category(urllib.quote(tag.strip().encode('utf8'))) for tag in tags.split(',')]
+            self.tags = [db.Category(urllib.quote(tag.strip().encode('utf8'))) for tag in re.split(',|，',tags)]
   
     tags_commas = property(get_tags,set_tags)
 
