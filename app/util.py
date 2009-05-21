@@ -7,7 +7,7 @@ from google.appengine.api import urlfetch, users, memcache
 
 from app.BeautifulSoup import BeautifulSoup
 
-from model import Post, Category, Comment, Tag
+from model import Post, Category, Comment, Tag, Archive
 
 def getUserNickname(user):
     default = "anonymous"
@@ -114,6 +114,17 @@ def getTagLists():
     if not memcache.add(key_, tags, 3600):
       logging.error("Memcache set failed.")
     return tags
+  
+def getArchiveLists():
+  key_ = "archive_lists"
+  archives = memcache.get(key_)
+  if archives is not None:
+    return archives
+  else:
+    archives = Archive.all()
+    if not memcache.add(key_, archives, 3600):
+      logging.error("Memcache set failed.")
+    return archives
     
 def getRecentComment():
   key_ = "recent_comments"
@@ -146,7 +157,11 @@ def flushCategoryLists():
 def flushTagLists():
   key_ = "tag_lists"
   memcache.delete(key_)
-    
+
+def flushArchiveLists(): 
+  key_ = "archive_lists" 
+  memcache.delete(key_)
+      
 def flushRecentComment():
   key_ = "recent_comments"
   memcache.delete(key_)

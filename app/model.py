@@ -54,10 +54,32 @@ class Post(db.Model):
                         tags[0].delete()
                     else:
                         tags[0].put()
-    def save(self):
-      self.update_tags(False)
+    
+    def update_archive(self,update):
+      """Add or Update archive of this post"""
       my = self.date.strftime('%B %Y') # July 2008
       self.monthyear = my
+      archive = Archive.all().filter('monthyear',my).fetch(10)
+      if archive == []:
+        archive = Archive(monthyear = my, num = 1)
+        archive.put()
+      else:
+        if not update:          
+          archive[0].num += 1
+          archive[0].put()      
+    
+    def clear_archive(self):
+      archive = Archive.all().filter('monthyear',self.monthyear).fetch(10)
+      if archive  != []:
+        if archive[0].num == 1:
+          archive[0].delete()
+        else:
+          archive[0].num -= 1
+          archive[0].put()
+                    
+    def save(self):
+      self.update_tags(False)
+      self.update_archive(False)
       self.put()
     
     def update(self):
@@ -80,7 +102,11 @@ class Comment(db.Model):
     if self.post is not None:
       self.post.commentcount += 1
       self.post.put()
-  
+
+class Archive(db.Model):
+  monthyear = db.StringProperty()
+  num = db.IntegerProperty(default=0)
+    
 class Category(db.Model):
   name = db.StringProperty()
   num = db.IntegerProperty(default=0)

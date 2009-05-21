@@ -43,6 +43,7 @@ class BaseRequestHandler(webapp.RequestHandler):
       'calendar': cal,
       'recentcoms': util.getRecentComment(),
       'tags': util.getTagLists(),
+      'archives': util.getArchiveLists(),
     }    
     values.update(template_values)
     path = os.path.join(os.path.dirname(__file__), template_name)
@@ -141,6 +142,7 @@ class AddPost(BaseRequestHandler):
     post.permalink =  permalink
     post.save()    
     util.flushCategoryLists()
+    util.flushArchiveLists()
     util.flushTagLists()
     self.redirect(post.full_permalink())    
     
@@ -158,8 +160,14 @@ class DeletePost(BaseRequestHandler):
     post= Post.get_by_id(int(PostID))
     if(post is not None):
       post.clear_tags()
+      post.clear_archive()
+      comments = post.comment_set
+      for comment in comments:
+        comment.delete()
       post.delete()
+      util.flushRecentComment()
       util.flushCategoryLists()
+      util.flushArchiveLists()
       util.flushTagLists()
     self.redirect('/')
    

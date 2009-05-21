@@ -107,6 +107,21 @@ class RPCMethods:
       tag_.put()    
     return "ok"
     
+  def rbarchives(self):
+    d={}
+    posts = Post.all()
+    for post in posts:
+      my = post.monthyear
+      d[my] = d.get(my,0) + 1
+    archives = Archive.all().fetch(1000)
+    db.delete(archives)
+    for key in d.keys():
+      archive_ = Archive()
+      archive_.monthyear = key
+      archive_.num = d[key]
+      archive_.put()    
+    return "ok"
+    
   def flushall(self):
     util.flushAll() 
     return "ok"

@@ -85,7 +85,9 @@
 <div class="widget widget_archive">
 	<h3>Archives</h3>
 	<ul>
-	<li><a href="http://www.blowblood.com/2008/09/" title="September 2008" rel="nofollow">Sep. 2008</a></li>
+	{%for archive in archives%}
+	<li><a href="#" title="{{archive.monthyear}}" rel="nofollow">{{archive.monthyear}}({{archive.num}})</a></li>
+	{%endfor%}
 	</ul>
 </div>
 </div>
