@@ -121,7 +121,7 @@ def getArchiveLists():
   if archives is not None:
     return archives
   else:
-    archives = Archive.all()
+    archives = Archive.all().order("-date")
     if not memcache.add(key_, archives, 3600):
       logging.error("Memcache set failed.")
     return archives

@@ -106,6 +106,7 @@ class Comment(db.Model):
 class Archive(db.Model):
   monthyear = db.StringProperty()
   num = db.IntegerProperty(default=0)
+  date = db.DateTimeProperty(auto_now_add=True)
     
 class Category(db.Model):
   name = db.StringProperty()

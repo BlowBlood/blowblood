@@ -109,7 +109,7 @@ class RPCMethods:
     
   def rbarchives(self):
     d={}
-    posts = Post.all()
+    posts = Post.all().order("date")
     for post in posts:
       my = post.monthyear
       d[my] = d.get(my,0) + 1
@@ -119,7 +119,8 @@ class RPCMethods:
       archive_ = Archive()
       archive_.monthyear = key
       archive_.num = d[key]
-      archive_.put()    
+      archive_.put()
+    util.flushArchiveLists()
     return "ok"
     
   def flushall(self):
