@@ -109,16 +109,23 @@ class RPCMethods:
     
   def rbarchives(self):
     d={}
+    date = {}
     posts = Post.all().order("date")
     for post in posts:
       my = post.monthyear
-      d[my] = d.get(my,0) + 1
+      num = d.get(my,0)
+      if num == 0:
+        d[my] = 1
+        date[my] = post.date
+      else:
+        d[my] = num + 1
     archives = Archive.all().fetch(1000)
     db.delete(archives)
     for key in d.keys():
       archive_ = Archive()
       archive_.monthyear = key
       archive_.num = d[key]
+      archive_.date = date[key]
       archive_.put()
     util.flushArchiveLists()
     return "ok"

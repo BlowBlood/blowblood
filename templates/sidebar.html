@@ -86,7 +86,7 @@
 	<h3>Archives</h3>
 	<ul>
 	{%for archive in archives%}
-	<li><a href="#" title="{{archive.monthyear}}" rel="nofollow">{{archive.monthyear}}({{archive.num}})</a></li>
+	<li><a href="#" title="{{archive.monthyear}}" rel="nofollow">{{archive.date|timezone:8|date:"Y/m"}}({{archive.num}})</a></li>
 	{%endfor%}
 	</ul>
 </div>
