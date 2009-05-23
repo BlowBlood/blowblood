@@ -18,7 +18,7 @@ class Post(db.Model):
     monthyear = db.StringProperty(multiline=False)
 
     def full_permalink(self):        
-        return '/' + self.date.strftime('%Y/%m/')+ self.permalink
+        return '/post/' +  str(self.key().id())
         
     def get_tags(self):
         '''comma delimted list of tags'''

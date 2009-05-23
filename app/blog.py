@@ -128,18 +128,18 @@ class AddPost(BaseRequestHandler):
       post.private = True;
     else:      
       post.private = False;        
-    try:
-      permalink =  util.get_permalink(post.date,util.translate('zh-CN','en', util.u(post.title,'utf-8')))
-      if not permalink:
-        raise Exception
-    except Exception: 
-      self.response.out.write("transalte error in title %s = %s<br />\n" % (post.title,util.get_permalink(post.date,util.translate('zh-CN','en', util.u(post.title,'utf-8')))))
-      return
+    #try:     #no need this ugly permalink now!
+    #  permalink =  util.get_permalink(post.date,util.translate('zh-CN','en', util.u(post.title,'utf-8')))
+    #  if not permalink:
+    #    raise Exception
+    #except Exception: 
+    #  self.response.out.write("transalte error in title %s = %s<br />\n" % (post.title,util.get_permalink(post.date,util.translate('zh-CN','en', util.u(post.title,'utf-8')))))
+    #  return
     #check the permalink duplication problem.
-    maxpermalinkBlog = db.GqlQuery("select * from Post where permalink >= :1 and permalink < :2 order by permalink desc",permalink, permalink+u"\xEF\xBF\xBD").get()
-    if maxpermalinkBlog is not None:
-      permalink = maxpermalinkBlog.permalink+ post.date.strftime('-%Y-%m-%d')
-    post.permalink =  permalink
+    #maxpermalinkBlog = db.GqlQuery("select * from Post where permalink >= :1 and permalink < :2 order by permalink desc",permalink, permalink+u"\xEF\xBF\xBD").get()
+    #if maxpermalinkBlog is not None:
+    #  permalink = maxpermalinkBlog.permalink+ post.date.strftime('-%Y-%m-%d')
+    #post.permalink =  permalink
     post.save()    
     util.flushCategoryLists()
     util.flushArchiveLists()
@@ -229,8 +229,9 @@ class AddComment(BaseRequestHandler):
     self.redirect(post.full_permalink())
     
 class PostView(BaseRequestHandler):
-  def get(self,year,month,perm_stem): 
-    post = db.Query(Post).filter('permalink =',perm_stem).get()
+  def get(self,post_id): 
+    post_id_ = int(post_id)
+    post = Post.get_by_id(post_id_)    
     if(post is None):
       self.redirect('/')
     url = ""
