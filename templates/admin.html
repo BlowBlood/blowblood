@@ -40,7 +40,7 @@ function rpc(action){
 		  <table><tbody id="ncategory" style="width:90%">
 		    <tr><th style="width:50em">Name</th><th>Num</th></tr>
 		    {%for category in categories%}
-		    <tr><td>{{category.name}}</td><td>{{category.num}}</td></tr>
+		    <tr><td>{{category.name|unquote}}</td><td>{{category.num}}</td></tr>
 		    {%endfor%}
 		  </tbody></table>
 		  <a href="javascript:newcategory()">add new category</a>

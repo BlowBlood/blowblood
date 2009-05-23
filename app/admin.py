@@ -1,4 +1,4 @@
-import os
+import os, urllib
 
 from google.appengine.api import users, memcache
 from google.appengine.ext.webapp import template
@@ -52,7 +52,7 @@ class MainPage(BaseRequestHandler):
     self.generate('../templates/admin.html', template_values)
     
   def post(self):
-    name = self.request.get('name')
+    name = urllib.quote(self.request.get('name').encode('utf8'))
     category = Category.all().filter('name',name).get()
     if category is not None:
       self.response.out.write('category: %s has already existed' % (name))

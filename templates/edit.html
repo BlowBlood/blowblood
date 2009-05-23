@@ -20,7 +20,7 @@
          (private)&nbsp;&nbsp;
          <select name="blogcatalog"> 
          {%for category in categories%}
-          <option value="{{category.name}}" {%ifequal post.catalog category.name%}selected="selected"{%endifequal%}>{{category.name}}</option>
+          <option value="{{category.name}}" {%ifequal post.catalog category.name%}selected="selected"{%endifequal%}>{{category.name|unquote}}</option>
          {%endfor%}            
          </select> 
       </div> 

@@ -19,7 +19,7 @@
          <input type="checkbox" name="private" value="private">(private)&nbsp;&nbsp;
          <select name="blogcatalog"> 
          {%for category in categories%}
-          <option value="{{category.name}}">{{category.name}}</option>
+          <option value="{{category.name}}">{{category.name|unquote}}</option>
          {%endfor%} 
          </select> 
       </div> 

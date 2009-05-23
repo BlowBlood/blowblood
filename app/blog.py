@@ -122,7 +122,7 @@ class AddPost(BaseRequestHandler):
     post.tags_commas = self.request.get('tags')
     user = users.get_current_user()
     post.author = user
-    post.catalog = urllib.quote(self.request.get('blogcatalog').encode('utf8'))
+    post.catalog = self.request.get('blogcatalog')
     private = self.request.get('private')
     if private:
       post.private = True;
@@ -194,7 +194,7 @@ class EditPost(BaseRequestHandler):
     post.tags_commas = self.request.get('tags')
     post.content = self.request.get('content')
     post.clear_category()
-    post.catalog = urllib.quote(self.request.get('blogcatalog').encode('utf8'))
+    post.catalog = self.request.get('blogcatalog')
     private = self.request.get('private')    
     if private:
       post.private = True;
