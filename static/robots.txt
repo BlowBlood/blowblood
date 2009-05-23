@@ -1,0 +1,10 @@
+User-Agent: *
+Disallow: /add
+Disallow: /delete
+Disallow: /edit
+Disallow: /upload
+Disallow: /addcomment
+Disallow: /admin
+Disallow: /rpcm
+Disallow: /rpc
+Disallow: /e
