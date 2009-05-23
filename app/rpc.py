@@ -129,7 +129,21 @@ class RPCMethods:
       archive_.put()
     util.flushArchiveLists()
     return "ok"
-    
+  
+  def rbcategories(self):
+    d={}
+    posts = Post.all()
+    for post in posts:    
+      d[post.catalog] = d.get(post.catalog,0) + 1
+    categories = Category.all().fetch(1000)
+    db.delete(categories)
+    for key in d.keys():
+      category_ = Category()
+      category_.name = key
+      category_.num = d[key]
+      category_.put()    
+    return "ok"
+      
   def flushall(self):
     util.flushAll() 
     return "ok"

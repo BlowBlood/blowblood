@@ -162,6 +162,7 @@ class DeletePost(BaseRequestHandler):
     if(post is not None):
       post.clear_tags()
       post.clear_archive()
+      post.clear_category()
       comments = post.comment_set
       for comment in comments:
         comment.delete()
@@ -192,6 +193,7 @@ class EditPost(BaseRequestHandler):
     post.clear_tags()   
     post.tags_commas = self.request.get('tags')
     post.content = self.request.get('content')
+    post.clear_category()
     post.catalog = urllib.quote(self.request.get('blogcatalog').encode('utf8'))
     private = self.request.get('private')    
     if private:

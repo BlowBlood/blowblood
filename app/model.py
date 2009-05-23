@@ -76,14 +76,36 @@ class Post(db.Model):
         else:
           archive[0].num -= 1
           archive[0].put()
-                    
+          
+    def update_category(self,update):
+      """Add or Update archive of this post"""
+      category = Category.all().filter('name',self.catalog).fetch(10)
+      if category == []:
+        category_ = Category(name = self.catalog, num = 1)
+        category_.put()
+      else:
+        if not update:          
+          category[0].num += 1
+          category[0].put()      
+    
+    def clear_category(self):
+      category = Category.all().filter('name',self.catalog).fetch(10)
+      if category  != []:
+        if category[0].num == 1:
+          category[0].delete()
+        else:
+          category[0].num -= 1
+          category[0].put()      
+                        
     def save(self):
       self.update_tags(False)
       self.update_archive(False)
+      self.update_category(False)
       self.put()
     
     def update(self):
       self.update_tags(False)
+      self.update_category(False)
       self.put()
 
 class Comment(db.Model):
