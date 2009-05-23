@@ -144,6 +144,7 @@ class AddPost(BaseRequestHandler):
     util.flushCategoryLists()
     util.flushArchiveLists()
     util.flushTagLists()
+    util.flushPublicPosts()
     self.redirect(post.full_permalink())    
     
 class DeletePost(BaseRequestHandler):
@@ -258,7 +259,26 @@ class CatalogHandler(BaseRequestHandler):
         'posts': posts,
       }
       self.generate('../templates/view.html', template_values)
-    
+
+class ArchiveHandler(BaseRequestHandler):
+  def get(self,year,month):
+    if year is None:
+      self.redirect('/')
+    if month is None:
+      self.redirect('/')
+    my = year + "/" + month    
+    if users.is_current_user_admin():
+      posts = Post.gql('where monthyear =:1 ORDER BY date desc',my)
+    else:
+      posts = util.getPublicArchive(my)  #only cahced public items
+    if(posts is None):
+      self.redirect('/')
+    else:
+      template_values = {
+        'posts': posts,
+      }
+      self.generate('../templates/view.html', template_values)
+          
 class TagHandler(BaseRequestHandler):
   def get(self,tag):
     if users.is_current_user_admin():

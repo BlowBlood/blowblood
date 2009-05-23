@@ -19,6 +19,7 @@ def main():
                                       ('/post/(\d+)/*$', blog.PostView),
                                       ('/category/(.*)/*$', blog.CatalogHandler),
                                       ('/tag/(.*)/*$', blog.TagHandler),
+                                      ('/archive/([12]\d\d\d)/([01]\d)/*$', blog.ArchiveHandler),
                                       
                                       ('/admin/*$',admin.MainPage),
                                       ('/rpcm/*$',rpc.MainPage),

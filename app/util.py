@@ -79,16 +79,13 @@ def getPublicCategory(category):
     return posts
     
 def getPublicTag(tag):
-  key_ = "tag_" + tag
-  posts = memcache.get(key_)
-  if posts is not None:
-    return posts
-  else:
-    posts = Post.all().filter('tags',tag).filter('private',False).order('-date')
-    if not memcache.add(key_, posts, 3600):
-      logging.error("Memcache set failed.")
-    return posts
-
+  posts = Post.all().filter('tags',tag).filter('private',False).order('-date')
+  return posts
+    
+def getPublicArchive(monthyear):
+  posts = Post.all().filter('monthyear',monthyear).filter('private',False).order('-date')
+  return posts
+    
 def getCategoryLists():
   key_ = "category_lists"
   categories = memcache.get(key_)
@@ -142,14 +139,17 @@ def getRecentComment():
 def flushPublicPosts():
   memcache.delete("public_posts")
   
-def flushPublicPublicCategory(category):
+def flushPublicCategory(category):
   key_ = "category_" + category
   memcache.delete(key_)
   
-def flushPublicPublicTag(tag):
+def flushPublicTag(tag):
   key_ = "tag_" + tag
   memcache.delete(key_)
   
+def flushPublic(monthyear):
+  key_ = "tag_" + monthyear
+  memcache.delete(key_)  
 def flushCategoryLists():
   key_ = "category_lists"
   memcache.delete(key_)

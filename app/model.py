@@ -57,7 +57,7 @@ class Post(db.Model):
     
     def update_archive(self,update):
       """Add or Update archive of this post"""
-      my = self.date.strftime('%B %Y') # July 2008
+      my = self.date.strftime('%Y/%m') # 2008/05
       self.monthyear = my
       archive = Archive.all().filter('monthyear',my).fetch(10)
       if archive == []:
