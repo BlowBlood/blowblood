@@ -230,7 +230,23 @@ class AddComment(BaseRequestHandler):
     comment.save()
     util.flushRecentComment()
     self.redirect(post.full_permalink())
-    
+
+class OPostView(BaseRequestHandler):
+  def get(self,year,month,perm_stem): 
+    post = db.Query(Post).filter('permalink =',perm_stem).get()
+    if(post is None):
+      self.redirect('/')
+    url = ""
+    if users.is_current_user_admin():
+      url = "www.blowblood.com"
+    template_values = {
+      'post': post,            
+      'comments': post.comment_set,
+      'url': url,
+      'email': os.environ['USER_EMAIL'],
+    }
+    self.generate('../templates/post.html', template_values)
+        
 class PostView(BaseRequestHandler):
   def get(self,post_id): 
     post_id_ = int(post_id)

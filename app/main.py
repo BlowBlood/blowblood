@@ -17,6 +17,7 @@ def main():
                                       ('/addcomment/*$', blog.AddComment),
                                       
                                       ('/post/(\d+)/*$', blog.PostView),
+                                      ('/([12]\d\d\d)/(\d|[01]\d)/([-\w]+)/*$', blog.OPostView),
                                       ('/category/(.*)/*$', blog.CatalogHandler),
                                       ('/tag/(.*)/*$', blog.TagHandler),
                                       ('/archive/([12]\d\d\d)/([01]\d)/*$', blog.ArchiveHandler),
