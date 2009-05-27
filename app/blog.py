@@ -10,7 +10,7 @@ from google.appengine.ext import db
 from google.appengine.ext.webapp.util import login_required
 from google.appengine.api import users
 
-from app import util, authorized
+from app import util, authorized, log
 from model import Post, Comment
 
 PAGESIZE = 8
@@ -22,12 +22,13 @@ class BaseRequestHandler(webapp.RequestHandler):
   the current user in the 'user' variable and the current webapp request
   in the 'request' variable.
   """
+  @log.visitor
   def generate(self, template_name, template_values={}):
     if users.get_current_user():
-      url = util.xhtmlize_url(users.create_logout_url(self.request.uri))
+      log_url = util.xhtmlize_url(users.create_logout_url(self.request.uri))
       url_linktext = 'Logout'
     else:
-      url = util.xhtmlize_url(users.create_login_url(self.request.uri))
+      log_url = util.xhtmlize_url(users.create_login_url(self.request.uri))
       url_linktext = 'Login'
     ym = datetime.datetime.now().strftime("%Y %m %d").split()
     cal = calendar.HTMLCalendar().formatmonth(int(ym[0]),int(ym[1]))
@@ -37,13 +38,14 @@ class BaseRequestHandler(webapp.RequestHandler):
       'user': users.GetCurrentUser(),
       'user_is_admin': users.is_current_user_admin(),
       'user_nickname': util.getUserNickname(users.get_current_user()),
-      'url': url,
+      'log_url': log_url,
       'url_linktext': url_linktext,
       'categories': util.getCategoryLists(),
       'calendar': cal,
       'recentcoms': util.getRecentComment(),
       'tags': util.getTagLists(),
       'archives': util.getArchiveLists(),
+      'counter': util.getCounter(),
     }    
     values.update(template_values)
     path = os.path.join(os.path.dirname(__file__), template_name)
@@ -65,6 +67,7 @@ class ExceptionHander(webapp.RequestHandler):
       
       
 class MainPage(BaseRequestHandler):
+  @log.counter
   def get(self):
     if users.is_current_user_admin():
       posts = Post.all().order('-date').fetch(PAGESIZE+1)
@@ -83,6 +86,7 @@ class MainPage(BaseRequestHandler):
     self.generate('../templates/view.html', template_values)
     
 class PageHandler(BaseRequestHandler):
+  @log.counter
   def get(self,page_num):
     try:
       page = int(page_num)
@@ -232,6 +236,7 @@ class AddComment(BaseRequestHandler):
     self.redirect(post.full_permalink())
 
 class OPostView(BaseRequestHandler):
+  @log.counter
   def get(self,year,month,perm_stem): 
     post = db.Query(Post).filter('permalink =',perm_stem).get()
     if(post is None):
@@ -239,6 +244,9 @@ class OPostView(BaseRequestHandler):
     url = ""
     if users.is_current_user_admin():
       url = "www.blowblood.com"
+    else:
+      post.hitcount += 1
+      post.put()
     template_values = {
       'post': post,            
       'comments': post.comment_set,
@@ -248,6 +256,7 @@ class OPostView(BaseRequestHandler):
     self.generate('../templates/post.html', template_values)
         
 class PostView(BaseRequestHandler):
+  @log.counter
   def get(self,post_id): 
     post_id_ = int(post_id)
     post = Post.get_by_id(post_id_)    
@@ -256,6 +265,9 @@ class PostView(BaseRequestHandler):
     url = ""
     if users.is_current_user_admin():
       url = "www.blowblood.com"
+    else:
+      post.hitcount += 1
+      post.put()
     template_values = {
       'post': post,            
       'comments': post.comment_set,

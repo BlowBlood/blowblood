@@ -7,7 +7,7 @@ from google.appengine.api import urlfetch, users, memcache
 
 from app.BeautifulSoup import BeautifulSoup
 
-from model import Post, Category, Comment, Tag, Archive
+from model import Post, Category, Comment, Tag, Archive, Counter
 
 def getUserNickname(user):
     default = "anonymous"
@@ -190,4 +190,10 @@ def getFontSizeFromHot(num):
     return 300
   if num<1280:
     return 330
-  return 360     
+  return 360
+  
+def getCounter():
+  counter = Counter.all().get()
+  if counter is None:
+    return 0    
+  return counter.count

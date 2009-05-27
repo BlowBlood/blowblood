@@ -146,3 +146,14 @@ class BBBlog(db.Model):
   base_url = db.StringProperty(multiline=False,default='http://www.blowblood.com')  
   num_post_per_page = db.IntegerProperty(default=8)
   web_hit_count = db.IntegerProperty(default=0)
+  
+class Counter(db.Model):
+  count = db.IntegerProperty(default=0)
+  
+class Visitor(db.Model):
+  nickname = db.StringProperty(default="anonymous")
+  userIP = db.StringProperty()
+  date = db.DateTimeProperty(auto_now_add=True)
+  url = db.StringProperty()
+  webbrowser = db.StringProperty()
+  referer = db.StringProperty()
