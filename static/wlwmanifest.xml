@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<manifest xmlns="http://schemas.microsoft.com/wlw/manifest/weblog">
+<options>
+    <clientType>AtomPub</clientType>
+    <supportsCategories>Yes</supportsCategories>
+    <supportsCategoriesInline>Yes</supportsCategoriesInline>
+    <supportsKeywords>Yes</supportsKeywords>
+    <supportsFileUpload>Yes</supportsFileUpload>
+    <supportsEmbeds>Yes</supportsEmbeds>
+    <requiresXHTML>Yes</requiresXHTML>
+    <supportsScripts>No</supportsScripts>
+    <supportsEmptyTitles>No</supportsEmptyTitles>     
+</options>
+<weblog>
+    <serviceName>BlowBlood</serviceName>
+    <imageUrl>/favicon.ico</imageUrl>
+    <watermarkImageUrl>/static/images/appengine.gif</watermarkImageUrl>
+    <homepageLinkText>View your site</homepageLinkText>
+    <adminLinkText>Manage your site</adminLinkText>  
+    <adminUrl><![CDATA[
+        {blog-homepage-url}/admin
+    ]]></adminUrl>
+    <postEditingUrl><![CDATA[
+        {blog-homepage-url}/edit/{post-id}
+    ]]></postEditingUrl>
+</weblog>
+</manifest>
