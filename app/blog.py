@@ -249,7 +249,7 @@ class OPostView(BaseRequestHandler):
       post.put()
     template_values = {
       'post': post,            
-      'comments': post.comment_set,
+      'comments': sorted(post.comment_set, key = lambda comm:comm.date, reverse = True),
       'url': url,
       'email': os.environ['USER_EMAIL'],
     }
@@ -270,7 +270,7 @@ class PostView(BaseRequestHandler):
       post.put()
     template_values = {
       'post': post,            
-      'comments': post.comment_set,
+      'comments': sorted(post.comment_set, key = lambda comm:comm.date, reverse = True),
       'url': url,
       'email': os.environ['USER_EMAIL'],
     }
