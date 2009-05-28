@@ -22,7 +22,7 @@ def visitor(handler_method):
       visitor = Visitor()
       visitor.nickname= os.environ.get('USER_EMAIL','')
       visitor.userIP = os.environ.get('REMOTE_ADDR','')
-      visitor.url = os.environ.get('PATH_INFO','')
+      visitor.url = self.request.uri
       visitor.webbrowser = os.environ.get('HTTP_USER_AGENT','')
       visitor.referer = os.environ.get('HTTP_REFERER','')
       visitor.put()
