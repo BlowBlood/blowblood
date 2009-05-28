@@ -93,7 +93,7 @@ class PageHandler(BaseRequestHandler):
     except Error:
       raise Error('page_num_is_invalid')
     if page == 1:
-      self.redirect('/')
+      return self.redirect('/')
     if users.is_current_user_admin():
       posts = Post.all().order('-date').fetch(PAGESIZE + 1, (page - 1) * PAGESIZE)
     else:
@@ -149,7 +149,7 @@ class AddPost(BaseRequestHandler):
     util.flushArchiveLists()
     util.flushTagLists()
     util.flushPublicPosts()
-    self.redirect(post.full_permalink())    
+    return self.redirect(post.full_permalink())    
     
 class DeletePost(BaseRequestHandler):
   @authorized.role("admin")
@@ -175,7 +175,7 @@ class DeletePost(BaseRequestHandler):
       util.flushCategoryLists()
       util.flushArchiveLists()
       util.flushTagLists()
-    self.redirect('/')
+    return self.redirect('/')
    
 class EditPost(BaseRequestHandler):
   @authorized.role("admin")
@@ -192,7 +192,7 @@ class EditPost(BaseRequestHandler):
   def post(self,PostID):
     post= Post.get_by_id(int(PostID))
     if(post is None):
-      self.redirect('/')    
+      return self.redirect('/')    
     post.title = self.request.get('title_input') 
     post.clear_tags()   
     post.tags_commas = self.request.get('tags')
@@ -209,14 +209,14 @@ class EditPost(BaseRequestHandler):
     post.update()
     util.flushCategoryLists()
     util.flushTagLists()
-    self.redirect(post.full_permalink())
+    return self.redirect(post.full_permalink())
     
 class AddComment(BaseRequestHandler):
   def post(self):
     post_id_ = self.request.get('post_id')
     post = Post.get_by_id(int(post_id_))
     if post is None:
-      self.redirect('/')
+      return self.redirect('/')
     comment = Comment()
     comment.post = post
     comment.author = self.request.get('author')
@@ -233,14 +233,14 @@ class AddComment(BaseRequestHandler):
       comment.authorEmail = str(user.email())      
     comment.save()
     util.flushRecentComment()
-    self.redirect(post.full_permalink())
+    return self.redirect(post.full_permalink())
 
 class OPostView(BaseRequestHandler):
   @log.counter
   def get(self,year,month,perm_stem): 
     post = db.Query(Post).filter('permalink =',perm_stem).get()
     if(post is None):
-      self.redirect('/')
+      return self.redirect('/')
     url = ""
     if users.is_current_user_admin():
       url = "www.blowblood.com"
@@ -260,8 +260,8 @@ class PostView(BaseRequestHandler):
   def get(self,post_id): 
     post_id_ = int(post_id)
     post = Post.get_by_id(post_id_)    
-    if(post is None):
-      self.redirect('/')
+    if post == None:
+      return self.redirect('/');
     url = ""
     if users.is_current_user_admin():
       url = "www.blowblood.com"
@@ -283,7 +283,7 @@ class CatalogHandler(BaseRequestHandler):
     else:
       posts = util.getPublicCategory(category) #only cahced public items
     if(posts is None):
-      self.redirect('/')
+      return self.redirect('/')
     else:
       template_values = {
         'posts': posts,
@@ -293,16 +293,16 @@ class CatalogHandler(BaseRequestHandler):
 class ArchiveHandler(BaseRequestHandler):
   def get(self,year,month):
     if year is None:
-      self.redirect('/')
+      return self.redirect('/')
     if month is None:
-      self.redirect('/')
+      return self.redirect('/')
     my = year + "/" + month    
     if users.is_current_user_admin():
       posts = Post.gql('where monthyear =:1 ORDER BY date desc',my)
     else:
       posts = util.getPublicArchive(my)  #only cahced public items
     if(posts is None):
-      self.redirect('/')
+      return self.redirect('/')
     else:
       template_values = {
         'posts': posts,
@@ -316,7 +316,7 @@ class TagHandler(BaseRequestHandler):
     else:
       posts = util.getPublicTag(tag) #only cahced public items
     if(posts is None):
-      self.redirect('/')
+      return self.redirect('/')
     else:
       template_values = {
         'posts': posts,            
