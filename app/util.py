@@ -174,7 +174,7 @@ def getGravatarUrl(email):
   # construct the url
   gravatar_url = "http://www.gravatar.com/avatar.php?"
   gravatar_url += urllib.urlencode({'gravatar_id':hashlib.md5(email).hexdigest(), 'default':default, 'size':str(size)})
-  return xhtmlize_url(gravatar_url)
+  return gravatar_url
   
 def getFontSizeFromHot(num):
   num = int(num)
