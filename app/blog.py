@@ -32,8 +32,9 @@ class BaseRequestHandler(webapp.RequestHandler):
       url_linktext = 'Login'
     ym = datetime.datetime.now().strftime("%Y %m %d").split()
     cal = calendar.HTMLCalendar().formatmonth(int(ym[0]),int(ym[1]))
-    today = '<b id="today">'+ym[2]+'</b>'
-    cal = re.sub(ym[2],today,cal)
+    pattern = '<td class="\w\w\w">'+ym[2]+'</td>'
+    today = '<td id="today">'+ym[2]+'</td>'    
+    cal = re.sub(pattern,today,cal)
     values = {
       'user': users.GetCurrentUser(),
       'user_is_admin': users.is_current_user_admin(),

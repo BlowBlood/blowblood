@@ -61,7 +61,7 @@ def getPublicPosts(page):
   posts = memcache.get("public_posts")
   if posts is not None:
     start_ = (page - 1) * PAGESIZE
-    end_ = start + PAGESIZE + 1
+    end_ = start_ + PAGESIZE + 1
     return posts[start_:end_]
   else:
     posts_ = Post.all().filter('private', False).order('-date')

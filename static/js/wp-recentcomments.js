@@ -29,8 +29,7 @@ function detail(wpurl, id, args, loading) {
 	xmlHttp.send(null);
 }
 function runChange(loading) {
-	var firstItem = document.getElementById("rc_item_1");
-	var parent = firstItem.parentNode;
+	var parent = document.getElementById("rc_comm_list");
 	var navigator = document.getElementById("rc_nav");
 	prevcontent = parent.innerHTML
 
@@ -46,8 +45,7 @@ function runChange(loading) {
 	}
 }
 function goback(){
-  var firstItem = document.getElementById("rc_item_1");
-	var parent = firstItem.parentNode;
+  var parent = document.getElementById("rc_comm_list");
 	parent.innerHTML = prevcontent;
 	document.getElementById("rc_nav").innerHTML="<br />"
 }
