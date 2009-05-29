@@ -42,7 +42,8 @@ def space2dollar(str):
     
 @register.filter
 def gravatar(email):
-    return util.getGravatarUrl(email)
+    #return util.getGravatarUrl(email)
+    return '/rpc?action=get_gravatar&amp;email='+email
 
 @register.filter
 def hot2fsize(num):

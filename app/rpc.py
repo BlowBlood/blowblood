@@ -4,6 +4,7 @@ from django.utils import simplejson
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
 from google.appengine.ext.webapp import util
+from google.appengine.api import urlfetch
 
 from app.model import *
 from app import util
@@ -40,26 +41,10 @@ class RPCHandler(webapp.RequestHandler):
    
     if not func:
       self.error(404) # file not found
-      return
+      return   
+        
+    func(self.request,self.response)
     
-    id = int(self.request.get('id'))
-    if id:
-      result = func(id)
-      template_values = {
-        'comm': result,
-      }
-      path = os.path.join(os.path.dirname(__file__), "../templates/rc_detail.html")
-      self.response.out.write(template.render(path, template_values))
-    """args = ()
-    while True:
-      key = 'arg%d' % len(args)
-      val = self.request.get(key)
-      if val:
-        args += (simplejson.loads(val),)
-      else:
-        break
-    result = func(*args)
-    self.response.out.write(result)"""
   def post(self):
     func = None
     action = self.request.get('action')
@@ -81,17 +66,32 @@ class RPCMethods:
   NOTE: Do not allow remote callers access to private/protected "_*" methods.
   """
 
-  """def Add(self, *args):
-    # The JSON encoding may have encoded integers as strings.
-    # Be sure to convert args to any mandatory type(s).
-    ints = [int(arg) for arg in args]
-    return sum(ints)"""
-  def rc_detail_ajax(self, comm_id):
+  """ GET Methids"""
+  def rc_detail_ajax(self, request_,response_):
+    try:
+      comm_id = int(request_.get('id'))
+    except ValueError:
+      return response_.out.write("comm_id is invalid")
     comm = Comment.get_by_id(comm_id)
-    if comm is not None:
-      return comm
-    return "not found"
-    
+    if comm is None:
+      return response_.out.write("comm_id is not found")
+    path = os.path.join(os.path.dirname(__file__), "../templates/rc_detail.html")
+    response_.out.write(template.render(path, {'comm': comm}))
+  
+  def get_gravatar(self, request_,response_):
+    try:
+      email = request_.get('email')
+    except ValueError:
+      return response_.out.write("email is invalid")
+    gravatar_url = util.getGravatarUrl(email)
+    result = urlfetch.fetch(gravatar_url)
+    if result.status_code == 200:
+      response_.headers['Content-Type'] = "image/png"
+      response_.out.write(result.content)
+    else:
+      response_.out.write("No Image")
+      
+  """ POST Methids"""
   def rbtags(self):
     d={}
     posts = Post.all()
