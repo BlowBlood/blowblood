@@ -62,7 +62,8 @@ def getPublicPosts():
   if posts is not None:
     return posts
   else:
-    posts = Post.all().filter('private', False).order('-date')
+    posts_ = Post.all().filter('private', False).order('-date')
+    posts = [x for x in posts_]
     if not memcache.add("public_posts", posts, 3600):
       logging.error("Memcache set failed.")
     return posts    
