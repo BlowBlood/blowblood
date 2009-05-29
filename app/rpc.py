@@ -4,7 +4,7 @@ from django.utils import simplejson
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
 from google.appengine.ext.webapp import util
-from google.appengine.api import urlfetch
+from google.appengine.api import urlfetch, memcache
 
 from app.model import *
 from app import util
@@ -83,13 +83,21 @@ class RPCMethods:
       email = request_.get('email')
     except ValueError:
       return response_.out.write("email is invalid")
-    gravatar_url = util.getGravatarUrl(email)
-    result = urlfetch.fetch(gravatar_url)
-    if result.status_code == 200:
+    key_ = "gravatar_" + email
+    result_content = memcache.get(key_)
+    if result_content is not None:
       response_.headers['Content-Type'] = "image/png"
-      response_.out.write(result.content)
+      return response_.out.write(result_content)
     else:
-      response_.out.write("No Image")
+      gravatar_url = util.getGravatarUrl(email)
+      result = urlfetch.fetch(gravatar_url)
+      if result.status_code == 200:
+        response_.headers['Content-Type'] = "image/png"
+        response_.out.write(result.content)
+        if not memcache.add(key_, result.content, 3600*24):
+          logging.error("Memcache set failed.")
+      else:
+        response_.out.write("No Image")
       
   """ POST Methids"""
   def rbtags(self):
