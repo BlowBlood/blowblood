@@ -85,7 +85,8 @@ def getCategoryLists():
   if categories is not None:
     return categories
   else:
-    categories = Category.all()
+    categories_ = Category.all()
+    categories = [x for x in categories_]
     if not memcache.add(key_, categories, 3600):
       logging.error("Memcache set failed.")
     return categories
@@ -96,7 +97,8 @@ def getTagLists():
   if tags is not None:
     return tags
   else:
-    tags = Tag.all()
+    tags_ = Tag.all()
+    tags = [x for x in tags_]
     if not memcache.add(key_, tags, 3600):
       logging.error("Memcache set failed.")
     return tags
@@ -107,7 +109,8 @@ def getArchiveLists():
   if archives is not None:
     return archives
   else:
-    archives = Archive.all().order("-date")
+    archives_ = Archive.all().order("-date")
+    archives = [x for x in archives_]
     if not memcache.add(key_, archives, 3600):
       logging.error("Memcache set failed.")
     return archives
