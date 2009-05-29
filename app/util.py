@@ -8,7 +8,7 @@ from google.appengine.api import urlfetch, users, memcache
 from app.BeautifulSoup import BeautifulSoup
 
 from model import Post, Category, Comment, Tag, Archive, Counter
-
+PAGESIZE = 8
 def getUserNickname(user):
     default = "anonymous"
     if user:
@@ -57,10 +57,12 @@ def translate(sl, tl, text):
     else:
         return "ss"
         
-def getPublicPosts():
+def getPublicPosts(page):
   posts = memcache.get("public_posts")
   if posts is not None:
-    return posts
+    start_ = (page - 1) * PAGESIZE
+    end_ = start + PAGESIZE + 1
+    return posts[start_:end_]
   else:
     posts_ = Post.all().filter('private', False).order('-date')
     posts = [x for x in posts_]

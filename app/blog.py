@@ -72,7 +72,7 @@ class MainPage(BaseRequestHandler):
     if users.is_current_user_admin():
       posts = Post.all().order('-date').fetch(PAGESIZE+1)
     else:
-      posts = util.getPublicPosts().fetch(PAGESIZE+1)
+      posts = util.getPublicPosts(1)
     polder = None
     if len(posts) == PAGESIZE+1:
       polder = '2'
@@ -97,7 +97,7 @@ class PageHandler(BaseRequestHandler):
     if users.is_current_user_admin():
       posts = Post.all().order('-date').fetch(PAGESIZE + 1, (page - 1) * PAGESIZE)
     else:
-      posts = util.getPublicPosts().fetch(PAGESIZE + 1, (page - 1) * PAGESIZE)
+      posts = util.getPublicPosts(page)
     polder = None
     if len(posts) == PAGESIZE+1:
       polder = page + 1
