@@ -245,14 +245,20 @@ class OPostView(BaseRequestHandler):
     url = ""
     if users.is_current_user_admin():
       url = "www.blowblood.com"
+      prevp = db.GqlQuery("select * from Post where date > :1 order by date limit 1",post.date).get()
+      nextp = db.GqlQuery("select * from Post where date < :1 order by date desc limit 1",post.date).get()
     else:
       post.hitcount += 1
       post.put()
+      prevp = db.GqlQuery("select * from Post where date > :1 and private = False order by date limit 1",post.date).get()
+      nextp = db.GqlQuery("select * from Post where date < :1 and private = False order by date desc limit 1",post.date).get()
     template_values = {
       'post': post,            
       'comments': sorted(post.comment_set, key = lambda comm:comm.date, reverse = True),
       'url': url,
       'email': os.environ['USER_EMAIL'],
+      'prevp': prevp,
+      'nextp': nextp,
     }
     self.generate('../templates/post.html', template_values)
         
@@ -266,14 +272,20 @@ class PostView(BaseRequestHandler):
     url = ""
     if users.is_current_user_admin():
       url = "www.blowblood.com"
+      prevp = db.GqlQuery("select * from Post where date > :1 order by date limit 1",post.date).get()
+      nextp = db.GqlQuery("select * from Post where date < :1 order by date desc limit 1",post.date).get()
     else:
       post.hitcount += 1
       post.put()
+      prevp = db.GqlQuery("select * from Post where date > :1 and private = False order by date limit 1",post.date).get()
+      nextp = db.GqlQuery("select * from Post where date < :1 and private = False order by date desc limit 1",post.date).get()
     template_values = {
       'post': post,            
       'comments': sorted(post.comment_set, key = lambda comm:comm.date, reverse = True),
       'url': url,
       'email': os.environ['USER_EMAIL'],
+      'prevp': prevp,
+      'nextp': nextp,
     }
     self.generate('../templates/post.html', template_values)
     

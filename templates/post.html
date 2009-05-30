@@ -144,8 +144,8 @@
 	<script type="text/javascript">MGJS.loadCommentShortcut();</script>
 
 	<div id="postnavi">
-		<span class="prev"><a href="/">bbb sssss s</a></span>
-		<span class="next"><a href="/">Thread Twitter 0.5</a></span>
+		{%if prevp%}<span class="prev"><a href="{{prevp.full_permalink}}">{{prevp.title}}</a></span>{%endif%}
+		{%if nextp%}<span class="next"><a href="{{nextp.full_permalink}}">{{nextp.title}}</a></span>{%endif%}
 		<div class="fixed"></div>
 	</div>
 </div>
