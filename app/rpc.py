@@ -9,19 +9,6 @@ from google.appengine.api import urlfetch, memcache
 from app.model import *
 from app import util
 
-class MainPage(webapp.RequestHandler):
-  """ Renders the main template."""
-  def get(self):
-    referer = 'null'
-    if os.environ.has_key('HTTP_REFERER'):
-      referer = os.environ['HTTP_REFERER']    
-    template_values = {
-      'title':'AJAX Add (via GET)',
-      'referer': referer,
-    }
-    path = os.path.join(os.path.dirname(__file__), "../templates/rpc.html")
-    self.response.out.write(template.render(path, template_values))
-
 class RPCHandler(webapp.RequestHandler):
   """ Allows the functions defined in the RPCMethods class to be RPCed."""
   def __init__(self):
@@ -94,7 +81,7 @@ class RPCMethods:
       if result.status_code == 200:
         response_.headers['Content-Type'] = "image/png"
         response_.out.write(result.content)
-        if not memcache.add(key_, result.content, 3600*24):
+        if not memcache.add(key_, result.content, 3600):
           logging.error("Memcache set failed.")
       else:
         response_.out.write("No Image")

@@ -1,4 +1,6 @@
-import os, urllib
+import os, urllib, datetime
+import calendar
+import re
 
 from google.appengine.api import users, memcache
 from google.appengine.ext.webapp import template
@@ -22,12 +24,23 @@ class BaseRequestHandler(webapp.RequestHandler):
     else:
       url = util.xhtmlize_url(users.create_login_url(self.request.uri))
       url_linktext = 'Login'
+    ym = datetime.datetime.now().strftime("%Y %m %d").split()
+    cal = calendar.HTMLCalendar().formatmonth(int(ym[0]),int(ym[1]))
+    pattern = '<td class="\w\w\w">'+ym[2]+'</td>'
+    today = '<td id="today">'+ym[2]+'</td>'    
+    cal = re.sub(pattern,today,cal)
     values = {
       'user': users.GetCurrentUser(),
       'user_is_admin': users.is_current_user_admin(),
       'user_nickname': util.getUserNickname(users.get_current_user()),
       'url': url,
-      'url_linktext': url_linktext,      
+      'url_linktext': url_linktext,  
+      'categories': util.getCategoryLists(),
+      'calendar': cal,
+      'recentcoms': util.getRecentComment(),
+      'tags': util.getTagLists(),
+      'archives': util.getArchiveLists(),
+      'counter': util.getCounter(),    
     }    
     values.update(template_values)
     path = os.path.join(os.path.dirname(__file__), template_name)
@@ -46,7 +59,6 @@ class MainPage(BaseRequestHandler):
     format_time += str(oldest_item_age/60)
     cache_stats['oldest_item_age'] = format_time
     template_values = {
-      'categories': categories,
       'cache_stats': cache_stats,
     }    
     self.generate('../templates/admin.html', template_values)

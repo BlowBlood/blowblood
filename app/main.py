@@ -23,7 +23,6 @@ def main():
                                       ('/archive/([12]\d\d\d)/([01]\d)/*$', blog.ArchiveHandler),
                                       
                                       ('/admin/*$',admin.MainPage),
-                                      ('/rpcm/*$',rpc.MainPage),
                                       ('/rpc/*$',rpc.RPCHandler),
                                       
                                       ('/atom/*$',blog.FeedHandler),
