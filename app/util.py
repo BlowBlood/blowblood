@@ -132,15 +132,11 @@ def invalidreg(emailkey):
   return False
 
 def getGravatarUrl(email):
-  # Set your variables here
+  # Set your variables here  
   default = "http://www.blowblood.com/static/images/unkown.jpg"
   if not invalidreg(email):
     return default  
-  size = 32
-  # construct the url
-  gravatar_url = "http://www.gravatar.com/avatar.php?"
-  gravatar_url += urllib.urlencode({'gravatar_id':hashlib.md5(email).hexdigest(), 'default':default, 'size':str(size)})
-  return gravatar_url
+  return '/rpc?action=get_gravatar&amp;'+urllib.urlencode({'id':hashlib.md5(email).hexdigest()})
   
 def getFontSizeFromHot(num):
   num = int(num)

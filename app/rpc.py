@@ -67,16 +67,19 @@ class RPCMethods:
   
   def get_gravatar(self, request_,response_):
     try:
-      email = request_.get('email')
+      gravatar_id = request_.get('id')
     except ValueError:
       return response_.out.write("email is invalid")
-    key_ = "gravatar_" + email
+    key_ = "gravatar_" + gravatar_id
     result_content = memcache.get(key_)
     if result_content is not None:
       response_.headers['Content-Type'] = "image/png"
       return response_.out.write(result_content)
     else:
-      gravatar_url = util.getGravatarUrl(email)
+      # construct the url
+      default = "http://www.blowblood.com/static/images/unkown.jpg"
+      gravatar_url = "http://www.gravatar.com/avatar.php?"
+      gravatar_url += urllib.urlencode({'gravatar_id':gravatar_id, 'default':default, 'size':'32'})
       result = urlfetch.fetch(gravatar_url)
       if result.status_code == 200:
         response_.headers['Content-Type'] = "image/png"
