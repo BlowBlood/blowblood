@@ -89,6 +89,26 @@ class RPCMethods:
       else:
         response_.out.write("No Image")
       
+  def get_visitors(self, request_,response_):
+    user_agents={}
+    visitors = Visitor.all().order("date")
+    for visitor in visitors:
+      webbrowser = visitor.webbrowser
+      num = user_agents.get(webbrowser,0)
+      if num == 0:
+        user_agents[webbrowser] = 1
+        user_agents[webbrowser+'id'] = visitor.key().id()
+      else:
+        user_agents[webbrowser] = num + 1
+    ua_list = []
+    for uakey in user_agents.keys():   
+      ua = db.Model()  
+      ua.ua = uakey
+      ua.count = user_agents[uakey]
+      ua_list.append(ua)
+    path = os.path.join(os.path.dirname(__file__), "../templates/visitors.html")
+    response_.out.write(template.render(path, {'ua_list': ua_list}))
+      
   """ POST Methids"""
   def rbtags(self):
     d={}

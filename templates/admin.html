@@ -16,13 +16,13 @@ function newcategory(){
   tr.appendChild(td)
   $('ncategory').appendChild(tr)
 }
+ajaxObject = function() {
+  try { return new ActiveXObject("Msxml2.XMLHTTP"); } catch(e){
+  try { return new ActiveXObject("Microsoft.XMLHTTP"); } catch(e){
+  try { return new XMLHttpRequest(); } catch(e){
+  throw new Error( "This browser does not support XMLHttpRequest." );
+}}}}
 function rpc(action){
-  ajaxObject = function() {
-    try { return new ActiveXObject("Msxml2.XMLHTTP"); } catch(e){
-    try { return new ActiveXObject("Microsoft.XMLHTTP"); } catch(e){
-    try { return new XMLHttpRequest(); } catch(e){
-    throw new Error( "This browser does not support XMLHttpRequest." );
-  }}}}
   var ajax = new ajaxObject(); // use ajaxObject to start XMLHttpRequest() for most browsers  
   ajax.onreadystatechange = function(){
     if(ajax.readyState < 4){$(action).innerHTML="building";}
@@ -32,6 +32,16 @@ function rpc(action){
   try{ajax.open("POST",pwurl,true);} catch(e){alert(e);}
   ajax.setRequestHeader("Content-length", 0); 
   ajax.send('');
+}
+function onload(){
+  var ajax1 = new ajaxObject(); // use ajaxObject to start XMLHttpRequest() for most browsers  
+  ajax1.onreadystatechange = function(){
+    if(ajax1.readyState < 4){$("visitors").innerHTML="building";}
+    if(ajax1.readyState == 4&& ajax1.status == 200){
+       $("visitors").innerHTML=ajax1.responseText;}}
+  pwurl = "/rpc?action=get_visitors"
+  try{ajax1.open("GET",pwurl,true);} catch(e){alert(e);}  
+  ajax1.send(null);
 }
 </script>
     <div id="postpath"><a title="Goto homepage" href="/">Home</a> &gt; Admin</div>
@@ -44,6 +54,10 @@ function rpc(action){
 		    {%endfor%}
 		  </tbody></table>
 		  <a href="javascript:newcategory()">add new category</a>
+	  </div>
+	  </div>
+	  <div class="post"><h2>Visitors:</h2>
+		<div id="visitors" class="content">		  
 	  </div>
 	  </div>
 		<div class="post">
@@ -72,4 +86,5 @@ function rpc(action){
     		  </tbody></table>		 
   	   </div>
   	 </div>
+  	 <div onload="javascript:onload()"></div>
 {% endblock %}

@@ -37,7 +37,6 @@ class BaseRequestHandler(webapp.RequestHandler):
       'url_linktext': url_linktext,  
       'categories': util.getCategoryLists(),
       'calendar': cal,
-      'recentcoms': util.getRecentComment(),
       'tags': util.getTagLists(),
       'archives': util.getArchiveLists(),
       'counter': util.getCounter(),    
@@ -60,7 +59,7 @@ class MainPage(BaseRequestHandler):
     cache_stats['oldest_item_age'] = format_time
     template_values = {
       'cache_stats': cache_stats,
-    }    
+    }
     self.generate('../templates/admin.html', template_values)
     
   def post(self):
