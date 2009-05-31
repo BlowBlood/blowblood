@@ -56,9 +56,9 @@
 				<img alt="avator" src="{{comment.authorEmail|gravatar}}" class="avatar avatar-32 photo" width="32" height="32" /></div>
 			<div class="name">
 			  {%if comment.authorWebsite%}
-				<a id="commentauthor-{{comment.key.id}}" class="url" href="http://{{comment.authorWebsite}}" rel="external nofollow">{{comment.author}}</a>
+				<a id="commentauthor-{{comment.key.id}}" class="url" href="http://{{comment.authorWebsite|trimleadinghttp}}" rel="external nofollow">{{comment.author}}</a>
 				{%else%}
-				{{comment.author}}
+				<span id="commentauthor-{{comment.key.id}}">{{comment.author}}</span>
 				{%endif%}
 		  </div>
 		</div>
@@ -67,8 +67,8 @@
 				{{comment.date|timezone:8|date:"Y-m-d H:i:s"}} | <a href="#comment-{{comment.key.id}}">#{{comment.key.id}}</a>
 			</div>
 			<div class="act">
-				<a href="javascript:void(0);" onclick="MGJS_CMT.reply('commentauthor-{{comment.key.id}}', 'comment-{{comment.key.id}}', 'comment');">Reply</a> | 
-				<a href="javascript:void(0);" onclick="MGJS_CMT.quote('commentauthor-{{comment.key.id}}', 'comment-{{comment.key.id}}', 'commentbody-{{comment.key.id}}', 'comment');">Quote</a>
+				<a href="javascript:void(0);" onclick="MGJS_CMT.reply('{{post.key.id}}', '{{comment.key.id}}', 'comment');">Reply</a> | 
+				<a href="javascript:void(0);" onclick="MGJS_CMT.quote('{{post.key.id}}', '{{comment.key.id}}', 'comment');">Quote</a>
 			</div>
 			<div class="fixed"></div>
 			<div class="content">				

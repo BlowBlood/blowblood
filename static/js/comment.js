@@ -5,19 +5,19 @@ Author URI: http://www.neoease.com/
 */
 (function() {
 
-function reply(authorId, commentId, commentBox) {
-	var author = MGJS.$(authorId).innerHTML;
-	var insertStr = '<a href="#' + commentId + '">@' + author.replace(/\t|\n|\r\n/g, "") + '</a> \n';
+function reply(postId, commentId, commentBox) {
+	var author = MGJS.$('commentauthor-'+commentId).innerHTML;	
+	var insertStr = '<a href="/post/'+postId+'#comment-' + commentId + '">@' + author.replace(/\t|\n|\r\n/g, "") + '</a> \n';
 
 	appendReply(insertStr, commentBox);
 }
 
-function quote(authorId, commentId, commentBodyId, commentBox) {
-	var author = MGJS.$(authorId).innerHTML;
-	var comment = MGJS.$(commentBodyId).innerHTML;
+function quote(postId, commentId, commentBox) {
+	var author = MGJS.$('commentauthor-'+commentId).innerHTML;
+	var comment = MGJS.$('commentbody-'+commentId).innerHTML;
 
-	var insertStr = '<blockquote cite="#' + commentBodyId + '">';
-	insertStr += '\n<strong><a href="#' + commentId + '">' + author.replace(/\t|\n|\r\n/g, "") + '</a> :</strong>';
+	var insertStr = '<blockquote cite="/post/'+postId+'#commentbody-' + commentId + '">';
+	insertStr += '\n<strong><a href=""/post/'+postId+'#comment-' + commentId + '">' + author.replace(/\t|\n|\r\n/g, "") + '</a> :</strong>';
 	insertStr += comment.replace(/\t/g, "");
 	insertStr += '</blockquote>\n';
 

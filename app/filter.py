@@ -47,3 +47,8 @@ def gravatar(email):
 @register.filter
 def hot2fsize(num):
   return util.getFontSizeFromHot(num)
+  
+@register.filter
+def trimleadinghttp(url):
+  url = re.sub('http://','',url)
+  return re.sub('https://','',url)
