@@ -67,9 +67,9 @@ function onload(){
   		    <tr><th style="width:50em">Name</th><th>Num</th></tr>
           <tr><td>Number of cache get requests resulting in a cache hit.</td><td>{{cache_stats.hits}}</td></tr>
           <tr><td>Number of cache get requests resulting in a cache miss.</td><td>{{cache_stats.misses}}</td></tr>
-          <tr><td>Sum of bytes transferred on get requests. Rolls over to zero on overflow.</td><td>{{cache_stats.byte_hits}}</td></tr>
+          <tr><td>Sum of bytes transferred on get requests. Rolls over to zero on overflow.</td><td>{{cache_stats.byte_hits|filesizeformat}}</td></tr>
           <tr><td>Number of key/value pairs in the cache.</td><td>{{cache_stats.items}}</td></tr>
-          <tr><td>Total size of all items in the cache.</td><td>{{cache_stats.bytes}}</td></tr>
+          <tr><td>Total size of all items in the cache.</td><td>{{cache_stats.bytes|filesizeformat}}</td></tr>
           <tr><td>Oldest_item_age: how long a new item will survive in the cache without being accessed.</td><td>{{cache_stats.oldest_item_age}}</td></tr>
           <tr><td id="flushall">flush all</td><td><button  onclick="rpc('flushall')">flashall</button></td></tr> 
   		  </tbody></table>		 
