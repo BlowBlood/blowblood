@@ -1,4 +1,4 @@
-/*
+﻿/*
 Theme Name: iNove
 Theme URI: http://wordpress.org/extend/themes/inove/
 Description: Inspired by <a href="http://maczone.sk/">MacZone.sk</a>, created by <a href="http://www.neoease.com/">mg12</a>. It is very stylish, widget supported and doesn’t require any plugin.
@@ -19,7 +19,7 @@ abbr[title], acronym[title] {
 }
 body {
 	background:#BEC3C6 url(img/bg.jpg) repeat-x;
-	color:#555;
+	color:#000;
 	font-family:Verdana,"BitStream vera Sans",Helvetica,Sans-serif;
 	font-size:14px;
 }
