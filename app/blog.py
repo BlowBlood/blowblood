@@ -238,13 +238,13 @@ class AddComment(BaseRequestHandler):
     cookies = Cookie.SimpleCookie()
     cookies['comm_name'] = comment.author 
     cookies['comm_name']['path'] = '/'
-    cookies['comm_name']['expires'] = (datetime.datetime.now()+timedelta(days=365)).strftime("%a, %d-%b-%Y %H:%M:%S GMT")
+    cookies['comm_name']['max-age'] = 3600*24*365
     cookies['comm_email'] = comment.authorEmail  
     cookies['comm_email']['path'] = '/'
-    cookies['comm_email']['expires'] = (datetime.datetime.now()+timedelta(days=365)).strftime("%a, %d-%b-%Y %H:%M:%S GMT")
+    cookies['comm_email']['max-age'] = 3600*24*365
     cookies['comm_url'] = comment.authorWebsite 
     cookies['comm_url']['path'] = '/'
-    cookies['comm_url']['expires'] = (datetime.datetime.now()+timedelta(days=365)).strftime("%a, %d-%b-%Y %H:%M:%S GMT")
+    cookies['comm_url']['max-age'] = 3600*24*365
     output_headers = []
     output_headers.append('%s\r\n' % cookies)
     for header in output_headers:
