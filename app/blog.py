@@ -294,7 +294,7 @@ class PostView(BaseRequestHandler):
       prevp = db.GqlQuery("select * from Post where date > :1 order by date limit 1",post.date).get()
       nextp = db.GqlQuery("select * from Post where date < :1 order by date desc limit 1",post.date).get()      
       comm_email = os.environ['USER_EMAIL']
-      comm_name = util.getUserNickname(comm_email)
+      comm_name = comm_email.split("@")[0]
       comm_url = "www.blowblood.com"
     else:
       post.hitcount += 1
