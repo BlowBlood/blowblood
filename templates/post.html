@@ -12,7 +12,7 @@
       <div class="info">
 				<span class="date">{{post.date|timezone:8|date:"l, M d H:i, Y"}}</span>
 				<div class="act">
-					<span class="comments">{{post.commentcount}} comments</span>
+					<span class="comments">{{post.commentcount}} comments/{{post.hitcount}} hits</span>
 				  <div class="fixed"></div>
 				</div>
 				<div class="fixed"></div>
@@ -87,15 +87,15 @@
 	<div id="respond">
 			<div id="author_info">
 				<div class="row">
-					<input name="author" id="author" class="textfield" value="{{user_nickname}}" size="24" tabindex="1" type="text" />
+					<input name="comm_name" id="author" class="textfield" value="{{comm_name}}" size="24" tabindex="1" type="text" />
 					<label for="author" class="small">Name (required)</label>
 				</div>
 				<div class="row">
-					<input name="email" id="email" class="textfield" value="{{email}}" size="24" tabindex="2" type="text" />
+					<input name="comm_email" id="email" class="textfield" value="{{comm_email}}" size="24" tabindex="2" type="text" />
 					<label for="email" class="small">E-Mail (will not be published) (required)</label>
 				</div>
 				<div class="row">
-					<input name="url" id="url" class="textfield" value="{{url}}" size="24" tabindex="3" type="text" />
+					<input name="comm_url" id="url" class="textfield" value="{{comm_url}}" size="24" tabindex="3" type="text" />
 					<label for="url" class="small">Website</label>
 				</div>				
 			</div>

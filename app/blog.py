@@ -3,6 +3,9 @@ import re
 import urllib
 import datetime
 import calendar
+import Cookie
+import sys
+from datetime import timedelta
 
 from google.appengine.ext.webapp import template
 from google.appengine.ext import webapp
@@ -220,18 +223,32 @@ class AddComment(BaseRequestHandler):
       return self.redirect('/')
     comment = Comment()
     comment.post = post
-    comment.author = self.request.get('author')
+    comment.author = self.request.get('comm_name')
     if users.is_current_user_admin():
       comment.author_is_admin = True
-    comment.authorEmail = self.request.get('email')
-    comment.authorWebsite = self.request.get('url')
+    comment.authorEmail = self.request.get('comm_email')
+    comment.authorWebsite = self.request.get('comm_url')
     comment.content = self.request.get('comment')
     comment.userIp = self.request.remote_addr
     user = users.get_current_user()
     if user is not None:
       comment.user = user
       comment.author = str(user.nickname())
-      comment.authorEmail = str(user.email())      
+      comment.authorEmail = str(user.email()) 
+    cookies = Cookie.SimpleCookie()
+    cookies['comm_name'] = comment.author 
+    cookies['comm_name']['path'] = '/'
+    cookies['comm_name']['expires'] = (datetime.datetime.now()+timedelta(days=365)).strftime("%a, %d-%b-%Y %H:%M:%S GMT")
+    cookies['comm_email'] = comment.authorEmail  
+    cookies['comm_email']['path'] = '/'
+    cookies['comm_email']['expires'] = (datetime.datetime.now()+timedelta(days=365)).strftime("%a, %d-%b-%Y %H:%M:%S GMT")
+    cookies['comm_url'] = comment.authorWebsite 
+    cookies['comm_url']['path'] = '/'
+    cookies['comm_url']['expires'] = (datetime.datetime.now()+timedelta(days=365)).strftime("%a, %d-%b-%Y %H:%M:%S GMT")
+    output_headers = []
+    output_headers.append('%s\r\n' % cookies)
+    for header in output_headers:
+      sys.stdout.write(header)         
     comment.save()
     util.flushRecentComment()
     return self.redirect(post.full_permalink())
@@ -255,8 +272,9 @@ class OPostView(BaseRequestHandler):
     template_values = {
       'post': post,            
       'comments': sorted(post.comment_set, key = lambda comm:comm.date, reverse = True),
-      'url': url,
-      'email': os.environ['USER_EMAIL'],
+      'comm_url': url,
+      'comm_email': os.environ['USER_EMAIL'],
+      'comm_name': util.getUserNickname(os.environ['USER_EMAIL']),
       'prevp': prevp,
       'nextp': nextp,
     }
@@ -269,21 +287,36 @@ class PostView(BaseRequestHandler):
     post = Post.get_by_id(post_id_)    
     if post == None:
       return self.redirect('/');
-    url = ""
+    comm_name = 'anonymous'
+    comm_email = ''
+    comm_url = ''
     if users.is_current_user_admin():
-      url = "www.blowblood.com"
       prevp = db.GqlQuery("select * from Post where date > :1 order by date limit 1",post.date).get()
-      nextp = db.GqlQuery("select * from Post where date < :1 order by date desc limit 1",post.date).get()
+      nextp = db.GqlQuery("select * from Post where date < :1 order by date desc limit 1",post.date).get()      
+      comm_email = os.environ['USER_EMAIL']
+      comm_name = util.getUserNickname(comm_email)
+      comm_url = "www.blowblood.com"
     else:
       post.hitcount += 1
       post.put()
       prevp = db.GqlQuery("select * from Post where date > :1 and private = False order by date limit 1",post.date).get()
       nextp = db.GqlQuery("select * from Post where date < :1 and private = False order by date desc limit 1",post.date).get()
+      cookies = os.environ.get('HTTP_COOKIE', None)
+      if cookies is not None:
+        user_cookie = Cookie.SimpleCookie()
+        user_cookie.load(cookies)
+        try:
+          comm_name = user_cookie['comm_name'].value
+          comm_email = user_cookie['comm_email'].value
+          comm_url = user_cookie['comm_url'].value
+        except KeyError:
+          pass        
     template_values = {
       'post': post,            
       'comments': sorted(post.comment_set, key = lambda comm:comm.date, reverse = True),
-      'url': url,
-      'email': os.environ['USER_EMAIL'],
+      'comm_name': comm_name,
+      'comm_email': comm_email,
+      'comm_url': comm_url,
       'prevp': prevp,
       'nextp': nextp,
     }
