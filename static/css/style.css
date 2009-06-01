@@ -958,7 +958,9 @@ a#gotop {
 	width:100%;
 }
 #wp-calendar #today {
-	background:#E6E6E6;
+	background:#888;
+	color:#FFF;
+	font-weight:bold;
 }
 #wp-calendar tbody a {
 	font-weight:bolder;

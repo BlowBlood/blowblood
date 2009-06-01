@@ -35,6 +35,7 @@ class BaseRequestHandler(webapp.RequestHandler):
       url_linktext = 'Login'
     ym = datetime.datetime.now().strftime("%Y %m %d").split()
     cal = calendar.HTMLCalendar().formatmonth(int(ym[0]),int(ym[1]))
+    ym[2] = ym[2][1:] if ym[2][0] == '0' else ym[2]   # truncate leadding '0' if ym[2] < '10'
     pattern = '<td class="\w\w\w">'+ym[2]+'</td>'
     today = '<td id="today">'+ym[2]+'</td>'    
     cal = re.sub(pattern,today,cal)
