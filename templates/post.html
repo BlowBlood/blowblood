@@ -64,7 +64,7 @@
 		</div>
 		<div class="info">
 			<div class="date">
-				{{comment.date|timezone:8|date:"Y-m-d H:i:s"}} | <a href="#comment-{{comment.key.id}}">#{{comment.key.id}}</a>
+				{{comment.date|timezone:8|date:"Y-m-d H:i:s"}} | <a href="#comment-{{comment.key.id}}">#{{forloop.counter}}</a>
 			</div>
 			<div class="act">
 				<a href="javascript:void(0);" onclick="MGJS_CMT.reply('{{post.key.id}}', '{{comment.key.id}}', 'comment');">Reply</a> | 
