@@ -236,8 +236,8 @@ class AddComment(BaseRequestHandler):
       comment.user = user
       comment.author = str(user.nickname())
       comment.authorEmail = str(user.email()) 
-    cookies = Cookie.SmartCookie()
-    cookies['comm_name'] = comment.author 
+    cookies = Cookie.SimpleCookie()
+    cookies['comm_name'] = urllib.quote(comment.author.encode('utf8')) 
     cookies['comm_name']['path'] = '/'
     cookies['comm_name']['max-age'] = 3600*24*365
     cookies['comm_email'] = comment.authorEmail  
@@ -304,10 +304,12 @@ class PostView(BaseRequestHandler):
       nextp = db.GqlQuery("select * from Post where date < :1 and private = False order by date desc limit 1",post.date).get()
       cookies = os.environ.get('HTTP_COOKIE', None)
       if cookies is not None:
-        user_cookie = Cookie.SmartCookie()
+        user_cookie = Cookie.SimpleCookie()
         user_cookie.load(cookies)
         try:
           comm_name = user_cookie['comm_name'].value
+          if comm_name:
+            comm_name = urllib.unquote(comm_name.encode('utf8'))
           comm_email = user_cookie['comm_email'].value
           comm_url = user_cookie['comm_url'].value
         except KeyError:
