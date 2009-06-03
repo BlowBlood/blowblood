@@ -17,7 +17,7 @@ function quote(postId, commentId, commentBox) {
 	var comment = MGJS.$('commentbody-'+commentId).innerHTML;
 
 	var insertStr = '<blockquote cite="/post/'+postId+'#commentbody-' + commentId + '">';
-	insertStr += '\n<strong><a href=""/post/'+postId+'#comment-' + commentId + '">' + author.replace(/\t|\n|\r\n/g, "") + '</a> :</strong>';
+	insertStr += '\n<strong><a href="/post/'+postId+'#comment-' + commentId + '">' + author.replace(/\t|\n|\r\n/g, "") + '</a> :</strong>';
 	insertStr += comment.replace(/\t/g, "");
 	insertStr += '</blockquote>\n';
 
