@@ -34,7 +34,9 @@ def getPublicPosts(page):
     posts = [x for x in posts_]
     if not memcache.add("public_posts", posts, 3600):
       logging.error("Memcache set failed.")
-    return posts    
+    start_ = (page - 1) * PAGESIZE
+    end_ = start_ + PAGESIZE + 1
+    return posts[start_:end_]
   
 def getPublicCategory(category):
   posts = Post.all().filter('catalog',category).filter('private',False).order('-date')
