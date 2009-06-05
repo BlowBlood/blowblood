@@ -214,6 +214,7 @@ class EditPost(BaseRequestHandler):
     post.update()
     util.flushCategoryLists()
     util.flushTagLists()
+    util.flushPublicPosts()
     return self.redirect(post.full_permalink())
     
 class AddComment(BaseRequestHandler):
