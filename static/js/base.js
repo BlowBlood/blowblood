@@ -84,14 +84,15 @@ function loadCommentShortcut() {
 
 function toggleOneCol() {
   var va = $("one_col")
-  if(va.innerHTML == "Page without sidebar"){
-     $("one_col").title="Page with sidebar"
-     $("one_col").innerHTML="Page with sidebar"     
-     $("wrap").setAttribute("class", "one-column")
-  }else{
-     $("one_col").title="Page without sidebar"
-     $("one_col").innerHTML="Page without sidebar"
-     $("wrap").removeAttribute('class')
+  var wrap = $("wrap")
+  if (va.innerHTML == "Page without sidebar"){
+     va.title="Page with sidebar";
+     va.innerHTML="Page with sidebar";
+     wrap.className="one-column";
+  } else {
+     va.title="Page without sidebar";
+     va.innerHTML="Page without sidebar";
+     wrap.className = "";
   }  
 }
 window['MGJS'] = {};
