@@ -82,11 +82,24 @@ function loadCommentShortcut() {
 	$('submit').value += ' (Ctrl+Enter)';
 }
 
+function toggleOneCol() {
+  var va = $("one_col")
+  if(va.innerHTML == "Page without sidebar"){
+     $("one_col").title="Page with sidebar"
+     $("one_col").innerHTML="Page with sidebar"     
+     $("wrap").setAttribute("class", "one-column")
+  }else{
+     $("one_col").title="Page without sidebar"
+     $("one_col").innerHTML="Page without sidebar"
+     $("wrap").removeAttribute('class')
+  }  
+}
 window['MGJS'] = {};
 window['MGJS']['$'] = $;
 window['MGJS']['setStyleDisplay'] = setStyleDisplay;
 window['MGJS']['goTop'] = goTop;
 window['MGJS']['switchTab'] = switchTab;
 window['MGJS']['loadCommentShortcut'] = loadCommentShortcut;
+window['MGJS']['toggleOneCol'] = toggleOneCol;
 
 })();

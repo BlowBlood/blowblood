@@ -1101,6 +1101,9 @@ a#gotop {
 .one-column .post .content .box {
 	background-image:url(img/postbox_1col.gif);
 }
+.one-column #sidebar {
+	display:none
+}
 /* one-column END */
 
 /* thread twitter START */

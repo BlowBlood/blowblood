@@ -17,7 +17,7 @@ skip_files: |
  (.*/Thumbs\.db)|
  )$
  
-default_expiration: "10d"
+default_expiration: "100d"
 
 handlers:
 - url: /static

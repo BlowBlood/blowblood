@@ -7,6 +7,10 @@ from google.appengine.api import urlfetch, users, memcache
 
 from model import Post, Category, Comment, Tag, Archive, Counter
 PAGESIZE = 8
+
+def isDev():
+  return os.environ['SERVER_SOFTWARE'][:3] == "Dev"
+
 def getUserNickname(user):
     default = "anonymous"
     if user:

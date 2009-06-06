@@ -42,7 +42,10 @@ def space2dollar(str):
     
 @register.filter
 def gravatar(email):
-    return util.getGravatarUrl(email)
+    if util.isDev():
+      return "http://www.blowblood.com/static/images/unkown.jpg"
+    else:
+      return util.getGravatarUrl(email)
 
 @register.filter
 def hot2fsize(num):
