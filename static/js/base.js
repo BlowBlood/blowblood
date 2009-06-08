@@ -84,15 +84,15 @@ function loadCommentShortcut() {
 
 function toggleOneCol() {
   var va = $("one_col")
-  var wrap = $("wrap")
+  var content = $("content")
   if (va.innerHTML == "Page without sidebar"){
      va.title="Page with sidebar";
      va.innerHTML="Page with sidebar";
-     wrap.className="one-column";
+     content.className="one-column";
   } else {
      va.title="Page without sidebar";
      va.innerHTML="Page without sidebar";
-     wrap.className = "";
+     content.className = "";
   }  
 }
 window['MGJS'] = {};
