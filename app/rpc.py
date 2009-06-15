@@ -96,7 +96,7 @@ class RPCMethods:
     for ua in uas:
      user_agents[ua.name] = ua.count
      date[ua.name] = ua.date
-    visitors = Visitor.all().order("date").fetch(500)
+    visitors = Visitor.all().order("date").fetch(200)
     for visitor in visitors:
       webbrowser = visitor.webbrowser
       num = user_agents.get(webbrowser,0)
@@ -106,8 +106,7 @@ class RPCMethods:
       else:
         user_agents[webbrowser] = num + 1
     db.delete(visitors)
-    ua_list = UserAgent.all().fetch(500)
-    db.delete(ua_list)
+    db.delete(uas)
     for uakey in user_agents.keys():   
       ua = UserAgent()
       ua.name = uakey

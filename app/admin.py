@@ -8,7 +8,7 @@ from google.appengine.ext import webapp
 from google.appengine.ext import db
 
 from app import util, authorized
-from model import Post, Category
+from model import Post, Category, UserAgent, Visitor
 
 class BaseRequestHandler(webapp.RequestHandler):
   """Supplies a common template generation function.
@@ -57,8 +57,13 @@ class MainPage(BaseRequestHandler):
     oldest_item_age = oldest_item_age%60
     format_time += str(oldest_item_age/60)
     cache_stats['oldest_item_age'] = format_time
+    ua_list = UserAgent.all().fetch(500)
+    ua_list = sorted(ua_list,key = lambda x:x.count,reverse = True)
+    visitor_counter = Visitor.all().count()
     template_values = {
       'cache_stats': cache_stats,
+      'ua_list': ua_list,
+      'visitor_counter': visitor_counter,
     }
     self.generate('../templates/admin.html', template_values)
     

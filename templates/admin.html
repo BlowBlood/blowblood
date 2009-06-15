@@ -56,8 +56,16 @@ function geneVisitors(){
 		  <a href="javascript:newcategory()">add new category</a>
 	  </div>
 	  </div>
-	  <div class="post"><h2>Visitors: <button  onclick="geneVisitors()">GeneVisitors</button></h2>
-		  <div id="visitors" class="content"></div>
+	  <div class="post"><h2>Visitors: <button  onclick="geneVisitors()">GeneVisitors</button> {{visitor_counter}} visitors remaining</h2>
+		  <div id="visitors" class="content">
+		    <table><tbody id="ncategory" style="width:90%">
+          <tr><th style="width:50em">User_Agent</th><th>Hit Count</th></tr>
+          {%for ua in ua_list %}
+          <tr><td colspan="2" style="background:#888">{{ua.name}}</td></tr>
+          <tr><td>{{ua.count}}</td><td>{{ua.date}}</td></tr>
+          {%endfor%}
+        </tbody></table>
+      </div>
 	  </div>
 		<div class="post">
 		 <h2>memcache statistics:</h2>
