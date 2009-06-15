@@ -173,3 +173,26 @@ class RPCMethods:
   def flushall(self):
     util.flushAll() 
     return "ok"
+
+class GetGravatar(webapp.RequestHandler):
+  def get(self,gravatar_id):
+    if gravatar_id is None:
+      return self.response.out.write("BadId")
+    key_ = "gravatar_" + gravatar_id
+    result_content = memcache.get(key_)
+    if result_content is not None:
+      self.response.headers['Content-Type'] = "image/png"
+      return self.response.out.write(result_content)
+    else:
+      # construct the url
+      default = "http://www.blowblood.com/static/images/unkown.jpg"
+      gravatar_url = "http://www.gravatar.com/avatar.php?"
+      gravatar_url += urllib.urlencode({'gravatar_id':gravatar_id, 'default':default, 'size':'32'})
+      result = urlfetch.fetch(gravatar_url)
+      if result.status_code == 200:
+        self.response.headers['Content-Type'] = "image/png"
+        self.response.out.write(result.content)
+        if not memcache.add(key_, result.content, 3600):
+          logging.error("Memcache set failed.")
+      else:
+        self.response.out.write("NoImage")

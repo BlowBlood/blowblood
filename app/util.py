@@ -142,7 +142,7 @@ def getGravatarUrl(email):
   default = "http://www.blowblood.com/static/images/unkown.jpg"
   if not invalidreg(email):
     return default  
-  return '/rpc?action=get_gravatar&amp;'+urllib.urlencode({'id':hashlib.md5(email).hexdigest()})
+  return '/gravatar/' + hashlib.md5(email).hexdigest()
   
 def getFontSizeFromHot(num):
   num = int(num)

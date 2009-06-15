@@ -13,6 +13,7 @@ def main():
                                       ('/delete/(.*)/*$', blog.DeletePost),
                                       ('/edit/(.*)/*$', blog.EditPost),
                                       ('/upload/*$', upload.main),
+                                      ('/gravatar/(.*)/*$',rpc.GetGravatar),
                                       
                                       ('/addcomment/*$', blog.AddComment),
                                       ('/delcomment/(\d+)/*$', blog.DelComment),
