@@ -15,6 +15,7 @@ def main():
                                       ('/upload/*$', upload.main),
                                       
                                       ('/addcomment/*$', blog.AddComment),
+                                      ('/delcomment/(\d+)/*$', blog.DelComment),
                                       
                                       ('/post/(\d+)/*$', blog.PostView),
                                       ('/([12]\d\d\d)/(\d|[01]\d)/([-\w]+)/*$', blog.OPostView),

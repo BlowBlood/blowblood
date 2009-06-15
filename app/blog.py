@@ -254,7 +254,19 @@ class AddComment(BaseRequestHandler):
     comment.save()
     util.flushRecentComment()
     return self.redirect(post.full_permalink())
-
+    
+class DelComment(BaseRequestHandler):
+  def get(self,commID):
+    comm = Comment.get_by_id(int(commID))
+    if comm is None:
+      return self.redirect('/')
+    post = comm.post
+    post.commentcount -= 1
+    link = comm.post.full_permalink()
+    comm.delete()
+    util.flushRecentComment()
+    return self.redirect(link)
+    
 class OPostView(BaseRequestHandler):
   @log.counter
   def get(self,year,month,perm_stem): 

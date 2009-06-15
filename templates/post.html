@@ -67,6 +67,7 @@
 				{{comment.date|timezone:8|date:"Y-m-d H:i:s"}} | <a href="#comment-{{comment.key.id}}">#{{forloop.revcounter}}</a>
 			</div>
 			<div class="act">
+			  {%if user_is_admin%}<a href="/delcomment/{{comment.key.id}}"> Delete</a> | {%endif%}
 				<a href="javascript:void(0);" onclick="MGJS_CMT.reply('{{post.key.id}}', '{{comment.key.id}}', 'comment');">Reply</a> | 
 				<a href="javascript:void(0);" onclick="MGJS_CMT.quote('{{post.key.id}}', '{{comment.key.id}}', 'comment');">Quote</a>
 			</div>
