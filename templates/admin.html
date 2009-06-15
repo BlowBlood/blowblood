@@ -33,7 +33,7 @@ function rpc(action){
   ajax.setRequestHeader("Content-length", 0); 
   ajax.send('');
 }
-function onload(){
+function geneVisitors(){
   var ajax1 = new ajaxObject(); // use ajaxObject to start XMLHttpRequest() for most browsers  
   ajax1.onreadystatechange = function(){
     if(ajax1.readyState < 4){$("visitors").innerHTML="building";}
@@ -56,9 +56,8 @@ function onload(){
 		  <a href="javascript:newcategory()">add new category</a>
 	  </div>
 	  </div>
-	  <div class="post"><h2>Visitors:</h2>
-		<div id="visitors" class="content">		  
-	  </div>
+	  <div class="post"><h2>Visitors: <button  onclick="geneVisitors()">GeneVisitors</button></h2>
+		  <div id="visitors" class="content"></div>
 	  </div>
 		<div class="post">
 		 <h2>memcache statistics:</h2>
@@ -86,5 +85,4 @@ function onload(){
     		  </tbody></table>		 
   	   </div>
   	 </div>
-  	 <div onload="javascript:onload()"></div>
 {% endblock %}

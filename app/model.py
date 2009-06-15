@@ -157,3 +157,8 @@ class Visitor(db.Model):
   url = db.StringProperty()
   webbrowser = db.StringProperty()
   referer = db.StringProperty()
+  
+class UserAgent(db.Model):
+  name = db.StringProperty()
+  count = db.IntegerProperty(default=0)
+  date = db.DateTimeProperty(auto_now_add=True)

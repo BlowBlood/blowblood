@@ -256,6 +256,7 @@ class AddComment(BaseRequestHandler):
     return self.redirect(post.full_permalink())
     
 class DelComment(BaseRequestHandler):
+  @authorized.role("admin")
   def get(self,commID):
     comm = Comment.get_by_id(int(commID))
     if comm is None:

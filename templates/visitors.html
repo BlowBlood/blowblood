@@ -1,6 +1,7 @@
 <table><tbody id="ncategory" style="width:90%">
   <tr><th style="width:50em">User_Agent</th><th>Hit Count</th></tr>
   {%for ua in ua_list %}
-  <tr><td>{{ua.ua}}</td><td>{{ua.count}}</td></tr>
+  <tr><td colspan="2" style="background:#888">{{ua.name}}</td></tr>
+  <tr><td>{{ua.count}}</td><td>{{ua.date}}</td></tr>
   {%endfor%}
 </tbody></table>

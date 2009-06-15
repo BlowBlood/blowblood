@@ -90,22 +90,31 @@ class RPCMethods:
         response_.out.write("No Image")
       
   def get_visitors(self, request_,response_):
-    user_agents={}
-    visitors = Visitor.all().order("date")
+    uas=UserAgent.all().fetch(500)
+    user_agents = {}
+    date = {}
+    for ua in uas:
+     user_agents[ua.name] = ua.count
+     date[ua.name] = ua.date
+    visitors = Visitor.all().order("date").fetch(500)
     for visitor in visitors:
       webbrowser = visitor.webbrowser
       num = user_agents.get(webbrowser,0)
       if num == 0:
         user_agents[webbrowser] = 1
-        user_agents[webbrowser+'id'] = visitor.key().id()
+        date[webbrowser] = visitor.date
       else:
         user_agents[webbrowser] = num + 1
-    ua_list = []
+    db.delete(visitors)
+    ua_list = UserAgent.all().fetch(500)
+    db.delete(ua_list)
     for uakey in user_agents.keys():   
-      ua = db.Model()  
-      ua.ua = uakey
+      ua = UserAgent()
+      ua.name = uakey
       ua.count = user_agents[uakey]
-      ua_list.append(ua)
+      ua.date = date[uakey]
+      ua.put()
+    ua_list = UserAgent.all().fetch(500)
     path = os.path.join(os.path.dirname(__file__), "../templates/visitors.html")
     response_.out.write(template.render(path, {'ua_list': ua_list}))
       
