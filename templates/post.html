@@ -98,7 +98,11 @@
 				<div class="row">
 					<input name="comm_url" id="url" class="textfield" value="{{comm_url}}" size="24" tabindex="3" type="text" />
 					<label for="url" class="small">Website</label>
-				</div>				
+				</div>
+				<div class="row">
+					<span id="gnmhjgjtyt"></span> = <input name="sdfafwba" id="sdfafwba" class="textfield" size="24" tabindex="4" type="text" />
+					<label for="sdfafwba" class="small">Type result here</label>
+				</div>
 			</div>
 		<!-- comment input -->
 		<div class="row">
@@ -139,10 +143,22 @@
       email.focus();
       return false;
     }
+    var sdfafwba = document.forms["commentform"]["sdfafwba"];
+    if (sdfafwba.value != eval($('gnmhjgjtyt').innerHTML)){
+      alert("Calculate then type result here!")
+      sdfafwba.focus();
+      return false;
+    }
+  }
+  function loadsdfafwba(){
+    var arg1 = Math.floor(Math.random() * 10)
+    var arg2 = Math.floor(Math.random() * 10)
+    $('gnmhjgjtyt').innerHTML = arg1+' + '+arg2
   }
   </script>
   <script type="text/javascript" src="/static/js/comment.js"></script>
 	<script type="text/javascript">MGJS.loadCommentShortcut();</script>
+	<script type="text/javascript">loadsdfafwba()</script>
 
 	<div id="postnavi">
 		{%if prevp%}<span class="prev"><a href="{{prevp.full_permalink}}">{{prevp.title}}</a></span>{%endif%}

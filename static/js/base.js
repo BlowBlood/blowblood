@@ -3,12 +3,11 @@ Author: mg12
 Update: 2008/11/21
 Author URI: http://www.neoease.com/
 */
-(function() {
-
 function $(id) {
 	return document.getElementById(id);
 }
-
+(function() {
+  
 function setStyleDisplay(id, status) {
 	$(id).style.display = status;
 }
