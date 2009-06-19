@@ -219,6 +219,9 @@ class EditPost(BaseRequestHandler):
     
 class AddComment(BaseRequestHandler):
   def post(self):
+    verify = self.request.get('sdamwegmw')
+    if verify != "AfnGDASsdafSA" :
+      return self.response.out.write("bad verify code: %s" %verify)
     post_id_ = self.request.get('post_id')
     post = Post.get_by_id(int(post_id_))
     if post is None:
